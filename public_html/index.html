@@ -1,11 +1,161 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
     <head>
         <title>HomeSapiens main</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>Home Sapiens Web welcomes you!</div>
+        <main>
+            <div class="alerts"></div>
+            <div class="header">
+                <div class="header__title">Управдом</div>
+                <div id="header__location" class="header__location">Дача</div>
+            </div>
+            <div class="status">
+                <div class="status__top">
+                    <div id="mode__current" class="mode__current">Хозяин дома</div>
+                    <div class="status__icons">
+                        <div id="status__signal" class="status__signal">
+                            <div id="status__signal--low" class="status__signal--low">1</div>
+                            <div id="status__signal--mid" class="status__signal--mid">2</div>
+                            <div id="status__signal--high" class="status__signal--high">3</div>
+                        </div>
+                        <div id="status__server" class="status__server">><</div>
+                        <div id="status__battery" class="status__battery">
+                            <div id="status__battery--color" class="status__battery--color">||</div>
+                            <div id="status__battery--percent" class="status__battery--percent">100%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="status__indicators">
+                    <ul class="status__list">
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="img/temp.png">
+                            </div>
+                            <div class="status__value"><p id="status__value">+18</p>&deg;</div>
+                        </li>
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="img/temp.png">
+                            </div>
+                            <div class="status__value"><p id="status__value">+18</p>&deg;</div>
+                        </li>
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="img/temp.png">
+                            </div>
+                            <div class="status__value"><p id="status__value">+18</p>&deg;</div>
+                        </li>
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="img/temp.png">
+                            </div>
+                            <div class="status__value"><p id="status__value">+18</p>&deg;</div>
+                        </li>
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="img/temp.png">
+                            </div>
+                            <div class="status__value"><p id="status__value">+18</p>&deg;</div>
+                        </li>
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="img/temp.png">
+                            </div>
+                            <div class="status__value"><p id="status__value">+18</p>&deg;</div>
+                        </li>
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="img/temp.png">
+                            </div>
+                            <div class="status__value"><p id="status__value">+18</p>&deg;</div>
+                        </li>
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="img/temp.png">
+                            </div>
+                            <div class="status__value"><p id="status__value">+18</p>&deg;</div>
+                        </li>
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="img/temp.png">
+                            </div>
+                            <div class="status__value"><p id="status__value">+18</p>&deg;</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="history">
+                <div class="history__top">
+                    <h1>История</h1>
+                    <div class="dropdown"></div>
+                </div>
+                <table>
+
+                </table>
+            </div>
+            <div class="video">
+                <h2>Видеонаблюдение</h2>
+                <div id="video__block" class="video__block">
+                    <div class="video__time-date">
+                        <time id="video--time" class="video--time"></time>
+                        <time id="video--date" class="video--date"></time>
+                    </div>
+                </div>
+            </div>
+            <div class="control">
+                <h1>Управление</h1>
+                <div class="control__lamp--first">
+                    <div id="lamp--first" class="lamp--first"></div>
+                    <p class="control__name">Лампа</p>
+                    <p id="lamp--first-status" class="lamp-status"></p>
+                </div>
+                <div class="control__socket">
+                    <p class="control__name">Розетка</p>
+                    <p id="socket--status" class="socket--status"></p>
+                </div>
+                <div class="control__lamp--second">
+                    <p class="control__name">Лампа</p>
+                    <p id="lamp--second-status" class="lamp--status"></p>
+                </div>
+            </div>
+            <div class="mode">
+                <h2>Режим работы</h2>
+                <div id="mode__master" class="mode__master">Хозяин дома</div>
+                <div id="mode__security" class="mode__security">Охрана</div>
+            </div>
+            <div class="settings">
+                <div class="settings__options">
+                    <div class="settings__temp--min">
+                        <span>Min</span>
+                        <div class="settings__temp--min-minus">-</div>
+                        <div id="settings__temp--value-min" class="settings__temp--value-min">+12</div>
+                        <div class="settings__temp--min-plus">+</div>
+                    </div>
+                    <div class="settings__temp--max">
+                        <span>Max</span>
+                        <div class="settings__temp--max-minus">-</div>
+                        <div id="settings__temp--value-max" class="settings__temp--value-max">+30</div>
+                        <div class="settings__temp--max-plus">+</div>
+                    </div>
+                </div>
+                <div class="settings__options">
+                    <div class="settings__voltage--min">
+                        <span>Min</span>
+                        <div class="settings__voltage--min-minus">-</div>
+                        <div id="settings__voltage--value-min" class="settings__voltage--value-min">200</div>
+                        <div class="settings__voltage--min-plus">+</div>
+                    </div>
+                    <div class="settings__temp--max">
+                        <span>Max</span>
+                        <div class="settings__voltage--max-minus">-</div>
+                        <div id="settings__voltage--value-max" class="settings__voltage--value-max">240</div>
+                        <div class="settings__voltage--max-plus">+</div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </body> 
 </html>
