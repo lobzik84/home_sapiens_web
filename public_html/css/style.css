@@ -770,4 +770,19 @@ h2 {
   float: right;
   margin-right: 60px;
 }
+.status__tip {
+  position: relative;
+  text-align: center;
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  display: none;
+  font-size: 28px;
+  width: 194px;
+  height: 162px;
+  top: -162px;
+  background-color: #444444;
+}
+.status__tip--text {
+  position: relative;
+  top: 34%;
+}
 /*# sourceMappingURL=style.css.map */
