@@ -152,32 +152,60 @@
                             <th><p id="history__volt--three">220</p>В</th>
                             <th><p id="history__volt--four">220</p>В</th>
                         </tr>
+                        <tr>
+                            <th><img src="images/icons/door2.png"></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th><img src="images/icons/smoke2.png"></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th><img src="images/icons/motion2.png"></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th><img src="images/icons/water2.png"></th>
+                            <th></th>
                     </table>
+                    <div class="history__interval">
+                        <div class="history__interval--month">Месяц</div>
+                        <div class="history__interval--week">Неделя</div>
+                        <div class="history__interval--today history__interval--current">Сегодня</div>
+                    </div>
                 </div>
             </div>
             <div class="video">
                 <h2>Видеонаблюдение</h2>
                 <div id="video__block" class="video__block">
-                    <div class="video__time-date">
-                        <time id="video--time" class="video--time"></time>
-                        <time id="video--date" class="video--date"></time>
+                    <div class="video__cam--one">
+                        <img src="images/video1.png">
+                        <div class="video__time-date">
+                            <time id="video--date" class="video--date">30.06.16,</time>
+                            <time id="video--time" class="video--time"> 17:44</time>
+                        </div>
+                    </div>
+                    <div class="video__cam--two">
+                           <img src="images/video2.png">
                     </div>
                 </div>
             </div>
             <div class="control">
                 <h2>Управление</h2>
-                <div class="control__lamp--first">
-                    <div id="lamp--first" class="lamp--first"></div>
+                <div class="control__item">
+                    <div id="lamp--first" class="lamp--first"><img src="images/lamp.png"></div>
                     <p class="control__name">Лампа</p>
-                    <p id="lamp--first-status" class="lamp-status"></p>
+                    <p id="lamp--first-status" class="control__status">Включена</p>
                 </div>
-                <div class="control__socket">
+                <div class="control__item">
+                    <div id="socket" class="socket"><img src="images/socket.png"></div>
                     <p class="control__name">Розетка</p>
-                    <p id="socket--status" class="socket--status"></p>
+                    <p id="socket--status" class="socket--status">Включена</p>
                 </div>
-                <div class="control__lamp--second">
+                <div class="control__item">
+                    <div id="lamp--second" class="lamp--second"><img src="images/lamp-off.png"></div>
                     <p class="control__name">Лампа</p>
-                    <p id="lamp--second-status" class="lamp--status"></p>
+                    <p id="lamp--second-status" class="control__status">Выключена</p>
                 </div>
             </div>
             <div class="mode">

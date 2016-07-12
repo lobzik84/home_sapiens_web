@@ -681,7 +681,6 @@ h1 {
 h2 {
   font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
   text-align: center;
-  margin-left: 60px;
   color: #999999;
   font-size: 32px;
 }
@@ -728,6 +727,7 @@ h2 {
   margin-left: 30px;
   font-size: 32px;
 }
+#status__value,
 .status__icons,
 .status__signal,
 .status__server,
@@ -736,7 +736,15 @@ h2 {
 .status__signal--mid,
 .status__signal--high,
 .status__battery--color,
-.status__battery--percent {
+.status__battery--percent,
+.history__interval--month,
+.history__interval--week,
+.history__interval--today,
+.video__cam--one,
+.video__cam--two,
+.video--date,
+.video--time,
+.control__item {
   display: inline-block;
 }
 .status__icons {
@@ -770,9 +778,6 @@ h2 {
   height: 65px;
   line-height: 65px;
   font-size: 44px;
-}
-#status__value {
-  display: inline-block;
 }
 .status__tip {
   position: relative;
@@ -817,6 +822,7 @@ h2 {
 .history__info--table th {
   width: 75px;
   height: 70px;
+  padding-left: 30px;
 }
 .history__info--table th img {
   width: 27px;
@@ -831,5 +837,54 @@ h2 {
 .history__wet,
 .history__volt {
   font-size: 28px;
+}
+.history__interval {
+  font-size: 32px;
+  height: 82px;
+  line-height: 83px;
+  background-color: #444444;
+}
+.history__interval--month,
+.history__interval--week,
+.history__interval--today {
+  text-align: center;
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  margin: auto;
+  width: 192px;
+  color: #999999;
+}
+.history__interval--current {
+  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
+  color: #fff;
+  background-color: #333333;
+}
+.video {
+  height: 272px;
+  margin-top: 40px;
+}
+.video__cam--one,
+.video__cam--two {
+  overflow: hidden;
+  vertical-align: top;
+  width: 294px;
+}
+.video__time-date {
+  position: relative;
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  text-align: center;
+  background-color: #1a1a1a;
+  font-size: 22px;
+  width: 166px;
+  height: 32px;
+  line-height: 32px;
+  top: -210px;
+  right: -8px;
+}
+.control__item {
+  text-align: center;
+  width: 194px;
+  height: 240px;
+  background-color: #444444;
 }
 /*# sourceMappingURL=style.css.map */
