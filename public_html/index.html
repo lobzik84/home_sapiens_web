@@ -186,36 +186,57 @@
                         </div>
                     </div>
                     <div class="video__cam--two">
-                           <img src="images/video2.png">
+                        <img src="images/video2.png">
                     </div>
                 </div>
             </div>
             <div class="control">
                 <h2>Управление</h2>
                 <div class="control__item">
-                    <div id="lamp--first" class="lamp--first"><img src="images/lamp.png"></div>
+                    <div id="lamp--first" class="control__img"><img src="images/lamp.png"></div>
                     <p class="control__name">Лампа</p>
-                    <p id="lamp--first-status" class="control__status">Включена</p>
+                    <p id="lamp--first-status" class="control__status on">Включена</p>
                 </div>
                 <div class="control__item">
-                    <div id="socket" class="socket"><img src="images/socket.png"></div>
+                    <div id="socket" class="control__img"><img src="images/socket.png"></div>
                     <p class="control__name">Розетка</p>
-                    <p id="socket--status" class="socket--status">Включена</p>
+                    <p id="socket--status" class="control__status on">Включена</p>
                 </div>
                 <div class="control__item">
-                    <div id="lamp--second" class="lamp--second"><img src="images/lamp-off.png"></div>
+                    <div id="lamp--second" class="control__img"><img src="images/lamp-off.png"></div>
                     <p class="control__name">Лампа</p>
                     <p id="lamp--second-status" class="control__status">Выключена</p>
                 </div>
             </div>
             <div class="mode">
                 <h2>Режим работы</h2>
-                <div id="mode__master" class="mode__master">Хозяин дома</div>
-                <div id="mode__security" class="mode__security">Охрана</div>
+                <div id="mode__master" class="mode__change change__current">Хозяин дома</div>
+                <div id="mode__security" class="mode__change">Охрана</div>
             </div>
             <div class="settings">
+                <div class="settings__top">
+                    <h1>Настройки</h1>
+                    <div class="settings__dropdown"></div>
+                </div>
                 <div class="settings__options">
-                    <div class="settings__temp--min">
+                    <table>
+                        <tr>
+                            <th><img src="images/icons/temp.png"></th>
+                            <th class="settings__name">Min</th>
+                            <th><img src="images/minus.png"></th>
+                            <th class="settings__value">+12&deg;</th>
+                            <th><img src="images/plus.png"></th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th class="settings__name">Max</th>
+                            <th><img src="images/minus.png"></th>
+                            <th class="settings__value">+30&deg;</th>
+                            <th><img src="images/plus.png"></th>
+                        </tr>                    
+                    </table>
+
+                    <!--div class="settings__temp--min">
                         <span>Min</span>
                         <div class="settings__temp--min-minus">-</div>
                         <div id="settings__temp--value-min" class="settings__temp--value-min">+12</div>
@@ -226,10 +247,27 @@
                         <div class="settings__temp--max-minus">-</div>
                         <div id="settings__temp--value-max" class="settings__temp--value-max">+30</div>
                         <div class="settings__temp--max-plus">+</div>
-                    </div>
+                    </div-->
                 </div>
                 <div class="settings__options">
-                    <div class="settings__voltage--min">
+                    <table>
+                        <tr>
+                            <th><img src="images/icons/voltage.png"></th>
+                            <th class="settings__name">Min</th>
+                            <th><img src="images/minus.png"></th>
+                            <th class="settings__value">200В</th>
+                            <th><img src="images/plus.png"></th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th class="settings__name">Max</th>
+                            <th><img src="images/minus.png"></th>
+                            <th class="settings__value">240В</th>
+                            <th><img src="images/plus.png"></th>
+                        </tr>                    
+                    </table>
+                    
+                    <!--div class="settings__voltage--min">
                         <span>Min</span>
                         <div class="settings__voltage--min-minus">-</div>
                         <div id="settings__voltage--value-min" class="settings__voltage--value-min">200</div>
@@ -240,7 +278,7 @@
                         <div class="settings__voltage--max-minus">-</div>
                         <div id="settings__voltage--value-max" class="settings__voltage--value-max">240</div>
                         <div class="settings__voltage--max-plus">+</div>
-                    </div>
+                    </div-->
                 </div>
             </div>
         </main>
