@@ -29,6 +29,17 @@ h2 {
     float: right;
     font-size: 34px;
 }
+.status__signal,
+.status__server,
+.status__battery--color {
+    .va-t;
+    padding-left: 15px;
+}
+.status__battery--percent {
+    .roboto-regular;
+    .va-t;
+    font-size: 28px;
+}
 .status {
     height: 639px;
 }
@@ -89,16 +100,6 @@ h2 {
 #status__value {
     .inline-b;
 }
-.history__top {
-    height: 74px;
-    line-height: 74px;
-    background-color: #444444;
-}
-.dropdown {
-    .inline-b;
-    .fl-r;
-    .mr-60;
-}
 .status__tip {
     .relative;
     .ta-c;
@@ -113,4 +114,47 @@ h2 {
 .status__tip--text {
     .relative;
     top: 34%;
+}
+.history__top {
+    height: 74px;
+    line-height: 74px;
+    background-color: #444444;
+}
+.history__dropdown {
+    .inline-b;
+    .fl-r;
+    .pr-60;
+    .pointer;
+    width: 17%;
+    height: 100%;
+    background: url(../images/dropdown_arrow.png) no-repeat center center;
+}
+.history__info {
+    .none;
+    background-color: #333333;
+}
+.history__time {
+    font-size: 24px;
+    color: #999999;
+}
+.history__info--table {
+     .roboto-regular;
+    th {
+        width: 75px;
+        height: 70px;
+        img {
+            width: 27px;
+        }
+        p {
+            .inline-b;
+        }
+    }
+    tr {
+        line-height: 70px;
+    }
+}
+.history__temp,
+.history__wet,
+.history__volt {
+   font-size: 28px;    
 }

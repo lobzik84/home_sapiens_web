@@ -20,13 +20,18 @@
                     <div id="mode__current" class="mode__current">Хозяин дома</div>
                     <div class="status__icons">
                         <div id="status__signal" class="status__signal">
-                            <div id="status__signal--low" class="status__signal--low">1</div>
+                            <!--div id="status__signal--low" class="status__signal--low">1</div>
                             <div id="status__signal--mid" class="status__signal--mid">2</div>
-                            <div id="status__signal--high" class="status__signal--high">3</div>
+                            <div id="status__signal--high" class="status__signal--high">3</div-->
+                            <img src="images/icons/signal.png">
                         </div>
-                        <div id="status__server" class="status__server">><</div>
+                        <div id="status__server" class="status__server">
+                            <img src="images/icons/server.png">
+                        </div>
                         <div id="status__battery" class="status__battery">
-                            <div id="status__battery--color" class="status__battery--color">||</div>
+                            <div id="status__battery--color" class="status__battery--color">
+                                <img src="images/icons/battery.png">
+                            </div>
                             <div id="status__battery--percent" class="status__battery--percent">100%</div>
                         </div>
                     </div>
@@ -115,42 +120,40 @@
             <div class="history">
                 <div class="history__top">
                     <h1>История</h1>
-                    <div class="dropdown">=</div>
+                    <div class="history__dropdown"></div>
                 </div>
-                <table>
-                    <tr>
-                        <th></th>
-                        <th>08:00</th>
-                        <th>08:30</th>
-                        <th>09:00</th>
-                        <th>09:30</th>
-                        <th>10:00</th>
-                    </tr>
-                    <tr>
-                        <th><img src="images/icons/temp.png"></th>
-                        <th>+15</th>
-                        <th>+15</th>
-                        <th>+17</th>
-                        <th>+18</th>
-                        <th>+19</th>
-                    </tr>
-                    <tr>
-                        <th><img src="images/icons/temp.png"></th>
-                        <th>+15</th>
-                        <th>+15</th>
-                        <th>+17</th>
-                        <th>+18</th>
-                        <th>+19</th>
-                    </tr>
-                    <tr>
-                        <th><img src="images/icons/temp.png"></th>
-                        <th>+15</th>
-                        <th>+15</th>
-                        <th>+17</th>
-                        <th>+18</th>
-                        <th>+19</th>
-                    </tr>
-                </table>
+                <div class="history__info">
+                    <table class="history__info--table">
+                        <tr class="history__time">
+                            <th></th>
+                            <th><p id="history__time--one">08:00</p></th>
+                            <th><p id="history__time--two">08:30</p></th>
+                            <th><p id="history__time--three">09:00</p></th>
+                            <th><p id="history__time--four">09:30</p></th>
+                        </tr>
+                        <tr class="history__temp">
+                            <th><img src="images/icons/temp.png"></th>
+                            <th><p id="history__temp--one">+15</p>&deg;</th>
+                            <th><p id="history__temp--two">+18</p>&deg;</th>
+                            <th><p id="history__temp--three">+15</p>&deg;</th>
+                            <th><p id="history__temp--four">+17</p>&deg;</th>
+                        </tr>
+                        <tr class="history__wet">
+                            <th><img src="images/icons/wet.png"></th>
+                            <th><p id="history__wet--one">44</p>%</th>
+                            <th><p id="history__wet--two">42</p>%</th>
+                            <th><p id="history__wet--three">40</p>%</th>
+                            <th><p id="history__wet--four">38</p>%</th>
+                        </tr>
+                        <tr class="history__volt">
+                            <th><img src="images/icons/voltage.png"></th>
+                            <th><p id="history__volt--one">220</p>В</th>
+                            <th><p id="history__volt--two">221</p>В</th>
+                            <th><p id="history__volt--three">220</p>В</th>
+                            <th><p id="history__volt--four">220</p>В</th>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div class="video">
                 <h2>Видеонаблюдение</h2>
