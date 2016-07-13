@@ -3,7 +3,10 @@
     <head>
         <title>HomeSapiens main</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=590, user-scalable=no">
+        <!--meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"-->
+        <meta name="MobileOptimized" content="320">
+        <meta name="HandheldFriendly" content="true">
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -176,7 +179,7 @@
                 </div>
             </div>
             <div class="video">
-                <h2>Видеонаблюдение</h2>
+                <!--h2>Видеонаблюдение</h2-->
                 <div id="video__block" class="video__block">
                     <div class="video__cam--one">
                         <img src="images/video1.png">
@@ -192,20 +195,20 @@
             </div>
             <div class="control">
                 <h2>Управление</h2>
-                <div class="control__item">
-                    <div id="lamp--first" class="control__img"><img src="images/lamp.png"></div>
+                <div id="lamp--first-status" class="control__item">
+                    <div id="lamp--first" class="control__img"><img src="images/lamp-off.png"></div>
                     <p class="control__name">Лампа</p>
-                    <p id="lamp--first-status" class="control__status on">Включена</p>
+                    <p class="control__status">Выключена</p>
                 </div>
-                <div class="control__item">
-                    <div id="socket" class="control__img"><img src="images/socket.png"></div>
+                <div id="socket--status" class="control__item">
+                    <div id="socket" class="control__img"><img src="images/socket-off.png"></div>
                     <p class="control__name">Розетка</p>
-                    <p id="socket--status" class="control__status on">Включена</p>
+                    <p class="control__status">Выключена</p>
                 </div>
-                <div class="control__item">
+                <div id="lamp--second-status" class="control__item">
                     <div id="lamp--second" class="control__img"><img src="images/lamp-off.png"></div>
                     <p class="control__name">Лампа</p>
-                    <p id="lamp--second-status" class="control__status">Выключена</p>
+                    <p class="control__status">Выключена</p>
                 </div>
             </div>
             <div class="mode">
@@ -266,7 +269,7 @@
                             <th><img src="images/plus.png"></th>
                         </tr>                    
                     </table>
-                    
+
                     <!--div class="settings__voltage--min">
                         <span>Min</span>
                         <div class="settings__voltage--min-minus">-</div>

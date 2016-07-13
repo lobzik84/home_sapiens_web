@@ -11,8 +11,8 @@ h2 {
     font-size: 32px;
 }
 .header {
-    height: 110px;
-    line-height: 110px;
+    height: 80px;
+    line-height: 80px;
 }
 .header__title {
     .getvoip_grotesque;
@@ -40,7 +40,7 @@ h2 {
     font-size: 28px;
 }
 .status {
-    height: 639px;
+    //height: 639px;
 }
 .status__top {
     height: 82px;
@@ -79,7 +79,7 @@ h2 {
     .mr-30;
 }
 .status__indicators {
-    margin-top: 42px;
+    margin: 20px 0 20px 0;
 }
 .status__item {
     .inline-b;
@@ -90,6 +90,13 @@ h2 {
     height: 162px;
     &:hover {
         background-color: #444444;
+    }
+}
+@media only screen and (max-device-width: 768px) {
+    .status__item {
+        &:hover {
+            background: none;
+        }
     }
 }
 .status__icon {
@@ -169,7 +176,7 @@ h2 {
 }
 .history__interval {
     font-size: 32px;
-    height: 82px;
+    height: 83px;
     line-height: 83px;
     background-color: #444444;
 }
@@ -189,7 +196,7 @@ h2 {
     background-color: #333333;
 }
 .video {
-    height: 272px;
+    //height: 272px;
     margin-top: 25px;
 }
 .video__block {
@@ -214,7 +221,7 @@ h2 {
     right: -8px;
 }
 .control {
-    margin-top: 25px;
+    //margin-top: 25px;
 }
 .control__item {
     .ta-c;
@@ -235,9 +242,16 @@ h2 {
 }
 .control__img {
     padding: 24px 0 24px 0;
+
 }
 .on {
     color: #4caf50;
+}
+#lamp--first-status {
+    .control__img {
+        background: url(../images/lamp.png) no-repeat center center;
+        height: 108px;
+    }
 }
 .mode {
     margin-top: 25px;
@@ -288,3 +302,4 @@ h2 {
     .va-m;
     font-size: 52px;
 }
+
