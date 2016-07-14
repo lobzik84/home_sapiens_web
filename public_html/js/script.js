@@ -48,4 +48,54 @@ $(function () {
     $('#mode__master, #mode__security').click(function () {
         $(this).toggleClass('change__current');
     });
+    $('.settings__dropdown').click(function () {
+        $('html, body').animate({scrollTop:2048}, 'fast');
+    });
+    $('.settings__temp_min--minus').click(function() {
+        var i = $('#settings__value_temp--min').text();
+        i--;
+        $('#settings__value_temp--min').text(i);
+    });
+    $('.settings__temp_min--plus').click(function() {
+        var i = $('#settings__value_temp--min').text();
+        i++;
+        $('#settings__value_temp--min').text(i);
+    });
+    $('.settings__temp_max--minus').click(function() {
+        var i = $('#settings__value_temp--max').text();
+        i--;
+        $('#settings__value_temp--max').text(i);
+    });
+    $('.settings__temp_max--plus').click(function() {
+        var i = $('#settings__value_temp--max').text();
+        i++;
+        $('#settings__value_temp--max').text(i);
+    });
+    
+    
+    
+    $('.settings__volt_min--minus').click(function() {
+        var i = $('#settings__value_volt--min').text();
+        i = i - 5;
+        i.toString();
+        $('#settings__value_volt--min').text(i);
+    });
+    $('.settings__volt_min--plus').click(function() {
+        var i = $('#settings__value_volt--min').text();
+        i = i + 5;
+        i.toString();
+        $('#settings__value_volt--min').text(i);
+    });
+    $('.settings__volt_max--minus').click(function() {
+        var i = $('#settings__value_volt--max').text();
+        i = i - 5;
+        i.toString();
+        $('#settings__value_volt--max').text(i);
+    });
+    $('.settings__volt_max--plus').click(function() {
+        var i = $('#settings__value_volt--max').text();
+        i = i + 5;
+        i.toString();
+        $('#settings__value_volt--max').text(i);
+    });
 });
