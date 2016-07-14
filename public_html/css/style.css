@@ -969,7 +969,42 @@ h2 {
   vertical-align: middle;
   font-size: 52px;
 }
+.settings__save {
+  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
+  display: none;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  font-size: 36px;
+  margin: 3px 0 0 0;
+  height: 74px;
+  line-height: 74px;
+  background-color: #444444;
+}
 .button {
   cursor: pointer;
+}
+.password {
+  margin-top: 25px;
+}
+.password__save {
+  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  font-size: 36px;
+  margin: 3px 0 0 0;
+  height: 74px;
+  line-height: 74px;
+  background-color: #444444;
+}
+input {
+  border: 1px solid #cccccc;
+  background: #ffffff !important;
+  outline: none;
+  height: 70px;
+  width: 120px;
+  color: #cccccc;
+  font-size: 11px;
 }
 /*# sourceMappingURL=style.css.map */

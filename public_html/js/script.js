@@ -13,7 +13,7 @@ $(function () {
         $('.history__info').toggle();
     });
     $('.settings__dropdown').click(function () {
-        $('.settings__options').toggle();
+        $('.settings__options, .settings__save').toggle();
     });
     $('#lamp--first-status').click(function () {
         $('.control__status', this).toggleClass('on');
@@ -49,53 +49,61 @@ $(function () {
         $(this).toggleClass('change__current');
     });
     $('.settings__dropdown').click(function () {
-        $('html, body').animate({scrollTop:2048}, 'fast');
+        $('html, body').animate({scrollTop: 2048}, 'fast');
     });
-    $('.settings__temp_min--minus').click(function() {
+    $('.settings__temp_min--minus').click(function () {
         var i = $('#settings__value_temp--min').text();
         i--;
         $('#settings__value_temp--min').text(i);
     });
-    $('.settings__temp_min--plus').click(function() {
+    $('.settings__temp_min--plus').click(function () {
         var i = $('#settings__value_temp--min').text();
         i++;
         $('#settings__value_temp--min').text(i);
     });
-    $('.settings__temp_max--minus').click(function() {
+    $('.settings__temp_max--minus').click(function () {
         var i = $('#settings__value_temp--max').text();
         i--;
         $('#settings__value_temp--max').text(i);
     });
-    $('.settings__temp_max--plus').click(function() {
+    $('.settings__temp_max--plus').click(function () {
         var i = $('#settings__value_temp--max').text();
         i++;
         $('#settings__value_temp--max').text(i);
     });
-    
-    
-    
-    $('.settings__volt_min--minus').click(function() {
-        var i = $('#settings__value_volt--min').text();
-        i = i - 5;
+
+
+
+    $('.settings__volt_min--minus').click(function () {
+        var k = $('#settings__value_volt--min').text();
+        k.toString();
+        i = k - 5;
         i.toString();
         $('#settings__value_volt--min').text(i);
     });
-    $('.settings__volt_min--plus').click(function() {
+    $('.settings__volt_min--plus').click(function () {
         var i = $('#settings__value_volt--min').text();
-        i = i + 5;
-        i.toString();
+        i++;
+        i++;
+        i++;
+        i++;
+        i++;
         $('#settings__value_volt--min').text(i);
     });
-    $('.settings__volt_max--minus').click(function() {
-        var i = $('#settings__value_volt--max').text();
-        i = i - 5;
+    $('.settings__volt_max--minus').click(function () {
+        var k = $('#settings__value_volt--max').text();
+        k.toString();
+        i = k - 5;
         i.toString();
         $('#settings__value_volt--max').text(i);
     });
-    $('.settings__volt_max--plus').click(function() {
+    $('.settings__volt_max--plus').click(function () {
         var i = $('#settings__value_volt--max').text();
-        i = i + 5;
-        i.toString();
+        i++;
+        i++;
+        i++;
+        i++;
+        i++;
         $('#settings__value_volt--max').text(i);
     });
 });
