@@ -137,9 +137,6 @@ img {
   vertical-align: middle;
 }
 /******/
-.on {
-  color: #4caf50;
-}
 h1 {
   font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
   margin-left: 60px;
@@ -765,6 +762,9 @@ strong {
   background: #444444;
   height: 82px;
   line-height: 82px;
+}
+.on {
+  color: #4caf50 !important;
 }
 .mode__current {
   font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
