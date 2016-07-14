@@ -4,8 +4,6 @@ $(function () {
             $('.status__tip', this).fadeIn('fast');
             setTimeout(function () {
                 $('.status__tip').fadeOut('fast');
-                //$(this).css({'display': 'none'});
-                console.log('ok');
             }, 2000);
         });
     });
