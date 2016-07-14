@@ -834,9 +834,6 @@ h2 {
   height: 70px;
   padding-left: 30px;
 }
-.history__info--table th img {
-  width: 27px;
-}
 .history__info--table th p {
   display: inline-block;
 }
@@ -915,10 +912,6 @@ h2 {
 }
 .on {
   color: #4caf50;
-}
-#lamp--first-status .control__img {
-  background: url(../images/lamp.png) no-repeat center center;
-  height: 108px;
 }
 .mode {
   margin-top: 25px;

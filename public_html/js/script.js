@@ -71,9 +71,6 @@ $(function () {
         i++;
         $('#settings__value_temp--max').text(i);
     });
-
-
-
     $('.settings__volt_min--minus').click(function () {
         var k = $('#settings__value_volt--min').text();
         k.toString();
@@ -88,6 +85,7 @@ $(function () {
         i++;
         i++;
         i++;
+        // :) потом сделаю нормально
         $('#settings__value_volt--min').text(i);
     });
     $('.settings__volt_max--minus').click(function () {
@@ -104,6 +102,13 @@ $(function () {
         i++;
         i++;
         i++;
+        // :) потом сделаю нормально
         $('#settings__value_volt--max').text(i);
+    });
+
+    $('.password__save').click(function () {
+        var text = $('input')[0];
+        var val = text.value;
+        console.log(val);
     });
 });
