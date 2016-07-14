@@ -1,0 +1,20 @@
+{
+  "name": "home_sapiens",
+  "version": "0.0.0",
+  "description": "",
+  "url": "molnet.ru",
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-uglify": "~0.6.0",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt-contrib-yuidoc": "^0.7.0",
+    "grunt-data-uri": "^0.2.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.3",
+    "matchdep": "~0.1.1"
+  }
+}
