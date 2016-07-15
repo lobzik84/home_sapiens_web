@@ -2,6 +2,7 @@
 
 
 /*STATUS INDICATORS*/
+var battery = 100;
 var temp = '+18';
 var tempOut = '+34';
 var wet = 34;

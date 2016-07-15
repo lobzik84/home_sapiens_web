@@ -149,6 +149,9 @@ h2 {
   color: #999999;
   font-size: 32px;
 }
+p {
+  display: inline-block;
+}
 input {
   display: block;
   text-align: center;
