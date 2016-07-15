@@ -183,7 +183,10 @@ input {
 #settings__value_temp--min,
 #settings__value_temp--max,
 #settings__value_volt--min,
-#settings__value_volt--max {
+#settings__value_volt--max,
+.alerts__img,
+.alerts__message,
+.alerts__value {
   display: inline-block;
 }
 .on {
@@ -206,7 +209,7 @@ input {
   cursor: pointer;
   width: 17%;
   height: 100%;
-  background: url(../images/dropdown_arrow.png) no-repeat center center;
+  background: url(../images/dd_arrow_bottom.png) no-repeat center center;
 }
 .white {
   color: #fff;
@@ -765,6 +768,9 @@ strong {
 }
 .roboto-regular {
   font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+}
+.alerts__block {
+  background: #f44336;
 }
 .control__item {
   text-align: center;

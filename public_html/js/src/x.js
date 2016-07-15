@@ -109,4 +109,5 @@ $(function () {
         var val = text.value;
         console.log(val);
     });
+    $('#status__value--temp').text(temp);
 });

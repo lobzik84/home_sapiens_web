@@ -12,8 +12,13 @@
     <body>
         <main>
             <div class="alerts">
-                <div class="alerts__temp">
-                    <img>
+                <div class="alerts__block">
+                    <div class="alerts__img"><img src="images/icons_alerts/temp-a.png"></div>
+                    <div class="alerts__message">
+                    <p>Превышение максимального значения температуры!</p>
+                    <div class="">01.07.2016, 23:21, 3 раза, последний</div>
+                    </div>
+                    <div class="alerts__value">+<p>34</p>&deg;</div>
                 </div>
             </div>
             <div class="header">
@@ -47,7 +52,7 @@
                             <div id="status__icon" class="status__icon">
                                 <img src="images/icons/temp.png">
                             </div>
-                            <div class="status__value"><p id="status__value">+18</p>&deg;</div>
+                            <div class="status__value"><p id="status__value--temp"></p>&deg;</div>
                             <div class="status__tip">
                                 <p class="status__tip--text">Температура в доме</p>
                             </div>
