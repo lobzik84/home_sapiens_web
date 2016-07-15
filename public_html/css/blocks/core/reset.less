@@ -7,67 +7,71 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
-	margin: 0;
-	padding: 0;	
-	border: 0;
-	outline: 0;
-	font-size: 100%;
-	vertical-align: baseline;
+    margin: 0;
+    padding: 0;	
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
 }
 
 body {
-	line-height: 1;
-	color: #fff;
-	background-color: #A9A9A9;
-        width: 593px;
+    line-height: 1;
+    color: #fff;
+    background-color: #A9A9A9;
+    width: 593px;
 }
+
 main {
-	display: block;
-	width: 593px;
-        min-width: 593px;
-	background-color: #1a1a1a;
+    display: block;
+    width: 593px;
+    min-width: 593px;
+    background-color: #1a1a1a;
 }
 ol, ul {
-	list-style: none;
+    list-style: none;
 }
+
 blockquote, q {
-	quotes: none;
+    quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+    content: '';
+    content: none;
 }
 
 :focus {
-	outline: 0;
+    outline: 0;
 }
 
 ins {
-	text-decoration: none;
+    text-decoration: none;
 }
+
 del {
-	text-decoration: line-through;
+    text-decoration: line-through;
 }
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section { 
-	display: block;
+    display: block;
 }
 
 button, input, select, textarea { margin: 0; }
 
 h1, h2, h3, h4, h5, h6 {
-	font-weight: normal;   
+    font-weight: normal;   
 }
 
 img {
-	vertical-align: middle;
+    vertical-align: middle;
 }
 
 /******/
@@ -77,12 +81,27 @@ h1 {
     .inline-b;
     font-size: 36px;
 }
+
 h2 {
     .roboto-medium;
     .ta-c;
     .title;
     font-size: 32px;
 }
+
+input {
+    .block;
+    .ta-c;
+    .roboto-medium;
+    margin: 15px auto;
+    border: 1px solid #cccccc;
+    background: #ffffff !important;
+    outline: none;
+    height: 50px;
+    width: 90%;
+    font-size: 30px;
+}
+
 #status__value,
 .status__icons,
 .status__signal, 
@@ -107,4 +126,30 @@ h2 {
 #settings__value_volt--min,
 #settings__value_volt--max {
     .inline-b;
+}
+
+.on {
+    .green !important;
+}
+
+.button {
+    .pointer;
+}
+
+.history__top,
+.settings__top {
+    .bbc;
+    height: 74px;
+    line-height: 74px;
+}
+
+.history__dropdown,
+.settings__dropdown {
+    .inline-b;
+    .fl-r;
+    .pr-60;
+    .pointer;
+    width: 17%;
+    height: 100%;
+    background: url(../images/dropdown_arrow.png) no-repeat center center;
 }

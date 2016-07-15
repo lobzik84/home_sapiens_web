@@ -149,6 +149,18 @@ h2 {
   color: #999999;
   font-size: 32px;
 }
+input {
+  display: block;
+  text-align: center;
+  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
+  margin: 15px auto;
+  border: 1px solid #cccccc;
+  background: #ffffff !important;
+  outline: none;
+  height: 50px;
+  width: 90%;
+  font-size: 30px;
+}
 #status__value,
 .status__icons,
 .status__signal,
@@ -173,6 +185,28 @@ h2 {
 #settings__value_volt--min,
 #settings__value_volt--max {
   display: inline-block;
+}
+.on {
+  color: #4caf50 !important;
+}
+.button {
+  cursor: pointer;
+}
+.history__top,
+.settings__top {
+  background: #444444;
+  height: 74px;
+  line-height: 74px;
+}
+.history__dropdown,
+.settings__dropdown {
+  display: inline-block;
+  float: right;
+  padding-right: 60px;
+  cursor: pointer;
+  width: 17%;
+  height: 100%;
+  background: url(../images/dropdown_arrow.png) no-repeat center center;
 }
 .white {
   color: #fff;
@@ -203,6 +237,9 @@ h2 {
 }
 .gbc {
   background: #4caf50;
+}
+.rbc {
+  background: #f44336;
 }
 .ie8 .box-shadow {
   outline: 1px solid #cccccc;
@@ -729,6 +766,26 @@ strong {
 .roboto-regular {
   font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
 }
+.control__item {
+  text-align: center;
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  background: #444444;
+  margin-top: 20px;
+  width: 194px;
+  height: 240px;
+}
+.control__name {
+  font-size: 28px;
+}
+.control__status {
+  color: #999999;
+  padding-top: 10px;
+  font-size: 24px;
+}
+.control__img {
+  padding: 24px 0 24px 0;
+}
 .header {
   height: 80px;
   line-height: 80px;
@@ -747,6 +804,135 @@ strong {
   float: right;
   font-size: 34px;
 }
+.history__info {
+  display: none;
+  background: #333333;
+}
+.history__time {
+  color: #999999;
+  font-size: 24px;
+}
+.history__info--table {
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+}
+.history__info--table th {
+  width: 75px;
+  height: 70px;
+  padding-left: 30px;
+}
+.history__info--table th p {
+  display: inline-block;
+}
+.history__info--table tr {
+  line-height: 70px;
+}
+.history__temp,
+.history__wet,
+.history__volt {
+  font-size: 28px;
+}
+.history__interval {
+  background: #444444;
+  font-size: 32px;
+  height: 83px;
+  line-height: 83px;
+}
+.history__interval--month,
+.history__interval--week,
+.history__interval--today {
+  text-align: center;
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  color: #999999;
+  margin: auto;
+  width: 192px;
+}
+.history__interval--current {
+  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
+  color: #fff;
+  background: #333333;
+}
+.mode {
+  margin-top: 25px;
+}
+.mode__change {
+  text-align: center;
+  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
+  color: #fff;
+  cursor: pointer;
+  background: #444444;
+  margin-top: 20px;
+  font-size: 36px;
+  width: 294px;
+  height: 80px;
+  line-height: 80px;
+}
+.mode__current {
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  display: inline-block;
+  margin-left: 30px;
+  font-size: 32px;
+}
+.change__current {
+  background: #4caf50;
+}
+.password {
+  margin-top: 25px;
+}
+.password__save {
+  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  background: #444444;
+  font-size: 36px;
+  margin: 3px 0 0 0;
+  height: 74px;
+  line-height: 74px;
+}
+.settings {
+  margin: 30px 0 0 0;
+}
+.settings__options {
+  text-align: center;
+  display: none;
+  background: #333333;
+  height: 225px;
+  margin-top: 3px;
+}
+.settings__options table {
+  margin: auto;
+}
+.settings__options tr {
+  height: 110px;
+  line-height: 110px;
+}
+.settings__options th {
+  padding: 0 20px 0 20px;
+}
+.settings__name {
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  vertical-align: middle;
+  font-size: 32px;
+  color: #9e9e9e;
+}
+.settings__value {
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  vertical-align: middle;
+  font-size: 52px;
+}
+.settings__save {
+  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
+  display: none;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  background: #444444;
+  font-size: 36px;
+  margin: 3px 0 0 0;
+  height: 74px;
+  line-height: 74px;
+}
 .status__signal,
 .status__server,
 .status__battery--color {
@@ -762,15 +948,6 @@ strong {
   background: #444444;
   height: 82px;
   line-height: 82px;
-}
-.on {
-  color: #4caf50 !important;
-}
-.mode__current {
-  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
-  display: inline-block;
-  margin-left: 30px;
-  font-size: 32px;
 }
 .status__icons {
   float: right;
@@ -824,70 +1001,6 @@ strong {
   position: relative;
   top: 34%;
 }
-.history__top,
-.settings__top {
-  background: #444444;
-  height: 74px;
-  line-height: 74px;
-}
-.history__dropdown,
-.settings__dropdown {
-  display: inline-block;
-  float: right;
-  padding-right: 60px;
-  cursor: pointer;
-  width: 17%;
-  height: 100%;
-  background: url(../images/dropdown_arrow.png) no-repeat center center;
-}
-.history__info {
-  display: none;
-  background: #333333;
-}
-.history__time {
-  color: #999999;
-  font-size: 24px;
-}
-.history__info--table {
-  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
-}
-.history__info--table th {
-  width: 75px;
-  height: 70px;
-  padding-left: 30px;
-}
-.history__info--table th p {
-  display: inline-block;
-}
-.history__info--table tr {
-  line-height: 70px;
-}
-.history__temp,
-.history__wet,
-.history__volt {
-  font-size: 28px;
-}
-.history__interval {
-  background: #444444;
-  font-size: 32px;
-  height: 83px;
-  line-height: 83px;
-}
-.history__interval--month,
-.history__interval--week,
-.history__interval--today {
-  text-align: center;
-  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
-  cursor: pointer;
-  color: #999999;
-  margin: auto;
-  width: 192px;
-}
-.history__interval--current {
-  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
-  color: #fff;
-  background: #333333;
-}
 .video {
   margin-top: 25px;
 }
@@ -911,115 +1024,5 @@ strong {
   line-height: 32px;
   top: -210px;
   right: -8px;
-}
-.control__item {
-  text-align: center;
-  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
-  cursor: pointer;
-  background: #444444;
-  margin-top: 20px;
-  width: 194px;
-  height: 240px;
-}
-.control__name {
-  font-size: 28px;
-}
-.control__status {
-  color: #999999;
-  padding-top: 10px;
-  font-size: 24px;
-}
-.control__img {
-  padding: 24px 0 24px 0;
-}
-.mode {
-  margin-top: 25px;
-}
-.mode__change {
-  text-align: center;
-  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
-  color: #fff;
-  cursor: pointer;
-  background: #444444;
-  margin-top: 20px;
-  font-size: 36px;
-  width: 294px;
-  height: 80px;
-  line-height: 80px;
-}
-.change__current {
-  background: #4caf50;
-}
-.settings {
-  margin: 30px 0 0 0;
-}
-.settings__options {
-  text-align: center;
-  display: none;
-  background: #333333;
-  height: 225px;
-  margin-top: 3px;
-}
-.settings__options table {
-  margin: auto;
-}
-.settings__options tr {
-  height: 110px;
-  line-height: 110px;
-}
-.settings__options th {
-  padding: 0 20px 0 20px;
-}
-.settings__name {
-  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
-  vertical-align: middle;
-  font-size: 32px;
-  color: #9e9e9e;
-}
-.settings__value {
-  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
-  vertical-align: middle;
-  font-size: 52px;
-}
-.settings__save {
-  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
-  display: none;
-  cursor: pointer;
-  color: #fff;
-  text-align: center;
-  background: #444444;
-  font-size: 36px;
-  margin: 3px 0 0 0;
-  height: 74px;
-  line-height: 74px;
-}
-.button {
-  cursor: pointer;
-}
-.password {
-  margin-top: 25px;
-}
-.password__save {
-  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
-  cursor: pointer;
-  color: #fff;
-  text-align: center;
-  background: #444444;
-  font-size: 36px;
-  margin: 3px 0 0 0;
-  height: 74px;
-  line-height: 74px;
-}
-input {
-  display: block;
-  text-align: center;
-  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
-  margin: 15px auto;
-  border: 1px solid #cccccc;
-  background: #ffffff !important;
-  outline: none;
-  height: 50px;
-  width: 90%;
-  font-size: 30px;
 }
 /*# sourceMappingURL=style.css.map */

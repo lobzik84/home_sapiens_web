@@ -5,11 +5,10 @@ var gulp = require("gulp"),
 	notify =require('gulp-notify');
 var paths = {
     scripts: [
-        'public_html/tbo/js/jquery/*.js',
-        'public_html/tbo/js/vendor/**/*.js',
-        'public_html/tbo/js/modules/**/*.js',
-        'public_html/tbo/js/src/**/*.js',
-        'public_html/tbo/js/pform.js'
+        'public_html/js/jquery/*.js',
+        'public_html/js/vendor/**/*.js',
+        'public_html/js/modules/**/*.js',
+        'public_html/js/src/*.js'
     ]    
 };
 gulp.task('build-production', function() {
@@ -17,14 +16,14 @@ gulp.task('build-production', function() {
     .pipe(concat('x.js'))
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest('public_html/tbo/js/min'))
+    .pipe(gulp.dest('public_html/js/min'))
     .pipe(notify({ message: 'build-production task complete' }));
 });
 gulp.task('build-dev', function() {
 	gulp.src(paths.scripts)
     .pipe(concat('x.js'))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest('public_html/tbo/js/min'))
+    .pipe(gulp.dest('public_html/js/min'))
     .pipe(notify({ message: 'build-dev task complete' }));
 });
 gulp.task('watch', function() {
