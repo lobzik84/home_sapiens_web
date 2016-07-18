@@ -1,3 +1,3 @@
 $(function () {
-    $('#status__value--temp').text(temp);
+    $('#status__value--temp').text(tempIn);
 });
