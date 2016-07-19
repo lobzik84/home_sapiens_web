@@ -773,6 +773,7 @@ strong {
   font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
 }
 .alerts__block {
+  position: relative;
   background: #f44336;
   vertical-align: top;
   line-height: 37px;
