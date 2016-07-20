@@ -17,6 +17,17 @@
     th {
         padding: 0 20px 0 20px;
     }
+    img {
+        &:active {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+            //filter: url(grayscale.svg); /* Firefox 4+ */
+            filter: gray; /* IE 6-9 */
+        }
+    }
 }
 .settings__name {
     .roboto-regular;
@@ -36,8 +47,12 @@
     .white;
     .ta-c;
     .bbc;
+    .transition-duration(@duration: 0.1s);
     font-size: 36px;
     margin: 3px 0 0 0;
     height: 74px;
     line-height: 74px;
+    &:active {
+        .gbc;
+    }
 }

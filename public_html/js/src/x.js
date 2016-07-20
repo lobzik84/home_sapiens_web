@@ -111,6 +111,22 @@ $(function () {
         // :) потом сделаю нормально
         $('#settings__value_volt--max').text(i);
     });
+    
+    
+    
+    $('.password__save').on('touchstart', function () {
+        $('.password__save').css('background', '#4caf50');
+    });
+    $('.password__save').on('touchend', function () {
+        $('.password__save').css('background', '#444444');
+    });
+     $('.settings__save').on('touchstart', function () {
+        $('.settings__save').css('background', '#4caf50');
+    });
+    $('.settings__save').on('touchend', function () {
+        $('.settings__save').css('background', '#444444');
+    });
+        
     $('.password__save').click(function () {
         var text = $('input')[0];
         var val = text.value;

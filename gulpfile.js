@@ -7,8 +7,8 @@ var paths = {
     scripts: [
         'public_html/js/jquery/*.js',
         'public_html/js/parameters/*.js',
-        'public_html/js/swipe_alerts/*.js',
-        'public_html/js/src/*.js'
+        'public_html/js/src/*.js',
+        'public_html/js/swipe_alerts/*.js'
     ]    
 };
 gulp.task('build-production', function() {

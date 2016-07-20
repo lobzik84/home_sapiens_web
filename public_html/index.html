@@ -12,11 +12,11 @@
     <body>
         <main>
             <div class="alerts">
-                <div id="alert__temp" class="alerts__block">
+                <div id="alert__temp" class="alerts__block alert">
                     <div class="alerts__img"><img src="images/icons_alerts/temp-a.png"></div>
                     <div class="alerts__message">
                         Превышение максимального значения температуры!
-                        <div class="alerts__message--time">01.07.2016, 23:21<br>3 раза, последний</div>
+                        <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
                     </div>
                     <div class="alerts__value">+<p>34</p>&deg;</div>
                 </div>
@@ -24,7 +24,7 @@
                     <div class="alerts__img"><img src="images/icons_alerts/volt-a.png"></div>
                     <div class="alerts__message">
                         Напряжение!
-                        <div class="alerts__message--time">01.07.2016, 23:21<br>3 раза, последний</div>
+                        <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
                     </div>
                     <div class="alerts__value"><p>240</p>В</div>
                 </div>
@@ -32,21 +32,21 @@
                     <div class="alerts__img"><img src="images/icons_alerts/door-a.png"></div>
                     <div class="alerts__message">
                         Открыта дверь!
-                        <div class="alerts__message--time">01.07.2016, 23:21<br>3 раза, последний</div>
+                        <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
                     </div>
                 </div>
                 <div id="alert__smoke" class="alerts__block">
                     <div class="alerts__img"><img src="images/icons_alerts/smoke-a.png"></div>
                     <div class="alerts__message">
                         Обнаружен дым!
-                        <div class="alerts__message--time">01.07.2016, 23:21<br>3 раза, последний</div>
+                        <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
                     </div>
                 </div>
                 <div id="alert__water" class="alerts__block">
                     <div class="alerts__img"><img src="images/icons_alerts/water-a.png"></div>
                     <div class="alerts__message">
                         Потоп!
-                        <div class="alerts__message--time">01.07.2016, 23:21<br>3 раза, последний</div>
+                        <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="status__indicators">
                     <ul class="status__list">
-                        <li class="status__item">
+                        <li id="status__temp" class="status__item">
                             <div id="status__icon" class="status__icon">
                                 <img src="images/icons/temp.png">
                             </div>
@@ -86,7 +86,7 @@
                                 <p class="status__tip--text">Температура в доме</p>
                             </div>
                         </li>
-                        <li class="status__item">
+                        <li id="status__wet" class="status__item">
                             <div id="status__icon" class="status__icon">
                                 <img src="images/icons/wet.png">
                             </div>
@@ -95,7 +95,7 @@
                                 <p class="status__tip--text">Влажность воздуха</p>
                             </div>
                         </li>
-                        <li class="status__item">
+                        <li id="status__volt" class="status__item">
                             <div id="status__icon" class="status__icon">
                                 <img src="images/icons/voltage.png">
                             </div>
@@ -104,7 +104,7 @@
                                 <p class="status__tip--text">Напряжение в сети</p>
                             </div>
                         </li>
-                        <li class="status__item">
+                        <li id="status__door" class="status__item">
                             <div id="status__icon" class="status__icon--noeq">
                                 <img src="images/icons/door.png">
                             </div>
@@ -112,7 +112,7 @@
                                 <p class="status__tip--text">Дверь</p>
                             </div>
                         </li>
-                        <li class="status__item">
+                        <li id="status__smoke" class="status__item">
                             <div id="status__icon" class="status__icon--noeq">
                                 <img src="images/icons/smoke.png">
                             </div>
@@ -128,7 +128,7 @@
                                 <p class="status__tip--text">Движение</p>
                             </div>
                         </li>
-                        <li class="status__item">
+                        <li id="status__water" class="status__item">
                             <div id="status__icon" class="status__icon--noeq">
                                 <img src="images/icons/water.png">
                             </div>

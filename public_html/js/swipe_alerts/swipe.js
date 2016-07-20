@@ -68,14 +68,18 @@ $(function () {
              touchreport += '<b>Swipe Type:</b> ' + swipetype + '<br />'
              touchreport += '<b>Distance:</b> ' + distance + '<br />'*/
             //el.innerHTML = touchreport
-            var opacity = distance/1000;
-            console.log(opacity);
             $(el).css('left', distance);
-            if(dir === 'left' && distance < -350) {
+            if (dir === 'left' && distance < -350) {
                 $(el).css('display', 'none');
+                $('#status__temp').removeClass('alert');
+                $('#status__temp #status__icon img').attr('src', 'images/icons/temp.png');
+                $('.change__current').removeClass('alert');
             }
-            if(dir === 'right' && distance > 350) {
+            if (dir === 'right' && distance > 350) {
                 $(el).css('display', 'none');
+                $('#status__temp').removeClass('alert');
+                $('#status__temp #status__icon img').attr('src', 'images/icons/temp.png');
+                $('.change__current').removeClass('alert');
             }
         })
     }, false)
@@ -83,46 +87,67 @@ $(function () {
         var el = document.getElementById('alert__volt')
         ontouch(el, function (evt, dir, phase, swipetype, distance) {
             $(el).css('left', distance);
-            if(dir === 'left' && distance < -350) {
+            if (dir === 'left' && distance < -350) {
                 $(el).css('display', 'none');
+                $('#status__volt').removeClass('alert');
+                $('#status__volt #status__icon img').attr('src', 'images/icons/voltage.png');
+                $('.change__current').removeClass('alert');
             }
-            if(dir === 'right' && distance > 350) {
+            if (dir === 'right' && distance > 350) {
                 $(el).css('display', 'none');
+                $('#status__volt').removeClass('alert');
+                $('#status__volt #status__icon img').attr('src', 'images/icons/voltage.png');
+                $('.change__current').removeClass('alert');
             }
         })
     }, false)
-     window.addEventListener('load', function () {
+    window.addEventListener('load', function () {
         var el = document.getElementById('alert__door')
         ontouch(el, function (evt, dir, phase, swipetype, distance) {
             $(el).css('left', distance);
-            if(dir === 'left' && distance < -350) {
+            if (dir === 'left' && distance < -350) {
                 $(el).css('display', 'none');
+                $('#status__door').removeClass('alert');
+                $('#status__door #status__icon img').attr('src', 'images/icons/door.png');
+                $('.change__current').removeClass('alert');
             }
-            if(dir === 'right' && distance > 350) {
+            if (dir === 'right' && distance > 350) {
                 $(el).css('display', 'none');
+                $('#status__door').removeClass('alert');
+                $('#status__door #status__icon img').attr('src', 'images/icons/door.png');
+                $('.change__current').removeClass('alert');
             }
         })
     }, false)
-     window.addEventListener('load', function () {
+    window.addEventListener('load', function () {
         var el = document.getElementById('alert__smoke')
         ontouch(el, function (evt, dir, phase, swipetype, distance) {
             $(el).css('left', distance);
-            if(dir === 'left' && distance < -350) {
+            if (dir === 'left' && distance < -350) {
                 $(el).css('display', 'none');
+                $('#status__smoke').removeClass('alert');
+                $('#status__smoke #status__icon img').attr('src', 'images/icons/smoke.png');
+                $('.change__current').removeClass('alert');
             }
-            if(dir === 'right' && distance > 350) {
+            if (dir === 'right' && distance > 350) {
                 $(el).css('display', 'none');
+                $('#status__smoke').removeClass('alert');
+                $('#status__smoke #status__icon img').attr('src', 'images/icons/smoke.png');
+                $('.change__current').removeClass('alert');
             }
         })
     }, false)
-     window.addEventListener('load', function () {
+    window.addEventListener('load', function () {
         var el = document.getElementById('alert__water')
         ontouch(el, function (evt, dir, phase, swipetype, distance) {
             $(el).css('left', distance);
-            if(dir === 'left' && distance < -350) {
+            if (dir === 'left' && distance < -350) {
                 $(el).css('display', 'none');
+                $('#status__water').removeClass('alert');
+                $('#status__water #status__icon img').attr('src', 'images/icons/water.png');
+                $('.change__current').removeClass('alert');
             }
-            if(dir === 'right' && distance > 350) {
+            if (dir === 'right' && distance > 350) {
                 $(el).css('display', 'none');
             }
         })
