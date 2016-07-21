@@ -8,7 +8,9 @@
 .video__cam--two {
     .of-h;
     .va-t;
+    .relative;
     width: 294px;
+    z-index: 1;
 }
 .video__time-date {
     .relative;
@@ -21,4 +23,25 @@
     line-height: 32px;
     top: -210px;
     right: -8px;
+}
+.video__update {
+    .relative;
+    .dbc;
+    .rounded-corners(110px);
+    .pointer;
+    .ta-c;
+    margin: 0 auto;
+    width: 110px;
+    height: 110px;
+    line-height: 106px;
+    z-index: 9;
+    top: -193px;
+    &:active {
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        filter: grayscale(100%);
+        filter: gray; /* IE 6-9 */
+    }
 }
