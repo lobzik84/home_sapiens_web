@@ -8,9 +8,11 @@ $(function () {
         });
     });
     $('.history__dropdown').click(function () {
+        $('.history__dropdown').toggleClass('drop');
         $('.history__info').toggle();
     });
     $('.settings__dropdown').click(function () {
+        $('.settings__dropdown').toggleClass('drop');
         $('.settings__options, .settings__save').toggle();
     });
     $('#lamp--first-status').click(function () {
@@ -111,25 +113,36 @@ $(function () {
         // :) потом сделаю нормально
         $('#settings__value_volt--max').text(i);
     });
-    
-    
-    
     $('.password__save').on('touchstart', function () {
         $('.password__save').css('background', '#4caf50');
     });
     $('.password__save').on('touchend', function () {
         $('.password__save').css('background', '#444444');
     });
-     $('.settings__save').on('touchstart', function () {
+    $('.settings__save').on('touchstart', function () {
         $('.settings__save').css('background', '#4caf50');
     });
     $('.settings__save').on('touchend', function () {
         $('.settings__save').css('background', '#444444');
     });
-        
-    $('.password__save').click(function () {
-        var text = $('input')[0];
-        var val = text.value;
-        console.log(val);
+
+   /* var width = $('.history__info--table').width();
+    var parentWidth = $('.history__info--table').offsetParent().width();
+    var percent = 100 * width / parentWidth;
+    console.log(width);
+    console.log(parentWidth);
+    console.log(percent);*/
+
+    $(".history__info_inner2").scroll(function () {
+        $(".history__info_inner").scrollLeft($(".history__info_inner2").scrollLeft());
     });
+    $(".history__info_inner").scroll(function () {
+        $(".history__info_inner2").scrollLeft($(".history__info_inner").scrollLeft());
+    });
+
+    /*$('.password__save').click(function () {
+     var text = $('input')[0];
+     var val = text.value;
+     console.log(val);
+     });*/
 });

@@ -1,6 +1,7 @@
 .history__info {
     .none;
     .dbc;
+    .relative;
 }
 .history__time {
     .title;
@@ -8,8 +9,15 @@
 }
 .history__info--table {
     .roboto-regular;
+    table-layout: fixed;
+    width: 100%;
     margin-bottom: 25px;
     th {
+        position:absolute;
+        *position: relative; /*ie7*/
+        left:0; 
+    }
+    th, td {
         width: 75px;
         height: 70px;
         padding-left: 30px;
@@ -46,4 +54,21 @@
     .roboto-medium;
     .white;
     .dbc;
+}
+.history__info_inner {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 400px; 
+    margin-left: 100px;
+}
+.history__info_inner2 {
+    width: 300px; 
+    overflow-x: scroll; overflow-y:hidden;
+    height: 20px;
+    width: 400px; 
+    margin-left: 100px;
+}
+.secret__div {
+    width: 1000px;
+    height: 20px;
 }
