@@ -71,7 +71,7 @@
                             <div id="status__battery--color" class="status__battery--color">
                                 <img src="images/icons/battery.png">
                             </div>
-                            <div id="status__battery--percent" class="status__battery--percent"><p>100%</div>
+                            <div id="status__battery--percent" class="status__battery--percent"><p id="battery"></p>%</div>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                             <div id="status__icon" class="status__icon">
                                 <img src="images/icons/wet.png">
                             </div>
-                            <div class="status__value"><p id="status__value">34</p>%</div>
+                            <div class="status__value"><p id="status__value--wet"></p>%</div>
                             <div class="status__tip">
                                 <p class="status__tip--text">Влажность воздуха</p>
                             </div>
@@ -99,7 +99,7 @@
                             <div id="status__icon" class="status__icon">
                                 <img src="images/icons/voltage.png">
                             </div>
-                            <div class="status__value"><p id="status__value">220,5</p>В</div>
+                            <div class="status__value"><p id="status__value--volt"></p>В</div>
                             <div class="status__tip">
                                 <p class="status__tip--text">Напряжение в сети</p>
                             </div>
@@ -140,7 +140,7 @@
                             <div id="status__icon" class="status__icon">
                                 <img src="images/icons/temp-out.png">
                             </div>
-                            <div class="status__value"><p id="status__value">+24</p>&deg;</div>
+                            <div class="status__value"><p id="status__value--temp-out"></p>&deg;</div>
                             <div class="status__tip">
                                 <p class="status__tip--text">Температура на улице</p>
                             </div>
@@ -169,71 +169,15 @@
                         <table class="history__info--table">
                             <tr class="history__time">
                                 <th></th>
-                                <td><p id="time-23">01:00</p></td>
-                                <td><p id="time-22">02:00</p></td>
-                                <td><p id="time-21">03:00</p></td>
-                                <td><p id="time-20">04:00</p></td>
-                                <td><p id="time-19">05:00</p></td>
-                                <td><p id="time-18">06:00</p></td>
-                                <td><p id="time-17">07:00</p></td>
-                                <td><p id="time-16">08:00</p></td>
-                                <td><p id="time-15">09:00</p></td>
-                                <td><p id="time-14">10:00</p></td>
-                                <td><p id="time-13">11:00</p></td>
-                                <td><p id="time-12">12:00</p></td>
-                                <td><p id="time-11">13:00</p></td>
-                                <td><p id="time-10">14:00</p></td>
-                                <td><p id="time-9">15:00</p></td>
-                                <td><p id="time-8">16:00</p></td>
-                                <td><p id="time-7">17:00</p></td>
-                                <td><p id="time-6">18:00</p></td>
-                                <td><p id="time-5">19:00</p></td>
-                                <td><p id="time-4">20:00</p></td>
-                                <td><p id="time-3">21:00</p></td>
-                                <td><p id="time-2">22:00</p></td>
-                                <td><p id="time-1">23:00</p></td>
-                                <td><p id="time-0">00:00</p></td>
                             </tr>
                             <tr class="history__temp">
                                 <th><img src="images/history_icons/temp.png"></th>
-                                <td><p id="history__temp--one">+15</p>&deg;</td>
-                                <td><p id="history__temp--two">+18</p>&deg;</td>
-                                <td><p id="history__temp--three">+15</p>&deg;</td>
-                                <td><p id="history__temp--four">+17</p>&deg;</td>
-                                <td><p id="history__temp--one">+15</p>&deg;</td>
-                                <td><p id="history__temp--two">+18</p>&deg;</td>
-                                <td><p id="history__temp--three">+15</p>&deg;</td>
-                                <td><p id="history__temp--four">+17</p>&deg;</td>
-                                <td><p id="history__temp--one">+15</p>&deg;</td>
-                                <td><p id="history__temp--two">+18</p>&deg;</td>
-                                <td><p id="history__temp--three">+15</p>&deg;</td>
-                                <td><p id="history__temp--four">+17</p>&deg;</td>
-                                <td><p id="history__temp--one">+15</p>&deg;</td>
-                                <td><p id="history__temp--two">+18</p>&deg;</td>
-                                <td><p id="history__temp--three">+15</p>&deg;</td>
-                                <td><p id="history__temp--four">+17</p>&deg;</td>
-                                <td><p id="history__temp--one">+15</p>&deg;</td>
-                                <td><p id="history__temp--two">+18</p>&deg;</td>
-                                <td><p id="history__temp--three">+15</p>&deg;</td>
-                                <td><p id="history__temp--four">+17</p>&deg;</td>
-                                <td><p id="history__temp--one">+15</p>&deg;</td>
-                                <td><p id="history__temp--two">+18</p>&deg;</td>
-                                <td><p id="history__temp--three">+15</p>&deg;</td>
-                                <td><p id="history__temp--four">+17</p>&deg;</td>
                             </tr>
                             <tr class="history__wet">
                                 <th><img src="images/history_icons/wet.png"></th>
-                                <td><p id="history__wet--one">44</p>%</td>
-                                <td><p id="history__wet--two">42</p>%</td>
-                                <td><p id="history__wet--three">40</p>%</td>
-                                <td><p id="history__wet--four">38</p>%</td>
                             </tr>
                             <tr class="history__volt">
                                 <th><img src="images/history_icons/volt.png"></th>
-                                <td><p id="history__volt--one">220</p>В</td>
-                                <td><p id="history__volt--two">221</p>В</td>
-                                <td><p id="history__volt--three">220</p>В</td>
-                                <td><p id="history__volt--four">220</p>В</td>
                             </tr>
                             <tr>
                                 <th><img src="images/icons/door2.png"></th>

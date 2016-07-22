@@ -876,6 +876,8 @@ strong {
 }
 .history__info--table {
   font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  text-align: center;
+  vertical-align: middle;
   table-layout: fixed;
   width: 100%;
   margin-bottom: 25px;
@@ -926,7 +928,7 @@ strong {
   background: #333333;
 }
 .history__info_inner {
-  overflow-x: hidden;
+  overflow-x: scroll;
   overflow-y: hidden;
   width: 400px;
   margin-left: 100px;
@@ -940,7 +942,7 @@ strong {
   margin-left: 100px;
 }
 .secret__div {
-  width: 1000px;
+  width: 400px;
   height: 20px;
 }
 .mode {
