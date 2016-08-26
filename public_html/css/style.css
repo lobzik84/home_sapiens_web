@@ -66,6 +66,10 @@ td {
   font-size: 100%;
   vertical-align: baseline;
 }
+body {
+  width: 1128px;
+  margin: auto;
+}
 ol,
 ul {
   list-style: none;
@@ -773,7 +777,7 @@ strong {
 .roboto-regular {
   font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
 }
-@media device and (min-width: 320px) and (max-width: 768px) {
+@media all and (min-device-width: 320px) and (max-device-width: 768px) {
   body {
     overflow-x: hidden;
     line-height: 1;
@@ -1187,4 +1191,24 @@ strong {
   /* IE 6-9 */
 }
 /*WEB PAGE*/
+.web .header {
+  text-align: center;
+  width: 100%;
+  height: 65px;
+}
+.web .header__title {
+  display: inline-block;
+}
+.web .header__location {
+  display: inline-block;
+}
+.web .header__mode {
+  display: inline-block;
+}
+.web .header__stats {
+  display: inline-block;
+}
+.web .header__settings {
+  display: inline-block;
+}
 /*# sourceMappingURL=style.css.map */
