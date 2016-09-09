@@ -733,7 +733,7 @@ strong {
   cursor: pointer;
   display: inline-block;
   background: #e5e5e5;
-  margin-top: 20px;
+  margin-top: 14px;
   width: 105px;
   height: 35px;
   line-height: 35px;
@@ -751,5 +751,89 @@ strong {
 .web .header__settings {
   display: inline-block;
   float: right;
+  padding-top: 25px;
+}
+.status__icons,
+.status__signal,
+.status__server,
+.status__battery,
+.status__battery--color,
+.status__battery--percent,
+#battery {
+  display: inline-block;
+}
+.status__signal,
+.status__server,
+.status__battery {
+  padding-right: 5px;
+}
+.status__battery--color,
+.status__signal,
+.status__server {
+  vertical-align: sub;
+}
+.status__icons {
+  vertical-align: top;
+  padding-left: 20px;
+  height: 65px;
+  line-height: 65px;
+}
+.status__indicators {
+  margin: 20px 0 20px 0;
+}
+.status__item {
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  cursor: pointer;
+  margin: 0 -4px -1px 0;
+  width: 194px;
+  height: 162px;
+}
+.status__item:hover {
+  background: #444444;
+}
+#status__temp {
+  margin-left: 5px;
+}
+#status__door {
+  margin-left: 5px;
+}
+#status__water {
+  margin-left: 5px;
+}
+@media only screen and (max-device-width: 768px) {
+  .status__item:hover {
+    background: none;
+  }
+}
+.status__icon {
+  height: 97px;
+  line-height: 97px;
+}
+.status__icon--noeq {
+  height: 162px;
+  line-height: 162px;
+}
+.status__value {
+  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
+  height: 65px;
+  line-height: 65px;
+  font-size: 44px;
+}
+.status__tip {
+  position: relative;
+  text-align: center;
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  display: none;
+  background: #444444;
+  font-size: 28px;
+  width: 194px;
+  height: 162px;
+  top: -162px;
+}
+.status__tip--text {
+  position: relative;
+  top: 34%;
 }
 /*# sourceMappingURL=desktop.css.map */

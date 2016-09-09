@@ -1,0 +1,82 @@
+.status__icons,
+.status__signal,
+.status__server,
+.status__battery,
+.status__battery--color,
+.status__battery--percent,
+#battery {
+    .inline-b;
+}
+.status__signal,
+.status__server,
+.status__battery {
+    padding-right: 5px;
+}
+.status__battery--color,
+.status__signal,
+.status__server,{
+    vertical-align: sub;
+}
+
+
+.status__icons {
+    .va-t;
+    padding-left: 20px;
+    height: 65px;
+    line-height: 65px;
+}
+
+.status__indicators {
+    margin: 20px 0 20px 0;
+}
+.status__item {
+    .inline-b;
+    .ta-c;
+    .va-t;
+    .pointer;
+    margin: 0 -4px -1px 0;
+    width: 194px;
+    height: 162px;
+    &:hover {
+        .bbc;
+    }
+}
+#status__temp{margin-left: 5px;}
+#status__door{margin-left: 5px;}
+#status__water{margin-left: 5px;}
+@media only screen and (max-device-width: 768px) {
+    .status__item {
+        &:hover {
+            background: none;
+        }
+    }
+}
+.status__icon {
+    height: 97px;
+    line-height: 97px;
+}
+.status__icon--noeq {
+    height: 162px;
+    line-height: 162px;
+}
+.status__value {
+    .roboto-medium;
+    height: 65px;
+    line-height: 65px;
+    font-size: 44px;
+}
+.status__tip {
+    .relative;
+    .ta-c;
+    .roboto-regular;
+    .none;
+    .bbc;
+    font-size: 28px;
+    width: 194px;
+    height: 162px;
+    top: -162px;
+}
+.status__tip--text {
+    .relative;
+    top: 34%;
+}

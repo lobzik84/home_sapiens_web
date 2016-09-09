@@ -12,7 +12,7 @@
                 <div class="header__inner">
                     <div class="header__title">Управдом</div>
                     <div class="header__location web__location">
-                        <p class="location">Дача<span class="header__arrow">&#9660;<span></p>
+                        <p class="location">Дача<span class="header__arrow">&#9660;</span></p>
                         <div class="web__location_list none">
                             <p>Квартира</p>
                             <p>Офис</p>
@@ -42,7 +42,90 @@
                     <div class="header__settings">Настройки</div>
                 </div>
             </header>
-            <div class="main__block"></div>
+            <div class="main__block">
+
+                <div class="status__indicators">
+                    <ul class="status__list">
+                        <li id="status__temp" class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="images/icons/temp.png">
+                            </div>
+                            <div class="status__value"><p id="status__value--temp"></p>&deg;</div>
+                            <div class="status__tip">
+                                <p class="status__tip--text">Температура в доме</p>
+                            </div>
+                        </li>
+                        <li id="status__wet" class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="images/icons/wet.png">
+                            </div>
+                            <div class="status__value"><p id="status__value--wet"></p>%</div>
+                            <div class="status__tip">
+                                <p class="status__tip--text">Влажность воздуха</p>
+                            </div>
+                        </li>
+                        <li id="status__volt" class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="images/icons/voltage.png">
+                            </div>
+                            <div class="status__value"><p id="status__value--volt"></p>В</div>
+                            <div class="status__tip">
+                                <p class="status__tip--text">Напряжение в сети</p>
+                            </div>
+                        </li>
+                        <li id="status__door" class="status__item">
+                            <div id="status__icon" class="status__icon--noeq">
+                                <img src="images/icons/door.png">
+                            </div>
+                            <div class="status__tip">
+                                <p class="status__tip--text">Дверь</p>
+                            </div>
+                        </li>
+                        <li id="status__smoke" class="status__item">
+                            <div id="status__icon" class="status__icon--noeq">
+                                <img src="images/icons/smoke.png">
+                            </div>
+                            <div class="status__tip">
+                                <p class="status__tip--text">Продукты горения</p>
+                            </div>
+                        </li>
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon--noeq">
+                                <img src="images/icons/motion.png">
+                            </div>
+                            <div class="status__tip">
+                                <p class="status__tip--text">Движение</p>
+                            </div>
+                        </li>
+                        <li id="status__water" class="status__item">
+                            <div id="status__icon" class="status__icon--noeq">
+                                <img src="images/icons/water.png">
+                            </div>
+                            <div class="status__tip">
+                                <p class="status__tip--text">Потоп</p>
+                            </div>
+                        </li>
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon">
+                                <img src="images/icons/temp-out.png">
+                            </div>
+                            <div class="status__value"><p id="status__value--temp-out"></p>&deg;</div>
+                            <div class="status__tip">
+                                <p class="status__tip--text">Температура на улице</p>
+                            </div>
+                        </li>
+                        <li class="status__item">
+                            <div id="status__icon" class="status__icon--noeq">
+                                <img src="images/icons/voice.png">
+                            </div>
+                            <div class="status__tip">
+                                <p class="status__tip--text">Шум</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
         </main>
         <footer></footer>
     </body>
