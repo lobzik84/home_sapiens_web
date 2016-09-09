@@ -11,25 +11,33 @@
             <header class="header">
                 <div class="header__inner">
                     <div class="header__title">Управдом</div>
-                    <div class="header__location">
-                        <ul>
-                            <li>Дача</li>
-                            <li>Квартира</li>
-                            <li>Офис</li>
-                        </ul>
+                    <div class="header__location web__location">
+                        <p class="location">Дача<span class="header__arrow">&#9660;<span></p>
+                        <div class="web__location_list none">
+                            <p>Квартира</p>
+                            <p>Офис</p>
+                        </div>
                     </div>
                     <div class="header__mode">
-                        <ul>
-                            <li>Хозяин дома</li>
-                            <li>Охрана</li>
-                        </ul>
+                        <div id="mode__master" class="mode__change change__current">Хозяин дома</div>
+                        <div id="mode__security" class="mode__change">Охрана</div>
                     </div>
-                    <div class="header__stats">
-                        <ul>
-                            <li>сеть</li>
-                            <li>серв</li>
-                            <li>|| 100%</li>
-                        </ul>
+                    <div class="status__icons">
+                        <div id="status__signal" class="status__signal">
+                            <!--div id="status__signal--low" class="status__signal--low">1</div>
+                            <div id="status__signal--mid" class="status__signal--mid">2</div>
+                            <div id="status__signal--high" class="status__signal--high">3</div-->
+                            <img src="images/desktop/signal.png">
+                        </div>
+                        <div id="status__server" class="status__server">
+                            <img src="images/desktop/server.png">
+                        </div>
+                        <div id="status__battery" class="status__battery">
+                            <div id="status__battery--color" class="status__battery--color">
+                                <img src="images/desktop/battery.png">
+                            </div>
+                            <div id="status__battery--percent" class="status__battery--percent"><p id="battery"></p>%</div>
+                        </div>
                     </div>
                     <div class="header__settings">Настройки</div>
                 </div>

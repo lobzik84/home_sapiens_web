@@ -145,4 +145,5 @@ $(function () {
      var val = text.value;
      console.log(val);
      });*/
+    console.log('ok');
 });

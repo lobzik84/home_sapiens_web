@@ -688,9 +688,10 @@ strong {
   -moz-box-shadow: 0 1px 4px #cccccc;
   -webkit-box-shadow: 0 1px 4px #cccccc;
   box-shadow: 0 1px 4px #cccccc;
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  font-size: 14px;
   width: 100%;
   height: 65px;
-  line-height: 65px;
   background-color: #ffffff;
 }
 .web .header__inner {
@@ -705,12 +706,44 @@ strong {
   text-transform: uppercase;
   font-size: 26px;
   margin-right: 180px;
+  padding-top: 20px;
 }
 .web .header__location {
   display: inline-block;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 10px 10px 10px 15px;
+  margin-right: 20px;
+  border: 1px solid #cccccc;
+}
+.web .header__arrow {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 5px;
+  font-size: 8px;
 }
 .web .header__mode {
   display: inline-block;
+}
+.web .mode__change {
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  background: #e5e5e5;
+  margin-top: 20px;
+  width: 105px;
+  height: 35px;
+  line-height: 35px;
+}
+.web .mode__change:last-child {
+  margin-left: -5px;
+}
+.web .change__current {
+  color: #fff;
+  background: #4caf50;
 }
 .web .header__stats {
   display: inline-block;
@@ -718,7 +751,5 @@ strong {
 .web .header__settings {
   display: inline-block;
   float: right;
-  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
-  font-size: 14px;
 }
 /*# sourceMappingURL=desktop.css.map */
