@@ -1,0 +1,40 @@
+.video {
+    .ta-c;
+}
+.video__cam--one,
+.video__cam--two {
+    .inline-b;
+    .va-t;
+}
+.video__time-date {
+    .relative;
+    .roboto-regular;
+    .rounded-corners(@radius: 3px);
+    font-size: 12px;
+    background-color: #ffffff;
+    width: 105px;
+    padding: 5px 0 5px 0;
+    margin: auto;
+    top: -415px;
+}
+.video__update {
+    .relative;
+    .rounded-corners(60px);
+    .pointer;
+    .ta-c;
+    background-color: #ffffff;
+    margin: 0 auto;
+    width: 60px;
+    height: 60px;
+    line-height: 91px;
+    z-index: 9;
+    top: -260px;
+    &:active {
+        -webkit-filter: grayscale(100%);
+        -moz-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+        -o-filter: grayscale(100%);
+        filter: grayscale(100%);
+        filter: gray; /* IE 6-9 */
+    }
+}
