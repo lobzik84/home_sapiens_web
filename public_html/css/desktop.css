@@ -24,7 +24,6 @@ code,
 del,
 dfn,
 em,
-font,
 img,
 ins,
 kbd,
@@ -35,6 +34,7 @@ small,
 strike,
 strong,
 sub,
+sup,
 tt,
 var,
 b,
@@ -58,29 +58,51 @@ tfoot,
 thead,
 tr,
 th,
-td {
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
-  outline: 0;
   font-size: 100%;
+  font: inherit;
   vertical-align: baseline;
 }
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
 body {
-  overflow-x: hidden;
   line-height: 1;
-  color: #fff;
-  background-color: #A9A9A9;
-  width: 593px;
-  /*запрет на выделение текста*/
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  /*запрет на подсветку блока при событии touch на мобильном устройстве*/
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  margin: auto;
+  background-color: #e9ebee;
 }
 ol,
 ul {
@@ -97,139 +119,9 @@ q:after {
   content: '';
   content: none;
 }
-:focus {
-  outline: 0;
-}
-ins {
-  text-decoration: none;
-}
-del {
-  text-decoration: line-through;
-}
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-button,
-input,
-select,
-textarea {
-  margin: 0;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: normal;
-}
-img {
-  vertical-align: middle;
-}
-/******/
-h1 {
-  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
-  margin-left: 60px;
-  display: inline-block;
-  font-size: 36px;
-}
-h2 {
-  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
-  text-align: center;
-  color: #999999;
-  font-size: 32px;
-}
-p {
-  display: inline-block;
-}
-input {
-  display: block;
-  text-align: center;
-  font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
-  margin: 15px auto;
-  border: 1px solid #cccccc;
-  background: #ffffff !important;
-  outline: none;
-  height: 50px;
-  width: 90%;
-  font-size: 30px;
-}
-#status__value,
-.status__icons,
-.status__signal,
-.status__server,
-.status__battery,
-.status__signal--low,
-.status__signal--mid,
-.status__signal--high,
-.status__battery--color,
-.status__battery--percent,
-.history__interval--month,
-.history__interval--week,
-.history__interval--today,
-.video__cam--one,
-.video__cam--two,
-.video--date,
-.video--time,
-.control__item,
-.mode__change,
-#settings__value_temp--min,
-#settings__value_temp--max,
-#settings__value_volt--min,
-#settings__value_volt--max,
-.alerts__img,
-.alerts__message,
-.alerts__value {
-  display: inline-block;
-}
-.on {
-  color: #4caf50 !important;
-}
-.button {
-  cursor: pointer;
-}
-.history__top,
-.settings__top {
-  background: #444444;
-  height: 74px;
-  line-height: 74px;
-}
-.history__dropdown,
-.settings__dropdown {
-  display: inline-block;
-  float: right;
-  padding-right: 60px;
-  cursor: pointer;
-  width: 17%;
-  height: 100%;
-  background: url(../images/dd_arrow_bottom.png) no-repeat center center;
-}
-.drop {
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-.mobile {
-  display: block;
-  width: 593px;
-  min-width: 593px;
-  background-color: #1a1a1a;
 }
 .white {
   color: #fff;
@@ -299,6 +191,9 @@ input {
 }
 .tdu {
   text-decoration: underline;
+}
+.ttu {
+  text-transform: uppercase;
 }
 .invert {
   text-decoration: none;
@@ -788,5 +683,42 @@ strong {
 }
 .roboto-regular {
   font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+}
+.web .header {
+  -moz-box-shadow: 0 1px 4px #cccccc;
+  -webkit-box-shadow: 0 1px 4px #cccccc;
+  box-shadow: 0 1px 4px #cccccc;
+  width: 100%;
+  height: 65px;
+  line-height: 65px;
+  background-color: #ffffff;
+}
+.web .header__inner {
+  width: 1128px;
+  margin: auto;
+}
+.web .header__title {
+  display: inline-block;
+  float: left;
+  font-family: 'getvoip_grotesque', Arial, Helvetica, sans-serif;
+  color: #3f51b5;
+  text-transform: uppercase;
+  font-size: 26px;
+  margin-right: 180px;
+}
+.web .header__location {
+  display: inline-block;
+}
+.web .header__mode {
+  display: inline-block;
+}
+.web .header__stats {
+  display: inline-block;
+}
+.web .header__settings {
+  display: inline-block;
+  float: right;
+  font-family: 'roboto-regular', Arial, Helvetica, sans-serif;
+  font-size: 14px;
 }
 /*# sourceMappingURL=desktop.css.map */
