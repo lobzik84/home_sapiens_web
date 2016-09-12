@@ -1,4 +1,12 @@
 $(function () {
+    $('.home').hide();
+    $('.registration').show();
+    $("#phone").mask("+7(999)999-99-99");
+    $('#enter').click(function() {
+        $('.registration').hide();
+        $('.home').show();    
+    });
+    
     $('.status__item').each(function () {
         $(this).click(function () {
             $('.status__tip', this).fadeIn('fast');

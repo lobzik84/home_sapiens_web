@@ -11,291 +11,303 @@
     </head>
     <body>
         <main class="mobile">
-            <div class="alerts">
-                <div id="alert__temp" class="alerts__block">
-                    <div class="alerts__img"><img src="images/icons_alerts/temp-a.png"></div>
-                    <div class="alerts__message">
-                        Превышение максимального значения температуры!
-                        <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
-                    </div>
-                    <div class="alerts__value">+<p>34</p>&deg;</div>
-                </div>
-                <div id="alert__volt" class="alerts__block">
-                    <div class="alerts__img"><img src="images/icons_alerts/volt-a.png"></div>
-                    <div class="alerts__message">
-                        Напряжение!
-                        <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
-                    </div>
-                    <div class="alerts__value"><p>240</p>В</div>
-                </div>
-                <div id="alert__door" class="alerts__block">
-                    <div class="alerts__img"><img src="images/icons_alerts/door-a.png"></div>
-                    <div class="alerts__message">
-                        Открыта дверь!
-                        <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
-                    </div>
-                </div>
-                <div id="alert__smoke" class="alerts__block">
-                    <div class="alerts__img"><img src="images/icons_alerts/smoke-a.png"></div>
-                    <div class="alerts__message">
-                        Обнаружен дым!
-                        <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
-                    </div>
-                </div>
-                <div id="alert__water" class="alerts__block">
-                    <div class="alerts__img"><img src="images/icons_alerts/water-a.png"></div>
-                    <div class="alerts__message">
-                        Потоп!
-                        <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
-                    </div>
-                </div>
-            </div>
-            <div class="header">
-                <div class="header__title">Управдом</div>
-                <div id="header__location" class="header__location">Дача</div>
-            </div>
-            <div class="status">
-                <div class="status__top">
-                    <div id="mode__current" class="mode__current">Хозяин дома</div>
-                    <div class="status__icons">
-                        <div id="status__signal" class="status__signal">
-                            <!--div id="status__signal--low" class="status__signal--low">1</div>
-                            <div id="status__signal--mid" class="status__signal--mid">2</div>
-                            <div id="status__signal--high" class="status__signal--high">3</div-->
-                            <img src="images/icons/signal.png">
+            <div class="home">
+                <div class="alerts">
+                    <div id="alert__temp" class="alerts__block">
+                        <div class="alerts__img"><img src="images/icons_alerts/temp-a.png"></div>
+                        <div class="alerts__message">
+                            Превышение максимального значения температуры!
+                            <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
                         </div>
-                        <div id="status__server" class="status__server">
-                            <img src="images/icons/server.png">
+                        <div class="alerts__value">+<p>34</p>&deg;</div>
+                    </div>
+                    <div id="alert__volt" class="alerts__block">
+                        <div class="alerts__img"><img src="images/icons_alerts/volt-a.png"></div>
+                        <div class="alerts__message">
+                            Напряжение!
+                            <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
                         </div>
-                        <div id="status__battery" class="status__battery">
-                            <div id="status__battery--color" class="status__battery--color">
-                                <img src="images/icons/battery.png">
-                            </div>
-                            <div id="status__battery--percent" class="status__battery--percent"><p id="battery"></p>%</div>
+                        <div class="alerts__value"><p>240</p>В</div>
+                    </div>
+                    <div id="alert__door" class="alerts__block">
+                        <div class="alerts__img"><img src="images/icons_alerts/door-a.png"></div>
+                        <div class="alerts__message">
+                            Открыта дверь!
+                            <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
+                        </div>
+                    </div>
+                    <div id="alert__smoke" class="alerts__block">
+                        <div class="alerts__img"><img src="images/icons_alerts/smoke-a.png"></div>
+                        <div class="alerts__message">
+                            Обнаружен дым!
+                            <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
+                        </div>
+                    </div>
+                    <div id="alert__water" class="alerts__block">
+                        <div class="alerts__img"><img src="images/icons_alerts/water-a.png"></div>
+                        <div class="alerts__message">
+                            Потоп!
+                            <div class="alerts__message--time">3 раза, последний<br>01.07.2016, 23:21</div>
                         </div>
                     </div>
                 </div>
-                <div class="status__indicators">
-                    <ul class="status__list">
-                        <li id="status__temp" class="status__item">
-                            <div id="status__icon" class="status__icon">
-                                <img src="images/icons/temp.png">
-                            </div>
-                            <div class="status__value"><p id="status__value--temp"></p>&deg;</div>
-                            <div class="status__tip">
-                                <p class="status__tip--text">Температура в доме</p>
-                            </div>
-                        </li>
-                        <li id="status__wet" class="status__item">
-                            <div id="status__icon" class="status__icon">
-                                <img src="images/icons/wet.png">
-                            </div>
-                            <div class="status__value"><p id="status__value--wet"></p>%</div>
-                            <div class="status__tip">
-                                <p class="status__tip--text">Влажность воздуха</p>
-                            </div>
-                        </li>
-                        <li id="status__volt" class="status__item">
-                            <div id="status__icon" class="status__icon">
-                                <img src="images/icons/voltage.png">
-                            </div>
-                            <div class="status__value"><p id="status__value--volt"></p>В</div>
-                            <div class="status__tip">
-                                <p class="status__tip--text">Напряжение в сети</p>
-                            </div>
-                        </li>
-                        <li id="status__door" class="status__item">
-                            <div id="status__icon" class="status__icon--noeq">
-                                <img src="images/icons/door.png">
-                            </div>
-                            <div class="status__tip">
-                                <p class="status__tip--text">Дверь</p>
-                            </div>
-                        </li>
-                        <li id="status__smoke" class="status__item">
-                            <div id="status__icon" class="status__icon--noeq">
-                                <img src="images/icons/smoke.png">
-                            </div>
-                            <div class="status__tip">
-                                <p class="status__tip--text">Продукты горения</p>
-                            </div>
-                        </li>
-                        <li class="status__item">
-                            <div id="status__icon" class="status__icon--noeq">
-                                <img src="images/icons/motion.png">
-                            </div>
-                            <div class="status__tip">
-                                <p class="status__tip--text">Движение</p>
-                            </div>
-                        </li>
-                        <li id="status__water" class="status__item">
-                            <div id="status__icon" class="status__icon--noeq">
-                                <img src="images/icons/water.png">
-                            </div>
-                            <div class="status__tip">
-                                <p class="status__tip--text">Потоп</p>
-                            </div>
-                        </li>
-                        <li class="status__item">
-                            <div id="status__icon" class="status__icon">
-                                <img src="images/icons/temp-out.png">
-                            </div>
-                            <div class="status__value"><p id="status__value--temp-out"></p>&deg;</div>
-                            <div class="status__tip">
-                                <p class="status__tip--text">Температура на улице</p>
-                            </div>
-                        </li>
-                        <li class="status__item">
-                            <div id="status__icon" class="status__icon--noeq">
-                                <img src="images/icons/voice.png">
-                            </div>
-                            <div class="status__tip">
-                                <p class="status__tip--text">Шум</p>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="header">
+                    <div class="header__title">Управдом</div>
+                    <div id="header__location" class="header__location">Дача</div>
                 </div>
-            </div>
-            <div class="history">
-                <div class="history__top">
-                    <h1>История</h1>
-                    <div class="history__dropdown"></div>
-                </div>
-                <div class="history__info">
-                    <div class="history__info_inner2">
-                        <div class="secret__div"></div>
+                <div class="status">
+                    <div class="status__top">
+                        <div id="mode__current" class="mode__current">Хозяин дома</div>
+                        <div class="status__icons">
+                            <div id="status__signal" class="status__signal">
+                                <!--div id="status__signal--low" class="status__signal--low">1</div>
+                                <div id="status__signal--mid" class="status__signal--mid">2</div>
+                                <div id="status__signal--high" class="status__signal--high">3</div-->
+                                <img src="images/icons/signal.png">
+                            </div>
+                            <div id="status__server" class="status__server">
+                                <img src="images/icons/server.png">
+                            </div>
+                            <div id="status__battery" class="status__battery">
+                                <div id="status__battery--color" class="status__battery--color">
+                                    <img src="images/icons/battery.png">
+                                </div>
+                                <div id="status__battery--percent" class="status__battery--percent"><p id="battery"></p>%</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="history__info_inner">
-                        <table class="history__info--table">
-                            <tr class="history__time">
+                    <div class="status__indicators">
+                        <ul class="status__list">
+                            <li id="status__temp" class="status__item">
+                                <div id="status__icon" class="status__icon">
+                                    <img src="images/icons/temp.png">
+                                </div>
+                                <div class="status__value"><p id="status__value--temp"></p>&deg;</div>
+                                <div class="status__tip">
+                                    <p class="status__tip--text">Температура в доме</p>
+                                </div>
+                            </li>
+                            <li id="status__wet" class="status__item">
+                                <div id="status__icon" class="status__icon">
+                                    <img src="images/icons/wet.png">
+                                </div>
+                                <div class="status__value"><p id="status__value--wet"></p>%</div>
+                                <div class="status__tip">
+                                    <p class="status__tip--text">Влажность воздуха</p>
+                                </div>
+                            </li>
+                            <li id="status__volt" class="status__item">
+                                <div id="status__icon" class="status__icon">
+                                    <img src="images/icons/voltage.png">
+                                </div>
+                                <div class="status__value"><p id="status__value--volt"></p>В</div>
+                                <div class="status__tip">
+                                    <p class="status__tip--text">Напряжение в сети</p>
+                                </div>
+                            </li>
+                            <li id="status__door" class="status__item">
+                                <div id="status__icon" class="status__icon--noeq">
+                                    <img src="images/icons/door.png">
+                                </div>
+                                <div class="status__tip">
+                                    <p class="status__tip--text">Дверь</p>
+                                </div>
+                            </li>
+                            <li id="status__smoke" class="status__item">
+                                <div id="status__icon" class="status__icon--noeq">
+                                    <img src="images/icons/smoke.png">
+                                </div>
+                                <div class="status__tip">
+                                    <p class="status__tip--text">Продукты горения</p>
+                                </div>
+                            </li>
+                            <li class="status__item">
+                                <div id="status__icon" class="status__icon--noeq">
+                                    <img src="images/icons/motion.png">
+                                </div>
+                                <div class="status__tip">
+                                    <p class="status__tip--text">Движение</p>
+                                </div>
+                            </li>
+                            <li id="status__water" class="status__item">
+                                <div id="status__icon" class="status__icon--noeq">
+                                    <img src="images/icons/water.png">
+                                </div>
+                                <div class="status__tip">
+                                    <p class="status__tip--text">Потоп</p>
+                                </div>
+                            </li>
+                            <li class="status__item">
+                                <div id="status__icon" class="status__icon">
+                                    <img src="images/icons/temp-out.png">
+                                </div>
+                                <div class="status__value"><p id="status__value--temp-out"></p>&deg;</div>
+                                <div class="status__tip">
+                                    <p class="status__tip--text">Температура на улице</p>
+                                </div>
+                            </li>
+                            <li class="status__item">
+                                <div id="status__icon" class="status__icon--noeq">
+                                    <img src="images/icons/voice.png">
+                                </div>
+                                <div class="status__tip">
+                                    <p class="status__tip--text">Шум</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="history">
+                    <div class="history__top">
+                        <h1>История</h1>
+                        <div class="history__dropdown"></div>
+                    </div>
+                    <div class="history__info">
+                        <div class="history__info_inner2">
+                            <div class="secret__div"></div>
+                        </div>
+                        <div class="history__info_inner">
+                            <table class="history__info--table">
+                                <tr class="history__time">
+                                    <th></th>
+                                </tr>
+                                <tr class="history__temp">
+                                    <th><img src="images/history_icons/temp.png"></th>
+                                </tr>
+                                <tr class="history__wet">
+                                    <th><img src="images/history_icons/wet.png"></th>
+                                </tr>
+                                <tr class="history__volt">
+                                    <th><img src="images/history_icons/volt.png"></th>
+                                </tr>
+                                <tr>
+                                    <th><img src="images/icons/door2.png"></th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><img src="images/icons/smoke2.png"></th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><img src="images/icons/motion2.png"></th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><img src="images/icons/water2.png"></th>
+                                    <td></td>
+                            </table>
+                        </div>
+                        <div class="history__interval">
+                            <div class="history__interval--month">Месяц</div>
+                            <div class="history__interval--week">Неделя</div>
+                            <div class="history__interval--today history__interval--current">Сегодня</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video">
+                    <!--h2>Видеонаблюдение</h2-->
+                    <div id="video__block" class="video__block">
+                        <div class="video__cam--one">
+                            <img src="images/video1.png">
+                            <div class="video__time-date">
+                                <time id="video--date" class="video--date">30.06.16,</time>
+                                <time id="video--time" class="video--time"> 17:44</time>
+                            </div>
+                        </div>
+                        <div class="video__cam--two">
+                            <img src="images/video2.png">
+                        </div>
+                        <div class="video__update">
+                            <img src="images/update.png" alt="update">
+                        </div>
+                    </div>
+                </div>
+                <div class="control">
+                    <h2>Управление</h2>
+                    <div id="lamp--first-status" class="control__item">
+                        <div id="lamp--first" class="control__img"><img src="images/lamp-off.png"></div>
+                        <p class="control__name">Лампа</p>
+                        <p class="control__status">Выключена</p>
+                    </div>
+                    <div id="socket--status" class="control__item">
+                        <div id="socket" class="control__img"><img src="images/socket-off.png"></div>
+                        <p class="control__name">Розетка</p>
+                        <p class="control__status">Выключена</p>
+                    </div>
+                    <div id="lamp--second-status" class="control__item">
+                        <div id="lamp--second" class="control__img"><img src="images/lamp-off.png"></div>
+                        <p class="control__name">Лампа</p>
+                        <p class="control__status">Выключена</p>
+                    </div>
+                </div>
+                <div class="mode">
+                    <h2>Режим работы</h2>
+                    <div id="mode__master" class="mode__change change__current">Хозяин дома</div>
+                    <div id="mode__security" class="mode__change">Охрана</div>
+                </div>
+                <div class="settings">
+                    <div class="settings__top">
+                        <h1>Настройки</h1>
+                        <div class="settings__dropdown"></div>
+                    </div>
+                    <div class="settings__options">
+                        <table>
+                            <tr>
+                                <th><img src="images/icons/temp.png"></th>
+                                <td class="settings__name">Min</td>
+                                <td class="settings__temp_min--minus button"><img src="images/minus.png"></td>
+                                <td class="settings__value">+<p id="settings__value_temp--min">12</p>&deg;</td>
+                                <td class="settings__temp_min--plus button"><img src="images/plus.png"></td>
+                            </tr>
+                            <tr>
                                 <th></th>
-                            </tr>
-                            <tr class="history__temp">
-                                <th><img src="images/history_icons/temp.png"></th>
-                            </tr>
-                            <tr class="history__wet">
-                                <th><img src="images/history_icons/wet.png"></th>
-                            </tr>
-                            <tr class="history__volt">
-                                <th><img src="images/history_icons/volt.png"></th>
-                            </tr>
-                            <tr>
-                                <th><img src="images/icons/door2.png"></th>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th><img src="images/icons/smoke2.png"></th>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th><img src="images/icons/motion2.png"></th>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <th><img src="images/icons/water2.png"></th>
-                                <td></td>
+                                <td class="settings__name">Max</td>
+                                <td class="settings__temp_max--minus button"><img src="images/minus.png"></td>
+                                <td class="settings__value">+<p id="settings__value_temp--max">30</p>&deg;</td>
+                                <td class="settings__temp_max--plus button"><img src="images/plus.png"></td>
+                            </tr>                    
                         </table>
                     </div>
-                    <div class="history__interval">
-                        <div class="history__interval--month">Месяц</div>
-                        <div class="history__interval--week">Неделя</div>
-                        <div class="history__interval--today history__interval--current">Сегодня</div>
+                    <div class="settings__options">
+                        <table>
+                            <tr>
+                                <th><img src="images/icons/voltage.png"></th>
+                                <td class="settings__name">Min</td>
+                                <td class="settings__volt_min--minus button"><img src="images/minus.png"></td>
+                                <td class="settings__value"><p id="settings__value_volt--min">200</p>В</td>
+                                <td class="settings__volt_min--plus button"><img src="images/plus.png"></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td class="settings__name">Max</td>
+                                <td class="settings__volt_max--minus button"><img src="images/minus.png"></td>
+                                <td class="settings__value"><p id="settings__value_volt--max">240</p>В</td>
+                                <td class="settings__volt_max--plus button"><img src="images/plus.png"></td>
+                            </tr>                    
+                        </table>
+                    </div>
+                    <div class="settings__save">
+                        Сохранить
+                    </div>
+                </div>
+                <div class="password">
+                    <h2>Изменение пароля</h2>
+                    <input type="password" name="current__passowrd" maxlength="30" placeholder="Текущий пароль"> 
+                    <input type="password" name="new__passowrd" maxlength="30" placeholder="Новый пароль">  
+                    <input type="password" name="new__passowrd_repeat" maxlength="30" placeholder="Подтвердить пароль">  
+                    <div class="password__save">
+                        Сохранить пароль
                     </div>
                 </div>
             </div>
-            <div class="video">
-                <!--h2>Видеонаблюдение</h2-->
-                <div id="video__block" class="video__block">
-                    <div class="video__cam--one">
-                        <img src="images/video1.png">
-                        <div class="video__time-date">
-                            <time id="video--date" class="video--date">30.06.16,</time>
-                            <time id="video--time" class="video--time"> 17:44</time>
-                        </div>
-                    </div>
-                    <div class="video__cam--two">
-                        <img src="images/video2.png">
-                    </div>
-                    <div class="video__update">
-                        <img src="images/update.png" alt="update">
-                    </div>
-                </div>
-            </div>
-            <div class="control">
-                <h2>Управление</h2>
-                <div id="lamp--first-status" class="control__item">
-                    <div id="lamp--first" class="control__img"><img src="images/lamp-off.png"></div>
-                    <p class="control__name">Лампа</p>
-                    <p class="control__status">Выключена</p>
-                </div>
-                <div id="socket--status" class="control__item">
-                    <div id="socket" class="control__img"><img src="images/socket-off.png"></div>
-                    <p class="control__name">Розетка</p>
-                    <p class="control__status">Выключена</p>
-                </div>
-                <div id="lamp--second-status" class="control__item">
-                    <div id="lamp--second" class="control__img"><img src="images/lamp-off.png"></div>
-                    <p class="control__name">Лампа</p>
-                    <p class="control__status">Выключена</p>
-                </div>
-            </div>
-            <div class="mode">
-                <h2>Режим работы</h2>
-                <div id="mode__master" class="mode__change change__current">Хозяин дома</div>
-                <div id="mode__security" class="mode__change">Охрана</div>
-            </div>
-            <div class="settings">
-                <div class="settings__top">
-                    <h1>Настройки</h1>
-                    <div class="settings__dropdown"></div>
-                </div>
-                <div class="settings__options">
-                    <table>
-                        <tr>
-                            <th><img src="images/icons/temp.png"></th>
-                            <td class="settings__name">Min</td>
-                            <td class="settings__temp_min--minus button"><img src="images/minus.png"></td>
-                            <td class="settings__value">+<p id="settings__value_temp--min">12</p>&deg;</td>
-                            <td class="settings__temp_min--plus button"><img src="images/plus.png"></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td class="settings__name">Max</td>
-                            <td class="settings__temp_max--minus button"><img src="images/minus.png"></td>
-                            <td class="settings__value">+<p id="settings__value_temp--max">30</p>&deg;</td>
-                            <td class="settings__temp_max--plus button"><img src="images/plus.png"></td>
-                        </tr>                    
-                    </table>
-                </div>
-                <div class="settings__options">
-                    <table>
-                        <tr>
-                            <th><img src="images/icons/voltage.png"></th>
-                            <td class="settings__name">Min</td>
-                            <td class="settings__volt_min--minus button"><img src="images/minus.png"></td>
-                            <td class="settings__value"><p id="settings__value_volt--min">200</p>В</td>
-                            <td class="settings__volt_min--plus button"><img src="images/plus.png"></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td class="settings__name">Max</td>
-                            <td class="settings__volt_max--minus button"><img src="images/minus.png"></td>
-                            <td class="settings__value"><p id="settings__value_volt--max">240</p>В</td>
-                            <td class="settings__volt_max--plus button"><img src="images/plus.png"></td>
-                        </tr>                    
-                    </table>
-                </div>
-                <div class="settings__save">
-                    Сохранить
-                </div>
-            </div>
-            <div class="password">
-                <h2>Изменение пароля</h2>
-                <input type="password" name="current__passowrd" maxlength="30" placeholder="Текущий пароль"> 
-                <input type="password" name="new__passowrd" maxlength="30" placeholder="Новый пароль">  
+            <div class="registration">
+                <div class="header__title">Управдом</div>
+                <h2>Регистрация</h2>
+                <input id="phone" type="tel" name="number" maxlength="20" placeholder="Ваш телефон"> 
+                <input type="password" name="new__passowrd" maxlength="30" placeholder="Введите пароль">  
                 <input type="password" name="new__passowrd_repeat" maxlength="30" placeholder="Подтвердить пароль">  
-                <div class="password__save">
-                    Сохранить пароль
+                <div id="enter" class="password__save">
+                    Войти в систему
                 </div>
             </div>
         </main>

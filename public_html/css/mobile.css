@@ -70,7 +70,7 @@ body {
   overflow-x: hidden;
   line-height: 1;
   color: #fff;
-  background-color: #A9A9A9;
+  background-color: #1a1a1a;
   width: 593px;
   /*запрет на выделение текста*/
   -webkit-touch-callout: none;
@@ -1182,5 +1182,20 @@ strong {
   filter: grayscale(100%);
   filter: gray;
   /* IE 6-9 */
+}
+.registration {
+  text-align: center;
+}
+.registration .header__title {
+  margin: 30px auto 20px auto;
+}
+.registration h2 {
+  margin-bottom: 20px;
+}
+.registration input {
+  margin-bottom: 25px;
+}
+.registration .password__save {
+  margin: 40px 0 0 0;
 }
 /*# sourceMappingURL=mobile.css.map */
