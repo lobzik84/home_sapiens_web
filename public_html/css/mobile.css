@@ -232,10 +232,10 @@ input {
   background-color: #1a1a1a;
 }
 .white {
-  color: #fff;
+  color: #ffffff;
 }
 .black {
-  color: #000;
+  color: #000000;
 }
 .green {
   color: #4caf50;
@@ -247,10 +247,10 @@ input {
   color: #999999;
 }
 .wbc {
-  background: #fff;
+  background: #ffffff;
 }
 .bbg {
-  background: #000;
+  background: #000000;
 }
 .bbc {
   background: #444444;
@@ -924,7 +924,7 @@ strong {
 }
 .history__interval--current {
   font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
-  color: #fff;
+  color: #ffffff;
   background: #333333;
 }
 .history__info_inner {
@@ -951,7 +951,7 @@ strong {
 .mode__change {
   text-align: center;
   font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
-  color: #fff;
+  color: #ffffff;
   cursor: pointer;
   background: #444444;
   margin-top: 20px;
@@ -979,7 +979,7 @@ strong {
 .password__save {
   font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
   cursor: pointer;
-  color: #fff;
+  color: #ffffff;
   text-align: center;
   background: #444444;
   -webkit-transition-duration: 0.1s;
@@ -1039,7 +1039,7 @@ strong {
   font-family: 'roboto-medium', Arial, Helvetica, sans-serif;
   display: none;
   cursor: pointer;
-  color: #fff;
+  color: #ffffff;
   text-align: center;
   background: #444444;
   -webkit-transition-duration: 0.1s;
