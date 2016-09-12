@@ -6,4 +6,53 @@
     .inline-b;
     .va-t;
     width: 552px;
-} 
+    
+}
+
+.settings__options {
+    .ta-c;
+    .wbc;
+    height: 96px;
+    margin-bottom: 12px;
+    
+    table {
+        .inline-b;
+    }
+    tr {
+        /*height: 110px;
+        line-height: 110px;*/
+    }
+    th, td {
+        //padding: 0 20px 0 20px;
+    }
+    img {
+        .pointer;
+        width: 30px;
+        &:active {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+            filter: gray; /* IE 6-9 */
+        }
+    }
+}
+.settings__name {
+    .roboto-regular;
+    .va-m;
+    font-size: 22px;
+    color: #9e9e9e;
+}
+.settings__value {
+    .roboto-medium;
+    .va-m;
+    font-size: 22px;
+}
+
+#settings__value_temp--min, 
+#settings__value_temp--max, 
+#settings__value_volt--min, 
+#settings__value_volt--max {
+    .inline-b;
+}
