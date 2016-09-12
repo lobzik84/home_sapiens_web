@@ -6,9 +6,15 @@ var gulp = require("gulp"),
 var paths = {
     scripts: [
         'public_html/js/jquery/*.js',
+        'public_html/js/swipe_alerts/*.js',
+        'public_html/js/crypto/aes/*.js',
+        'public_html/js/crypto/rsa/*.js',
+        'public_html/js/crypto/srp/*.js',
+        'public_html/js/crypto/scrypt/*.js',
+        'public_html/js/crypto/keyfile/*.js',
         'public_html/js/parameters/*.js',
-        'public_html/js/src/*.js',
-        'public_html/js/swipe_alerts/*.js'
+        'public_html/js/src/*.js'
+        
     ]    
 };
 gulp.task('build-production', function() {
