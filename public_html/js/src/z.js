@@ -41,9 +41,11 @@ $(function () {
                     localStorage["session_key"] = data["session_key"];
                     console.log("created keyfile: \n" + kf.getKeyFileAsStirng());
                     kf.uploadKeyFile(global_serverJSONUrl, function () {
-                        alert("Successfully registered! UserId = " + data["new_user_id"]);
-                        $('.registration').hide();
-                        $('.home').show();
+                        if (kf.xhr.readyState === 4 && kf.xhr.status == 200) {
+                            alert("Successfully registered! UserId = " + data["new_user_id"]);
+                            $('.registration').hide();
+                            $('.home').show();
+                        }
                     });
 
                 } else
