@@ -1,13 +1,109 @@
 var global_serverJSONUrl = "http://my.moidom.molnet.ru:8083/hs/json";
-var global_rsa_e = "10001";
+var global_rsa_e = "c";
 var global_aes_mode = slowAES.modeOfOperation.CFB; //AES mode of operation for all symmetric encryption, including messages, posts, comments, files, keyfile
+
 $(function () {
+    //init
+    $('.home').hide();
+    $('.login').hide();
+    $('.registration').hide();
+
+    var kf = new KeyFile();
+
+    var obj = {
+        "action": "get_data",
+        "user_id": kf.userId,
+        "box_id": kf.boxId,
+        "session_key": localStorage["session_key"]
+    }
+
+    $.ajax({
+        type: "POST",
+        url: global_serverJSONUrl,
+        dataType: 'json',
+        crossDomain: true,
+        async: true,
+        data: JSON.stringify(obj),
+        success: function (data) {
+            if (data["result"] === "success") {
+                localStorage["session_key"] = data["session_key"];
+                console.log("successfully loaded data, updating page");
+                updateData();
+            } else if (data["result"] === "do_register") {
+                console.log("registration needed");
+                $('.registration').show();
+            } else if (data["result"] === "do_login") {
+                localStorage["session_key"] = data["session_key"];
+                console.log("login requested");
+                if (typeof kf.getMyPrivateKey() !== "undefined" && kf.getMyPrivateKey().length  === 256) {
+                    console.log("trying to login with RSA");
+                    authWithRSA(kf, data);
+                } else {
+                    console.log("no private key, SRP auth forced");
+                    $('.login').show(); 
+                }
+            }
+
+        },
+        fail: function () {
+            alert("Error while registering");
+        }
+    })
+
+    function authWithRSA(kf, data) {
+        var challenge = data["challenge"];
+        console.log("Authenticating with RSA, challenge=" + challenge);
+        var rsa = new RSAKey();
+        rsa.setPrivate(kf.getMyPublicKey(), global_rsa_e, kf.getMyPrivateKey());
+        var digest = rsa.signString(challenge, "sha256");//generating signature with author's private key
+        var obj = {
+            "action": "login_rsa",
+            "user_id": kf.userId,
+            "box_id": kf.boxId,
+            "digest": digest,
+            "session_key": localStorage["session_key"]
+        }
+        $.ajax({
+            type: "POST",
+            url: global_serverJSONUrl,
+            dataType: 'json',
+            crossDomain: true,
+            async: true,
+            data: JSON.stringify(obj),
+            success: function (data) {
+                if (data["result"] === "success") {
+                    console.log("successfully authenticated with RSA");
+                    updateData();
+                } else {
+                    console.error("Error while RSA auth: " + data["message"] + ". Falling back to SRP.");
+                    $('.login').show(); 
+                }
+            },
+            fail: function () {
+                console.error("Error while RSA auth. Falling back to SRP.");
+                $('.login').show();
+            }
+        })
+    }
+
+
+    function updateData() {
+        $('.registration').hide();
+        $('.login').hide();
+        $('.home').show();
+    }
+    
+    
+    $('#login_srp').click(function () {
+        console.log("loggin in with SRP");
+    });
+
     $('#register').click(function () {
         var rsa = new RSAKey();
         var srp = new SRP();
         var login = $("#phone").val();
         srp.I = login;
-        srp.p = $("#new__passowrd").val(); //TODO check passwords are similiar
+        srp.p = $("#new__password").val(); //TODO check passwords are similiar
         rsa.generate(1024, global_rsa_e); //1024 bits, public exponent = 10001
 
         var salt = srp.generateSalt();
@@ -31,7 +127,7 @@ $(function () {
             async: true,
             data: JSON.stringify(regObj),
             success: function (data) {
-                if (data["result"] == "success") {
+                if (data["result"] === "success") {
                     var scrypt = scrypt_module_factory();
                     var scryptBytes = scrypt.crypto_scrypt(scrypt.encode_utf8($("#phone").val() + ":" + $("#new__passowrd").val()), scrypt.encode_utf8(""), 16384, 8, 1, 32);
                     var pbkdf = cryptoHelpers.ua2hex(scryptBytes);
