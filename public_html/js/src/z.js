@@ -110,7 +110,7 @@ $(function () {
             ls["userId"] = srp.userId;
             ls["boxId"] = srp.boxId;
             kf = new KeyFile();
-            kf.downloadKeyFile(global_serverJSONUrl, pbkdf, function() {
+            kf.downloadKeyFile(global_serverJSONUrl, pbkdf, function () {
                 console.log("sucessfully logged in with SRP, keyfile downloaded");
                 updateData();
             });
@@ -178,5 +178,13 @@ $(function () {
             }
         })
 
+    });
+
+    $('#dev_logout').click(function () {
+        console.log("Logging out...");
+        ls.clear();
+        $('.registration').hide();
+        $('.home').hide();
+        $('.login').show();
     });
 });
