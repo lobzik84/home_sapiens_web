@@ -6,6 +6,8 @@ $(function () {
         $('.registration').hide();
         $('.home').show();    
     });*/
+    $("#phone").mask("+7(999)999-99-99");
+    $("#login_phone").mask("+7(999)999-99-99");
     
     $('.status__item').each(function () {
         $(this).click(function () {

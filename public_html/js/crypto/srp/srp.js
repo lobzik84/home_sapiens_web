@@ -58,8 +58,10 @@ function SHA256(s) {
             g = HASH[6];
             h = HASH[7];
             for (var j = 0; j < 64; j++) {
-                if (j < 16) W[j] = m[j + i];
-                else W[j] = safe_add(safe_add(safe_add(Gamma1256(W[j - 2]), W[j - 7]), Gamma0256(W[j - 15])), W[j - 16]);
+                if (j < 16)
+                    W[j] = m[j + i];
+                else
+                    W[j] = safe_add(safe_add(safe_add(Gamma1256(W[j - 2]), W[j - 7]), Gamma0256(W[j - 15])), W[j - 16]);
                 T1 = safe_add(safe_add(safe_add(safe_add(h, Sigma1256(e)), Ch(e, f, g)), K[j]), W[j]);
                 T2 = safe_add(Sigma0256(a), Maj(a, b, c));
                 h = g;
@@ -131,7 +133,8 @@ function Arcfour() {
 
 function ARC4init(key) {
     var i, j, t;
-    for (i = 0; i < 256; ++i) this.S[i] = i;
+    for (i = 0; i < 256; ++i)
+        this.S[i] = i;
     j = 0;
     for (i = 0; i < 256; ++i) {
         j = (j + this.S[i] + key[i % key.length]) & 255;
@@ -168,7 +171,8 @@ function rng_seed_int(x) {
     rng_pool[rng_pptr++] ^= (x >> 8) & 255;
     rng_pool[rng_pptr++] ^= (x >> 16) & 255;
     rng_pool[rng_pptr++] ^= (x >> 24) & 255;
-    if (rng_pptr >= rng_psize) rng_pptr -= rng_psize
+    if (rng_pptr >= rng_psize)
+        rng_pptr -= rng_psize
 }
 
 function rng_seed_time() {
@@ -180,7 +184,8 @@ if (rng_pool == null) {
     var t;
     if (navigator.appName == "Netscape" && navigator.appVersion < "5" && window.crypto) {
         var z = window.crypto.random(32);
-        for (t = 0; t < z.length; ++t) rng_pool[rng_pptr++] = z.charCodeAt(t) & 255
+        for (t = 0; t < z.length; ++t)
+            rng_pool[rng_pptr++] = z.charCodeAt(t) & 255
     }
     while (rng_pptr < rng_psize) {
         t = Math.floor(65536 * Math.random());
@@ -196,7 +201,8 @@ function rng_get_byte() {
         rng_seed_time();
         rng_state = prng_newstate();
         rng_state.init(rng_pool);
-        for (rng_pptr = 0; rng_pptr < rng_pool.length; ++rng_pptr) rng_pool[rng_pptr] = 0;
+        for (rng_pptr = 0; rng_pptr < rng_pool.length; ++rng_pptr)
+            rng_pool[rng_pptr] = 0;
         rng_pptr = 0;
     }
     return rng_state.next()
@@ -204,7 +210,8 @@ function rng_get_byte() {
 
 function rng_get_bytes(ba) {
     var i;
-    for (i = 0; i < ba.length; ++i) ba[i] = rng_get_byte()
+    for (i = 0; i < ba.length; ++i)
+        ba[i] = rng_get_byte()
 }
 
 function SecureRandom() {}
@@ -215,9 +222,12 @@ var j_lm = ((canary & 0xffffff) == 0xefcafe);
 
 function BigInteger(a, b, c) {
     if (a != null)
-        if ("number" == typeof a) this.fromNumber(a, b, c);
-        else if (b == null && "string" != typeof a) this.fromString(a, 256);
-    else this.fromString(a, b)
+        if ("number" == typeof a)
+            this.fromNumber(a, b, c);
+        else if (b == null && "string" != typeof a)
+            this.fromString(a, 256);
+        else
+            this.fromString(a, b)
 }
 
 function nbi() {
@@ -235,7 +245,7 @@ function am1(i, x, w, j, c, n) {
 
 function am2(i, x, w, j, c, n) {
     var xl = x & 0x7fff,
-        xh = x >> 15;
+            xh = x >> 15;
     while (--n >= 0) {
         var l = this[i] & 0x7fff;
         var h = this[i++] >> 15;
@@ -249,7 +259,7 @@ function am2(i, x, w, j, c, n) {
 
 function am3(i, x, w, j, c, n) {
     var xl = x & 0x3fff,
-        xh = x >> 14;
+            xh = x >> 14;
     while (--n >= 0) {
         var l = this[i] & 0x3fff;
         var h = this[i++] >> 14;
@@ -281,11 +291,14 @@ var BI_RM = "0123456789abcdefghijklmnopqrstuvwxyz";
 var BI_RC = new Array();
 var rr, vv;
 rr = "0".charCodeAt(0);
-for (vv = 0; vv <= 9; ++vv) BI_RC[rr++] = vv;
+for (vv = 0; vv <= 9; ++vv)
+    BI_RC[rr++] = vv;
 rr = "a".charCodeAt(0);
-for (vv = 10; vv < 36; ++vv) BI_RC[rr++] = vv;
+for (vv = 10; vv < 36; ++vv)
+    BI_RC[rr++] = vv;
 rr = "A".charCodeAt(0);
-for (vv = 10; vv < 36; ++vv) BI_RC[rr++] = vv;
+for (vv = 10; vv < 36; ++vv)
+    BI_RC[rr++] = vv;
 
 function int2char(n) {
     return BI_RM.charAt(n)
@@ -297,7 +310,8 @@ function intAt(s, i) {
 }
 
 function bnpCopyTo(r) {
-    for (var i = this.t - 1; i >= 0; --i) r[i] = this[i];
+    for (var i = this.t - 1; i >= 0; --i)
+        r[i] = this[i];
     r.t = this.t;
     r.s = this.s
 }
@@ -305,9 +319,12 @@ function bnpCopyTo(r) {
 function bnpFromInt(x) {
     this.t = 1;
     this.s = (x < 0) ? -1 : 0;
-    if (x > 0) this[0] = x;
-    else if (x < -1) this[0] = x + DV;
-    else this.t = 0
+    if (x > 0)
+        this[0] = x;
+    else if (x < -1)
+        this[0] = x + DV;
+    else
+        this.t = 0
 }
 
 function nbv(i) {
@@ -318,12 +335,18 @@ function nbv(i) {
 
 function bnpFromString(s, b) {
     var k;
-    if (b == 16) k = 4;
-    else if (b == 8) k = 3;
-    else if (b == 256) k = 8;
-    else if (b == 2) k = 1;
-    else if (b == 32) k = 5;
-    else if (b == 4) k = 2;
+    if (b == 16)
+        k = 4;
+    else if (b == 8)
+        k = 3;
+    else if (b == 256)
+        k = 8;
+    else if (b == 2)
+        k = 1;
+    else if (b == 32)
+        k = 5;
+    else if (b == 4)
+        k = 2;
     else {
         this.fromRadix(s, b);
         return
@@ -331,49 +354,63 @@ function bnpFromString(s, b) {
     this.t = 0;
     this.s = 0;
     var i = s.length,
-        mi = false,
-        sh = 0;
+            mi = false,
+            sh = 0;
     while (--i >= 0) {
         var x = (k == 8) ? s[i] & 0xff : intAt(s, i);
         if (x < 0) {
-            if (s.charAt(i) == "-") mi = true;
+            if (s.charAt(i) == "-")
+                mi = true;
             continue
         }
         mi = false;
-        if (sh == 0) this[this.t++] = x;
+        if (sh == 0)
+            this[this.t++] = x;
         else if (sh + k > this.DB) {
             this[this.t - 1] |= (x & ((1 << (this.DB - sh)) - 1)) << sh;
             this[this.t++] = (x >> (this.DB - sh))
-        } else this[this.t - 1] |= x << sh;
+        } else
+            this[this.t - 1] |= x << sh;
         sh += k;
-        if (sh >= this.DB) sh -= this.DB
+        if (sh >= this.DB)
+            sh -= this.DB
     }
     if (k == 8 && (s[0] & 0x80) != 0) {
         this.s = -1;
-        if (sh > 0) this[this.t - 1] |= ((1 << (this.DB - sh)) - 1) << sh
+        if (sh > 0)
+            this[this.t - 1] |= ((1 << (this.DB - sh)) - 1) << sh
     }
     this.clamp();
-    if (mi) BigInteger.ZERO.subTo(this, this)
+    if (mi)
+        BigInteger.ZERO.subTo(this, this)
 }
 
 function bnpClamp() {
     var c = this.s & this.DM;
-    while (this.t > 0 && this[this.t - 1] == c)--this.t
+    while (this.t > 0 && this[this.t - 1] == c)
+        --this.t
 }
 
 function bnToString(b) {
-    if (this.s < 0) return "-" + this.negate().toString(b);
+    if (this.s < 0)
+        return "-" + this.negate().toString(b);
     var k;
-    if (b == 16) k = 4;
-    else if (b == 8) k = 3;
-    else if (b == 2) k = 1;
-    else if (b == 32) k = 5;
-    else if (b == 4) k = 2;
-    else return this.toRadix(b);
+    if (b == 16)
+        k = 4;
+    else if (b == 8)
+        k = 3;
+    else if (b == 2)
+        k = 1;
+    else if (b == 32)
+        k = 5;
+    else if (b == 4)
+        k = 2;
+    else
+        return this.toRadix(b);
     var km = (1 << k) - 1,
-        d, m = false,
-        r = "",
-        i = this.t;
+            d, m = false,
+            r = "",
+            i = this.t;
     var p = this.DB - (i * this.DB) % k;
     if (i-- > 0) {
         if (p < this.DB && (d = this[i] >> p) > 0) {
@@ -390,8 +427,11 @@ function bnToString(b) {
                     p += this.DB;
                     --i
                 }
-            } if (d > 0) m = true;
-            if (m) r += int2char(d)
+            }
+            if (d > 0)
+                m = true;
+            if (m)
+                r += int2char(d)
         }
     }
     return m ? r : "0"
@@ -409,18 +449,21 @@ function bnAbs() {
 
 function bnCompareTo(a) {
     var r = this.s - a.s;
-    if (r != 0) return r;
+    if (r != 0)
+        return r;
     var i = this.t;
     r = i - a.t;
-    if (r != 0) return r;
+    if (r != 0)
+        return r;
     while (--i >= 0)
-        if ((r = this[i] - a[i]) != 0) return r;
+        if ((r = this[i] - a[i]) != 0)
+            return r;
     return 0
 }
 
 function nbits(x) {
     var r = 1,
-        t;
+            t;
     if ((t = x >>> 16) != 0) {
         x = t;
         r += 16
@@ -445,20 +488,24 @@ function nbits(x) {
 }
 
 function bnBitLength() {
-    if (this.t <= 0) return 0;
+    if (this.t <= 0)
+        return 0;
     return this.DB * (this.t - 1) + nbits(this[this.t - 1] ^ (this.s & this.DM))
 }
 
 function bnpDLShiftTo(n, r) {
     var i;
-    for (i = this.t - 1; i >= 0; --i) r[i + n] = this[i];
-    for (i = n - 1; i >= 0; --i) r[i] = 0;
+    for (i = this.t - 1; i >= 0; --i)
+        r[i + n] = this[i];
+    for (i = n - 1; i >= 0; --i)
+        r[i] = 0;
     r.t = this.t + n;
     r.s = this.s
 }
 
 function bnpDRShiftTo(n, r) {
-    for (var i = n; i < this.t; ++i) r[i - n] = this[i];
+    for (var i = n; i < this.t; ++i)
+        r[i - n] = this[i];
     r.t = Math.max(this.t - n, 0);
     r.s = this.s
 }
@@ -468,13 +515,14 @@ function bnpLShiftTo(n, r) {
     var cbs = this.DB - bs;
     var bm = (1 << cbs) - 1;
     var ds = Math.floor(n / this.DB),
-        c = (this.s << bs) & this.DM,
-        i;
+            c = (this.s << bs) & this.DM,
+            i;
     for (i = this.t - 1; i >= 0; --i) {
         r[i + ds + 1] = (this[i] >> cbs) | c;
         c = (this[i] & bm) << bs
     }
-    for (i = ds - 1; i >= 0; --i) r[i] = 0;
+    for (i = ds - 1; i >= 0; --i)
+        r[i] = 0;
     r[ds] = c;
     r.t = this.t + ds + 1;
     r.s = this.s;
@@ -496,15 +544,16 @@ function bnpRShiftTo(n, r) {
         r[i - ds - 1] |= (this[i] & bm) << cbs;
         r[i - ds] = this[i] >> bs
     }
-    if (bs > 0) r[this.t - ds - 1] |= (this.s & bm) << cbs;
+    if (bs > 0)
+        r[this.t - ds - 1] |= (this.s & bm) << cbs;
     r.t = this.t - ds;
     r.clamp()
 }
 
 function bnpSubTo(a, r) {
     var i = 0,
-        c = 0,
-        m = Math.min(a.t, this.t);
+            c = 0,
+            m = Math.min(a.t, this.t);
     while (i < m) {
         c += this[i] - a[i];
         r[i++] = c & this.DM;
@@ -528,28 +577,34 @@ function bnpSubTo(a, r) {
         c -= a.s
     }
     r.s = (c < 0) ? -1 : 0;
-    if (c < -1) r[i++] = this.DV + c;
-    else if (c > 0) r[i++] = c;
+    if (c < -1)
+        r[i++] = this.DV + c;
+    else if (c > 0)
+        r[i++] = c;
     r.t = i;
     r.clamp()
 }
 
 function bnpMultiplyTo(a, r) {
     var x = this.abs(),
-        y = a.abs();
+            y = a.abs();
     var i = x.t;
     r.t = i + y.t;
-    while (--i >= 0) r[i] = 0;
-    for (i = 0; i < y.t; ++i) r[i + x.t] = x.am(0, y[i], r, i, 0, x.t);
+    while (--i >= 0)
+        r[i] = 0;
+    for (i = 0; i < y.t; ++i)
+        r[i + x.t] = x.am(0, y[i], r, i, 0, x.t);
     r.s = 0;
     r.clamp();
-    if (this.s != a.s) BigInteger.ZERO.subTo(r, r)
+    if (this.s != a.s)
+        BigInteger.ZERO.subTo(r, r)
 }
 
 function bnpSquareTo(r) {
     var x = this.abs();
     var i = r.t = 2 * x.t;
-    while (--i >= 0) r[i] = 0;
+    while (--i >= 0)
+        r[i] = 0;
     for (i = 0; i < x.t - 1; ++i) {
         var c = x.am(i, x[i], r, 2 * i, 0, 1);
         if ((r[i + x.t] += x.am(i + 1, 2 * x[i], r, 2 * i + 1, c, x.t - i - 1)) >= x.DV) {
@@ -557,24 +612,29 @@ function bnpSquareTo(r) {
             r[i + x.t + 1] = 1
         }
     }
-    if (r.t > 0) r[r.t - 1] += x.am(i, x[i], r, 2 * i, 0, 1);
+    if (r.t > 0)
+        r[r.t - 1] += x.am(i, x[i], r, 2 * i, 0, 1);
     r.s = 0;
     r.clamp()
 }
 
 function bnpDivRemTo(m, q, r) {
     var pm = m.abs();
-    if (pm.t <= 0) return;
+    if (pm.t <= 0)
+        return;
     var pt = this.abs();
     if (pt.t < pm.t) {
-        if (q != null) q.fromInt(0);
-        if (r != null) this.copyTo(r);
+        if (q != null)
+            q.fromInt(0);
+        if (r != null)
+            this.copyTo(r);
         return
     }
-    if (r == null) r = nbi();
+    if (r == null)
+        r = nbi();
     var y = nbi(),
-        ts = this.s,
-        ms = m.s;
+            ts = this.s,
+            ms = m.s;
     var nsh = this.DB - nbits(pm[pm.t - 1]);
     if (nsh > 0) {
         pm.lShiftTo(nsh, y);
@@ -585,14 +645,15 @@ function bnpDivRemTo(m, q, r) {
     }
     var ys = y.t;
     var y0 = y[ys - 1];
-    if (y0 == 0) return;
+    if (y0 == 0)
+        return;
     var yt = y0 * (1 << this.F1) + ((ys > 1) ? y[ys - 2] >> this.F2 : 0);
     var d1 = this.FV / yt,
-        d2 = (1 << this.F1) / yt,
-        e = 1 << this.F2;
+            d2 = (1 << this.F1) / yt,
+            e = 1 << this.F2;
     var i = r.t,
-        j = i - ys,
-        t = (q == null) ? nbi() : q;
+            j = i - ys,
+            t = (q == null) ? nbi() : q;
     y.dlShiftTo(j, t);
     if (r.compareTo(t) >= 0) {
         r[r.t++] = 1;
@@ -600,29 +661,35 @@ function bnpDivRemTo(m, q, r) {
     }
     BigInteger.ONE.dlShiftTo(ys, t);
     t.subTo(y, y);
-    while (y.t < ys) y[y.t++] = 0;
+    while (y.t < ys)
+        y[y.t++] = 0;
     while (--j >= 0) {
         var qd = (r[--i] == y0) ? this.DM : Math.floor(r[i] * d1 + (r[i - 1] + e) * d2);
         if ((r[i] += y.am(0, qd, r, j, 0, ys)) < qd) {
             y.dlShiftTo(j, t);
             r.subTo(t, r);
-            while (r[i] < --qd) r.subTo(t, r)
+            while (r[i] < --qd)
+                r.subTo(t, r)
         }
     }
     if (q != null) {
         r.drShiftTo(ys, q);
-        if (ts != ms) BigInteger.ZERO.subTo(q, q)
+        if (ts != ms)
+            BigInteger.ZERO.subTo(q, q)
     }
     r.t = ys;
     r.clamp();
-    if (nsh > 0) r.rShiftTo(nsh, r);
-    if (ts < 0) BigInteger.ZERO.subTo(r, r)
+    if (nsh > 0)
+        r.rShiftTo(nsh, r);
+    if (ts < 0)
+        BigInteger.ZERO.subTo(r, r)
 }
 
 function bnMod(a) {
     var r = nbi();
     this.abs().divRemTo(a, null, r);
-    if (this.s < 0 && r.compareTo(BigInteger.ZERO) > 0) a.subTo(r, r);
+    if (this.s < 0 && r.compareTo(BigInteger.ZERO) > 0)
+        a.subTo(r, r);
     return r
 }
 
@@ -631,8 +698,10 @@ function Classic(m) {
 }
 
 function cConvert(x) {
-    if (x.s < 0 || x.compareTo(this.m) >= 0) return x.mod(this.m);
-    else return x
+    if (x.s < 0 || x.compareTo(this.m) >= 0)
+        return x.mod(this.m);
+    else
+        return x
 }
 
 function cRevert(x) {
@@ -659,9 +728,11 @@ Classic.prototype.mulTo = cMulTo;
 Classic.prototype.sqrTo = cSqrTo;
 
 function bnpInvDigit() {
-    if (this.t < 1) return 0;
+    if (this.t < 1)
+        return 0;
     var x = this[0];
-    if ((x & 1) == 0) return 0;
+    if ((x & 1) == 0)
+        return 0;
     var y = x & 3;
     y = (y * (2 - (x & 0xf) * y)) & 0xf;
     y = (y * (2 - (x & 0xff) * y)) & 0xff;
@@ -683,7 +754,8 @@ function montConvert(x) {
     var r = nbi();
     x.abs().dlShiftTo(this.m.t, r);
     r.divRemTo(this.m, null, r);
-    if (x.s < 0 && r.compareTo(BigInteger.ZERO) > 0) this.m.subTo(r, r);
+    if (x.s < 0 && r.compareTo(BigInteger.ZERO) > 0)
+        this.m.subTo(r, r);
     return r
 }
 
@@ -695,7 +767,8 @@ function montRevert(x) {
 }
 
 function montReduce(x) {
-    while (x.t <= this.mt2) x[x.t++] = 0;
+    while (x.t <= this.mt2)
+        x[x.t++] = 0;
     for (var i = 0; i < this.m.t; ++i) {
         var j = x[i] & 0x7fff;
         var u0 = (j * this.mpl + (((j * this.mph + (x[i] >> 15) * this.mpl) & this.um) << 15)) & x.DM;
@@ -708,7 +781,8 @@ function montReduce(x) {
     }
     x.clamp();
     x.drShiftTo(this.m.t, x);
-    if (x.compareTo(this.m) >= 0) x.subTo(this.m, x)
+    if (x.compareTo(this.m) >= 0)
+        x.subTo(this.m, x)
 }
 
 function montSqrTo(x, r) {
@@ -731,15 +805,17 @@ function bnpIsEven() {
 }
 
 function bnpExp(e, z) {
-    if (e > 0xffffffff || e < 1) return BigInteger.ONE;
+    if (e > 0xffffffff || e < 1)
+        return BigInteger.ONE;
     var r = nbi(),
-        r2 = nbi(),
-        g = z.convert(this),
-        i = nbits(e) - 1;
+            r2 = nbi(),
+            g = z.convert(this),
+            i = nbits(e) - 1;
     g.copyTo(r);
     while (--i >= 0) {
         z.sqrTo(r, r2);
-        if ((e & (1 << i)) > 0) z.mulTo(r2, g, r);
+        if ((e & (1 << i)) > 0)
+            z.mulTo(r2, g, r);
         else {
             var t = r;
             r = r2;
@@ -751,8 +827,10 @@ function bnpExp(e, z) {
 
 function bnModPowInt(e, m) {
     var z;
-    if (e < 256 || m.isEven()) z = new Classic(m);
-    else z = new Montgomery(m);
+    if (e < 256 || m.isEven())
+        z = new Classic(m);
+    else
+        z = new Montgomery(m);
     return this.exp(e, z)
 }
 BigInteger.prototype.copyTo = bnpCopyTo;
@@ -788,10 +866,14 @@ function bnClone() {
 
 function bnIntValue() {
     if (this.s < 0) {
-        if (this.t == 1) return this[0] - this.DV;
-        else if (this.t == 0) return -1
-    } else if (this.t == 1) return this[0];
-    else if (this.t == 0) return 0;
+        if (this.t == 1)
+            return this[0] - this.DV;
+        else if (this.t == 0)
+            return -1
+    } else if (this.t == 1)
+        return this[0];
+    else if (this.t == 0)
+        return 0;
     return ((this[1] & ((1 << (32 - this.DB)) - 1)) << this.DB) | this[0]
 }
 
@@ -808,20 +890,25 @@ function bnpChunkSize(r) {
 }
 
 function bnSigNum() {
-    if (this.s < 0) return -1;
-    else if (this.t <= 0 || (this.t == 1 && this[0] <= 0)) return 0;
-    else return 1
+    if (this.s < 0)
+        return -1;
+    else if (this.t <= 0 || (this.t == 1 && this[0] <= 0))
+        return 0;
+    else
+        return 1
 }
 
 function bnpToRadix(b) {
-    if (b == null) b = 10;
-    if (this.signum() == 0 || b < 2 || b > 36) return "0";
+    if (b == null)
+        b = 10;
+    if (this.signum() == 0 || b < 2 || b > 36)
+        return "0";
     var cs = this.chunkSize(b);
     var a = Math.pow(b, cs);
     var d = nbv(a),
-        y = nbi(),
-        z = nbi(),
-        r = "";
+            y = nbi(),
+            z = nbi(),
+            r = "";
     this.divRemTo(d, y, z);
     while (y.signum() > 0) {
         r = (a + z.intValue()).toString(b).substr(1) + r;
@@ -832,16 +919,18 @@ function bnpToRadix(b) {
 
 function bnpFromRadix(s, b) {
     this.fromInt(0);
-    if (b == null) b = 10;
+    if (b == null)
+        b = 10;
     var cs = this.chunkSize(b);
     var d = Math.pow(b, cs),
-        mi = false,
-        j = 0,
-        w = 0;
+            mi = false,
+            j = 0,
+            w = 0;
     for (var i = 0; i < s.length; ++i) {
         var x = intAt(s, i);
         if (x < 0) {
-            if (s.charAt(i) == "-" && this.signum() == 0) mi = true;
+            if (s.charAt(i) == "-" && this.signum() == 0)
+                mi = true;
             continue
         }
         w = b * w + x;
@@ -856,40 +945,48 @@ function bnpFromRadix(s, b) {
         this.dMultiply(Math.pow(b, j));
         this.dAddOffset(w, 0)
     }
-    if (mi) BigInteger.ZERO.subTo(this, this)
+    if (mi)
+        BigInteger.ZERO.subTo(this, this)
 }
 
 function bnpFromNumber(a, b, c) {
     if ("number" == typeof b) {
-        if (a < 2) this.fromInt(1);
+        if (a < 2)
+            this.fromInt(1);
         else {
             this.fromNumber(a, c);
-            if (!this.testBit(a - 1)) this.bitwiseTo(BigInteger.ONE.shiftLeft(a - 1), op_or, this);
-            if (this.isEven()) this.dAddOffset(1, 0);
+            if (!this.testBit(a - 1))
+                this.bitwiseTo(BigInteger.ONE.shiftLeft(a - 1), op_or, this);
+            if (this.isEven())
+                this.dAddOffset(1, 0);
             while (!this.isProbablePrime(b)) {
                 this.dAddOffset(2, 0);
-                if (this.bitLength() > a) this.subTo(BigInteger.ONE.shiftLeft(a - 1), this)
+                if (this.bitLength() > a)
+                    this.subTo(BigInteger.ONE.shiftLeft(a - 1), this)
             }
         }
     } else {
         var x = new Array(),
-            t = a & 7;
+                t = a & 7;
         x.length = (a >> 3) + 1;
         b.nextBytes(x);
-        if (t > 0) x[0] &= ((1 << t) - 1);
-        else x[0] = 0;
+        if (t > 0)
+            x[0] &= ((1 << t) - 1);
+        else
+            x[0] = 0;
         this.fromString(x, 256)
     }
 }
 
 function bnToByteArray() {
     var i = this.t,
-        r = new Array();
+            r = new Array();
     r[0] = this.s;
     var p = this.DB - (i * this.DB) % 8,
-        d, k = 0;
+            d, k = 0;
     if (i-- > 0) {
-        if (p < this.DB && (d = this[i] >> p) != (this.s & this.DM) >> p) r[k++] = d | (this.s << (this.DB - p));
+        if (p < this.DB && (d = this[i] >> p) != (this.s & this.DM) >> p)
+            r[k++] = d | (this.s << (this.DB - p));
         while (i >= 0) {
             if (p < 8) {
                 d = (this[i] & ((1 << p) - 1)) << (8 - p);
@@ -900,9 +997,13 @@ function bnToByteArray() {
                     p += this.DB;
                     --i
                 }
-            } if ((d & 0x80) != 0) d |= -256;
-            if (k == 0 && (this.s & 0x80) != (d & 0x80))++k;
-            if (k > 0 || d != this.s) r[k++] = d
+            }
+            if ((d & 0x80) != 0)
+                d |= -256;
+            if (k == 0 && (this.s & 0x80) != (d & 0x80))
+                ++k;
+            if (k > 0 || d != this.s)
+                r[k++] = d
         }
     }
     return r
@@ -922,14 +1023,17 @@ function bnMax(a) {
 
 function bnpBitwiseTo(a, op, r) {
     var i, f, m = Math.min(a.t, this.t);
-    for (i = 0; i < m; ++i) r[i] = op(this[i], a[i]);
+    for (i = 0; i < m; ++i)
+        r[i] = op(this[i], a[i]);
     if (a.t < this.t) {
         f = a.s & this.DM;
-        for (i = m; i < this.t; ++i) r[i] = op(this[i], f);
+        for (i = m; i < this.t; ++i)
+            r[i] = op(this[i], f);
         r.t = this.t
     } else {
         f = this.s & this.DM;
-        for (i = m; i < a.t; ++i) r[i] = op(f, a[i]);
+        for (i = m; i < a.t; ++i)
+            r[i] = op(f, a[i]);
         r.t = a.t
     }
     r.s = op(this.s, a.s);
@@ -978,7 +1082,8 @@ function bnAndNot(a) {
 
 function bnNot() {
     var r = nbi();
-    for (var i = 0; i < this.t; ++i) r[i] = this.DM & ~this[i];
+    for (var i = 0; i < this.t; ++i)
+        r[i] = this.DM & ~this[i];
     r.t = this.t;
     r.s = ~this.s;
     return r
@@ -986,20 +1091,25 @@ function bnNot() {
 
 function bnShiftLeft(n) {
     var r = nbi();
-    if (n < 0) this.rShiftTo(-n, r);
-    else this.lShiftTo(n, r);
+    if (n < 0)
+        this.rShiftTo(-n, r);
+    else
+        this.lShiftTo(n, r);
     return r
 }
 
 function bnShiftRight(n) {
     var r = nbi();
-    if (n < 0) this.lShiftTo(-n, r);
-    else this.rShiftTo(n, r);
+    if (n < 0)
+        this.lShiftTo(-n, r);
+    else
+        this.rShiftTo(n, r);
     return r
 }
 
 function lbit(x) {
-    if (x == 0) return -1;
+    if (x == 0)
+        return -1;
     var r = 0;
     if ((x & 0xffff) == 0) {
         x >>= 16;
@@ -1017,14 +1127,17 @@ function lbit(x) {
         x >>= 2;
         r += 2
     }
-    if ((x & 1) == 0)++r;
+    if ((x & 1) == 0)
+        ++r;
     return r
 }
 
 function bnGetLowestSetBit() {
     for (var i = 0; i < this.t; ++i)
-        if (this[i] != 0) return i * this.DB + lbit(this[i]);
-    if (this.s < 0) return this.t * this.DB;
+        if (this[i] != 0)
+            return i * this.DB + lbit(this[i]);
+    if (this.s < 0)
+        return this.t * this.DB;
     return -1
 }
 
@@ -1039,14 +1152,16 @@ function cbit(x) {
 
 function bnBitCount() {
     var r = 0,
-        x = this.s & this.DM;
-    for (var i = 0; i < this.t; ++i) r += cbit(this[i] ^ x);
+            x = this.s & this.DM;
+    for (var i = 0; i < this.t; ++i)
+        r += cbit(this[i] ^ x);
     return r
 }
 
 function bnTestBit(n) {
     var j = Math.floor(n / this.DB);
-    if (j >= this.t) return (this.s != 0);
+    if (j >= this.t)
+        return (this.s != 0);
     return ((this[j] & (1 << (n % this.DB))) != 0)
 }
 
@@ -1070,8 +1185,8 @@ function bnFlipBit(n) {
 
 function bnpAddTo(a, r) {
     var i = 0,
-        c = 0,
-        m = Math.min(a.t, this.t);
+            c = 0,
+            m = Math.min(a.t, this.t);
     while (i < m) {
         c += this[i] + a[i];
         r[i++] = c & this.DM;
@@ -1095,8 +1210,10 @@ function bnpAddTo(a, r) {
         c += a.s
     }
     r.s = (c < 0) ? -1 : 0;
-    if (c > 0) r[i++] = c;
-    else if (c < -1) r[i++] = this.DV + c;
+    if (c > 0)
+        r[i++] = c;
+    else if (c < -1)
+        r[i++] = this.DV + c;
     r.t = i;
     r.clamp()
 }
@@ -1133,7 +1250,7 @@ function bnRemainder(a) {
 
 function bnDivideAndRemainder(a) {
     var q = nbi(),
-        r = nbi();
+            r = nbi();
     this.divRemTo(a, q, r);
     return new Array(q, r)
 }
@@ -1145,11 +1262,13 @@ function bnpDMultiply(n) {
 }
 
 function bnpDAddOffset(n, w) {
-    while (this.t <= w) this[this.t++] = 0;
+    while (this.t <= w)
+        this[this.t++] = 0;
     this[w] += n;
     while (this[w] >= this.DV) {
         this[w] -= this.DV;
-        if (++w >= this.t) this[this.t++] = 0;
+        if (++w >= this.t)
+            this[this.t++] = 0;
         ++this[w]
     }
 }
@@ -1180,10 +1299,13 @@ function bnpMultiplyLowerTo(a, n, r) {
     var i = Math.min(this.t + a.t, n);
     r.s = 0;
     r.t = i;
-    while (i > 0) r[--i] = 0;
+    while (i > 0)
+        r[--i] = 0;
     var j;
-    for (j = r.t - this.t; i < j; ++i) r[i + this.t] = this.am(0, a[i], r, i, 0, this.t);
-    for (j = Math.min(a.t, n); i < j; ++i) this.am(0, a[i], r, i, 0, n - i);
+    for (j = r.t - this.t; i < j; ++i)
+        r[i + this.t] = this.am(0, a[i], r, i, 0, this.t);
+    for (j = Math.min(a.t, n); i < j; ++i)
+        this.am(0, a[i], r, i, 0, n - i);
     r.clamp()
 }
 
@@ -1191,8 +1313,10 @@ function bnpMultiplyUpperTo(a, n, r) {
     --n;
     var i = r.t = this.t + a.t - n;
     r.s = 0;
-    while (--i >= 0) r[i] = 0;
-    for (i = Math.max(n - this.t, 0); i < a.t; ++i) r[this.t + i - n] = this.am(n - i, a[i], r, 0, 0, this.t + i - n);
+    while (--i >= 0)
+        r[i] = 0;
+    for (i = Math.max(n - this.t, 0); i < a.t; ++i)
+        r[this.t + i - n] = this.am(n - i, a[i], r, 0, 0, this.t + i - n);
     r.clamp();
     r.drShiftTo(1, r)
 }
@@ -1206,8 +1330,10 @@ function Barrett(m) {
 }
 
 function barrettConvert(x) {
-    if (x.s < 0 || x.t > 2 * this.m.t) return x.mod(this.m);
-    else if (x.compareTo(this.m) < 0) return x;
+    if (x.s < 0 || x.t > 2 * this.m.t)
+        return x.mod(this.m);
+    else if (x.compareTo(this.m) < 0)
+        return x;
     else {
         var r = nbi();
         x.copyTo(r);
@@ -1228,9 +1354,11 @@ function barrettReduce(x) {
     }
     this.mu.multiplyUpperTo(this.r2, this.m.t + 1, this.q3);
     this.m.multiplyLowerTo(this.q3, this.m.t + 1, this.r2);
-    while (x.compareTo(this.r2) < 0) x.dAddOffset(1, this.m.t + 1);
+    while (x.compareTo(this.r2) < 0)
+        x.dAddOffset(1, this.m.t + 1);
     x.subTo(this.r2, x);
-    while (x.compareTo(this.m) >= 0) x.subTo(this.m, x)
+    while (x.compareTo(this.m) >= 0)
+        x.subTo(this.m, x)
 }
 
 function barrettSqrTo(x, r) {
@@ -1250,20 +1378,30 @@ Barrett.prototype.sqrTo = barrettSqrTo;
 
 function bnModPow(e, m) {
     var i = e.bitLength(),
-        k, r = nbv(1),
-        z;
-    if (i <= 0) return r;
-    else if (i < 18) k = 1;
-    else if (i < 48) k = 3;
-    else if (i < 144) k = 4;
-    else if (i < 768) k = 5;
-    else k = 6; if (i < 8) z = new Classic(m);
-    else if (m.isEven()) z = new Barrett(m);
-    else z = new Montgomery(m);
+            k, r = nbv(1),
+            z;
+    if (i <= 0)
+        return r;
+    else if (i < 18)
+        k = 1;
+    else if (i < 48)
+        k = 3;
+    else if (i < 144)
+        k = 4;
+    else if (i < 768)
+        k = 5;
+    else
+        k = 6;
+    if (i < 8)
+        z = new Classic(m);
+    else if (m.isEven())
+        z = new Barrett(m);
+    else
+        z = new Montgomery(m);
     var g = new Array(),
-        n = 3,
-        k1 = k - 1,
-        km = (1 << k) - 1;
+            n = 3,
+            k1 = k - 1,
+            km = (1 << k) - 1;
     g[1] = z.convert(this);
     if (k > 1) {
         var g2 = nbi();
@@ -1275,15 +1413,17 @@ function bnModPow(e, m) {
         }
     }
     var j = e.t - 1,
-        w, is1 = true,
-        r2 = nbi(),
-        t;
+            w, is1 = true,
+            r2 = nbi(),
+            t;
     i = nbits(e[j]) - 1;
     while (j >= 0) {
-        if (i >= k1) w = (e[j] >> (i - k1)) & km;
+        if (i >= k1)
+            w = (e[j] >> (i - k1)) & km;
         else {
             w = (e[j] & ((1 << (i + 1)) - 1)) << (k1 - i);
-            if (j > 0) w |= e[j - 1] >> (this.DB + i - k1)
+            if (j > 0)
+                w |= e[j - 1] >> (this.DB + i - k1)
         }
         n = k;
         while ((w & 1) == 0) {
@@ -1303,7 +1443,8 @@ function bnModPow(e, m) {
                 z.sqrTo(r2, r);
                 n -= 2
             }
-            if (n > 0) z.sqrTo(r, r2);
+            if (n > 0)
+                z.sqrTo(r, r2);
             else {
                 t = r;
                 r = r2;
@@ -1334,16 +1475,20 @@ function bnGCD(a) {
         y = t
     }
     var i = x.getLowestSetBit(),
-        g = y.getLowestSetBit();
-    if (g < 0) return x;
-    if (i < g) g = i;
+            g = y.getLowestSetBit();
+    if (g < 0)
+        return x;
+    if (i < g)
+        g = i;
     if (g > 0) {
         x.rShiftTo(g, x);
         y.rShiftTo(g, y)
     }
     while (x.signum() > 0) {
-        if ((i = x.getLowestSetBit()) > 0) x.rShiftTo(i, x);
-        if ((i = y.getLowestSetBit()) > 0) y.rShiftTo(i, y);
+        if ((i = x.getLowestSetBit()) > 0)
+            x.rShiftTo(i, x);
+        if ((i = y.getLowestSetBit()) > 0)
+            y.rShiftTo(i, y);
         if (x.compareTo(y) >= 0) {
             x.subTo(y, x);
             x.rShiftTo(1, x)
@@ -1352,30 +1497,35 @@ function bnGCD(a) {
             y.rShiftTo(1, y)
         }
     }
-    if (g > 0) y.lShiftTo(g, y);
+    if (g > 0)
+        y.lShiftTo(g, y);
     return y
 }
 
 function bnpModInt(n) {
-    if (n <= 0) return 0;
+    if (n <= 0)
+        return 0;
     var d = this.DV % n,
-        r = (this.s < 0) ? n - 1 : 0;
+            r = (this.s < 0) ? n - 1 : 0;
     if (this.t > 0)
-        if (d == 0) r = this[0] % n;
+        if (d == 0)
+            r = this[0] % n;
         else
-            for (var i = this.t - 1; i >= 0; --i) r = (d * r + this[i]) % n;
+            for (var i = this.t - 1; i >= 0; --i)
+                r = (d * r + this[i]) % n;
     return r
 }
 
 function bnModInverse(m) {
     var ac = m.isEven();
-    if ((this.isEven() && ac) || m.signum() == 0) return BigInteger.ZERO;
+    if ((this.isEven() && ac) || m.signum() == 0)
+        return BigInteger.ZERO;
     var u = m.clone(),
-        v = this.clone();
+            v = this.clone();
     var a = nbv(1),
-        b = nbv(0),
-        c = nbv(0),
-        d = nbv(1);
+            b = nbv(0),
+            c = nbv(0),
+            d = nbv(1);
     while (u.signum() != 0) {
         while (u.isEven()) {
             u.rShiftTo(1, u);
@@ -1385,7 +1535,8 @@ function bnModInverse(m) {
                     b.subTo(m, b)
                 }
                 a.rShiftTo(1, a)
-            } else if (!b.isEven()) b.subTo(m, b);
+            } else if (!b.isEven())
+                b.subTo(m, b);
             b.rShiftTo(1, b)
         }
         while (v.isEven()) {
@@ -1396,24 +1547,34 @@ function bnModInverse(m) {
                     d.subTo(m, d)
                 }
                 c.rShiftTo(1, c)
-            } else if (!d.isEven()) d.subTo(m, d);
+            } else if (!d.isEven())
+                d.subTo(m, d);
             d.rShiftTo(1, d)
         }
         if (u.compareTo(v) >= 0) {
             u.subTo(v, u);
-            if (ac) a.subTo(c, a);
+            if (ac)
+                a.subTo(c, a);
             b.subTo(d, b)
         } else {
             v.subTo(u, v);
-            if (ac) c.subTo(a, c);
+            if (ac)
+                c.subTo(a, c);
             d.subTo(b, d)
         }
     }
-    if (v.compareTo(BigInteger.ONE) != 0) return BigInteger.ZERO;
-    if (d.compareTo(m) >= 0) return d.subtract(m);
-    if (d.signum() < 0) d.addTo(m, d);
-    else return d; if (d.signum() < 0) return d.add(m);
-    else return d
+    if (v.compareTo(BigInteger.ONE) != 0)
+        return BigInteger.ZERO;
+    if (d.compareTo(m) >= 0)
+        return d.subtract(m);
+    if (d.signum() < 0)
+        d.addTo(m, d);
+    else
+        return d;
+    if (d.signum() < 0)
+        return d.add(m);
+    else
+        return d
 }
 var lowprimes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509];
 var lplim = (1 << 26) / lowprimes[lowprimes.length - 1];
@@ -1422,18 +1583,22 @@ function bnIsProbablePrime(t) {
     var i, x = this.abs();
     if (x.t == 1 && x[0] <= lowprimes[lowprimes.length - 1]) {
         for (i = 0; i < lowprimes.length; ++i)
-            if (x[0] == lowprimes[i]) return true;
+            if (x[0] == lowprimes[i])
+                return true;
         return false
     }
-    if (x.isEven()) return false;
+    if (x.isEven())
+        return false;
     i = 1;
     while (i < lowprimes.length) {
         var m = lowprimes[i],
-            j = i + 1;
-        while (j < lowprimes.length && m < lplim) m *= lowprimes[j++];
+                j = i + 1;
+        while (j < lowprimes.length && m < lplim)
+            m *= lowprimes[j++];
         m = x.modInt(m);
         while (i < j)
-            if (m % lowprimes[i++] == 0) return false
+            if (m % lowprimes[i++] == 0)
+                return false
     }
     return x.millerRabin(t)
 }
@@ -1441,10 +1606,12 @@ function bnIsProbablePrime(t) {
 function bnpMillerRabin(t) {
     var n1 = this.subtract(BigInteger.ONE);
     var k = n1.getLowestSetBit();
-    if (k <= 0) return false;
+    if (k <= 0)
+        return false;
     var r = n1.shiftRight(k);
     t = (t + 1) >> 1;
-    if (t > lowprimes.length) t = lowprimes.length;
+    if (t > lowprimes.length)
+        t = lowprimes.length;
     var a = nbi();
     for (var i = 0; i < t; ++i) {
         a.fromInt(lowprimes[i]);
@@ -1453,9 +1620,11 @@ function bnpMillerRabin(t) {
             var j = 1;
             while (j++ < k && y.compareTo(n1) != 0) {
                 y = y.modPowInt(2, this);
-                if (y.compareTo(BigInteger.ONE) == 0) return false
+                if (y.compareTo(BigInteger.ONE) == 0)
+                    return false
             }
-            if (y.compareTo(n1) != 0) return false
+            if (y.compareTo(n1) != 0)
+                return false
         }
     }
     return true
@@ -1512,10 +1681,10 @@ function SRP() {
     this.I = "";
     this.p = "";
     this.forward_url = "#";
-    this.srpstatus = null;
-    
+
+
     this.tries = 0;
-   
+
     var salt_alphabet = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var Nstr = "115b8b692e0e045692cf280b436735c77a5a9e8a9e7ed56c965f87db5b2a2ece3";
     var N = new BigInteger(Nstr, 16);
@@ -1537,15 +1706,11 @@ function SRP() {
     var that = this;
     var authenticated = false;
 
-    
-    this.showStatus = function (status) {
-        if (this.srpstatus != null)
-            this.srpstatus.innerHTML = status;
-    };
-    
+
     var xhr = null;
     this.userId = 0;
-    
+    this.boxId = 0;
+
     this.getI = function () {
         return this.I;
     };
@@ -1565,44 +1730,22 @@ function SRP() {
         return new BigInteger(SHA256(s + SHA256(this.I + ":" + this.p)), 16)
     };
     this.paths = function (str) {
-            return str;
+        return str;
     };
     this.innerxml = function (node) {
         return node.firstChild.nodeValue
     };
 
-    function isdefined(variable) {
-        return (typeof (window[variable]) != "undefined")
-    };
-    this.ajaxRequest = function (full_url, params, callback) {
-        if (window.XMLHttpRequest) xhr = new XMLHttpRequest();
-        else if (window.ActiveXObject) {
-            try {
-                xhr = new ActiveXObject("Microsoft.XMLHTTP")
-            } catch (e) {}
-        } else {
-            that.error_message("Ajax not supported.");
-            return
-        } if (xhr) {
-            xhr.onreadystatechange = callback;
-            xhr.open("POST", full_url, true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.send(params)
-        } else {
-            that.error_message("Ajax failed.")
-        }
-    };
-
     this.generateSalt = function () {
         salt = "";
-        for (i=0; i<16; i++) {
+        for (i = 0; i < 16; i++) {
             var ch = salt_alphabet.charAt(Math.floor(Math.random() * salt_alphabet.length));
             salt += ch;
         }
         return salt;
     };
 
-    this.getVerifier = function () {     
+    this.getVerifier = function () {
         var x = that.calcX(salt);
         var v = that.getg().modPow(x, that.getN());
         return v.toString(16);
@@ -1610,23 +1753,71 @@ function SRP() {
 
     this.identify = function () {
         this.tries++;
-        that.showStatus("Handshaking...");
-        var handshake_url = that.url + that.paths("handshake/");
-        var params = "I=" + that.I + "&A=" + Astr;
-        that.ajaxRequest(handshake_url, params, receive_salts);
-    };
+        console.log(" SRP Handshaking...");
 
-    function receive_salts() {
-        that.showStatus("Authenticating...");
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            if (xhr.responseXML.getElementsByTagName("r").length > 0) {
-                var response = xhr.responseXML.getElementsByTagName("r")[0];
-                if (!response.getAttribute("a")) {
-                    calculations(response.getAttribute("s"), response.getAttribute("B"), that.p);
-                    that.ajaxRequest(that.url + that.paths("authenticate/"), "M=" + M, confirm_authentication)
-                } else upgrade(response.getAttribute("s"), response.getAttribute("B"), response.getAttribute("a"), response.getAttribute("d"))
-            } else if (xhr.responseXML.getElementsByTagName("error").length > 0) that.error_message(xhr.responseXML.getElementsByTagName("error")[0])
+        var obj = {
+            "action": "handshake_srp",
+            "login": that.I,
+            "srp_A": Astr
         }
+        $.ajax({
+            type: "POST",
+            url: that.url,
+            dataType: 'json',
+            crossDomain: true,
+            async: true,
+            data: JSON.stringify(obj),
+            success: function (data) {
+                if (data["result"] === "success") {
+                    localStorage["session_key"] = data["session_key"];
+                    console.log(" SRP Authenticating...");
+                    calculations(data["salt"], data["srp_B"], that.p);
+                    var obj = {
+                        "action": "login_srp",
+                        "session_key": localStorage["session_key"],
+                        "srp_login": that.I,
+                        "srp_M": M
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: that.url,
+                        dataType: 'json',
+                        crossDomain: true,
+                        async: true,
+                        data: JSON.stringify(obj),
+                        success: function (data) {
+                            if (data["result"] === "success") {
+                                if (data["srp_M"] === M2) {
+                                    authenticated = true;
+                                    that.tries = 0;
+                                    that.userId = data["user_id"];
+                                    that.boxId = data["box_id"];
+                                    console.log(" Done, redirecting");
+                                    success();
+                                } else {
+                                    console.log("SRP failed, next try...");
+                                    if (that.tries < 3)
+                                        that.identify();
+                                    else
+                                        that.error_message("Server key does not match");
+
+                                }
+                            } else {
+                                alert("Error while SRP login: " + data["message"]);
+                            }
+                        },
+                        fail: function () {
+                            alert("Network error while SRP login");
+                        }
+                    })
+                } else {
+                    alert("Error while SRP handshake: " + data["message"]);
+                }
+            },
+            fail: function () {
+                alert("Network error while SRP handshake");
+            }
+        })
     };
 
     function calculations(s, ephemeral, pass) {
@@ -1641,52 +1832,36 @@ function SRP() {
         M = SHA256(Mstr);
         M2 = SHA256(A.toString(16) + M + S.toString(16));
         //if (this.tries < 2) M2 += "fvf";
-    };
+    }
+    ;
 
-    function confirm_authentication() {
-        that.showStatus("Confirming...");
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            if (xhr.responseXML.getElementsByTagName("r").length > 0) {
-                var response = xhr.responseXML.getElementsByTagName("r")[0];
-                 if (response.getAttribute("M") == M2) {
-                    authenticated = true;
-                    that.tries = 0;
-                    that.userId = response.getAttribute("id");
-                    that.showStatus("Done, redirecting");
-                    success();
-                } else 
-                {
-                    if (that.tries < 3)
-                        that.identify();
-                    else
-                        that.error_message("Server key does not match");
-                }
-            } else if (xhr.responseXML.getElementsByTagName("error").length > 0) that.error_message(that.innerxml(xhr.responseXML.getElementsByTagName("error")[0]))
-        }
-    };
-
-    function success() {
-        if (that.forward_url.charAt(0) != "#") window.location = that.forward_url;
+   function success() {
+        if (that.forward_url.charAt(0) != "#")
+            window.location = that.forward_url;
         else {
             window.location = that.forward_url;
             that.success()
         }
+    }
+    ;
+
+    this.success = function () {
+        console.log("Login successful.");
     };
-    
-    this.success = function () {    
-        sweetAlert("Login successful.");
-    };
-    
+
     this.key = function () {
         if (K == null)
             if (authenticated) {
                 K = SHA256(S.toString(16));
                 return K
-            } else that.error_message("User has not been authenticated.");
-            else return K
+            } else
+                that.error_message("User has not been authenticated.");
+        else
+            return K
     };
     this.error_message = function (t) {
-        sweetAlert(t)
+        alert(t)
     }
-};
+}
+;
 SRP.prototype.srpPath = document.getElementsByTagName('script')[document.getElementsByTagName('script').length - 1].getAttribute("src");
