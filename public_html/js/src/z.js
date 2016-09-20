@@ -8,47 +8,69 @@ $(function () {
     $('.login').hide();
     $('.registration').hide();
 
-    var kf = new KeyFile();
+    updateData();
 
-    var obj = {
-        "action": "get_data",
-        "user_id": kf.userId,
-        "box_id": kf.boxId,
-        "session_key": localStorage["session_key"]
+    function updateData() {
+        var kf = new KeyFile();
+
+        var obj = {
+            "action": "get_data",
+            "user_id": kf.userId,
+            "box_id": kf.boxId,
+            "session_key": localStorage["session_key"]
+        }
+
+        $.ajax({
+            type: "POST",
+            url: global_serverJSONUrl,
+            dataType: 'json',
+            crossDomain: true,
+            async: true,
+            data: JSON.stringify(obj),
+            success: function (data) {
+                if (data["result"] === "success") {
+                    localStorage["session_key"] = data["session_key"];
+                    console.log("successfully loaded data, decrypting");
+                    decryptData(kf, data);
+                    $('.registration').hide();
+                    $('.login').hide();
+                    $('.home').show();
+                } else if (data["result"] === "do_register") {
+                    console.log("registration needed");
+                    $('.registration').show();
+                } else if (data["result"] === "do_login") {
+                    localStorage["session_key"] = data["session_key"];
+                    console.log("login requested");
+                    if (typeof kf.getMyPrivateKey() !== "undefined" && kf.getMyPrivateKey().length === 256) {
+                        console.log("trying to login with RSA");
+                        authWithRSA(kf, data);
+                    } else {
+                        console.log("no private key, SRP auth forced");
+                        $('.login').show();
+                    }
+                }
+
+            },
+            fail: function () {
+                alert("Error while registering");
+            }
+        })
+
     }
 
-    $.ajax({
-        type: "POST",
-        url: global_serverJSONUrl,
-        dataType: 'json',
-        crossDomain: true,
-        async: true,
-        data: JSON.stringify(obj),
-        success: function (data) {
-            if (data["result"] === "success") {
-                localStorage["session_key"] = data["session_key"];
-                console.log("successfully loaded data, updating page");
-                updateData();
-            } else if (data["result"] === "do_register") {
-                console.log("registration needed");
-                $('.registration').show();
-            } else if (data["result"] === "do_login") {
-                localStorage["session_key"] = data["session_key"];
-                console.log("login requested");
-                if (typeof kf.getMyPrivateKey() !== "undefined" && kf.getMyPrivateKey().length === 256) {
-                    console.log("trying to login with RSA");
-                    authWithRSA(kf, data);
-                } else {
-                    console.log("no private key, SRP auth forced");
-                    $('.login').show();
-                }
-            }
-
-        },
-        fail: function () {
-            alert("Error while registering");
-        }
-    })
+    function decryptData(kf, data) {
+        console.log("decrypting \n" + JSON.stringify(data));
+        var rsa = new RSAKey();
+        rsa.setPrivate(kf.getMyPublicKey(), global_rsa_e, kf.getMyPrivateKey());
+        var res = rsa.decrypt(data["key_cipher"]);
+        console.log("symmetric key is " + res);
+        var key = cryptoHelpers.toNumbers(res); //creating key
+        
+        var bytesToDecrypt = cryptoHelpers.toNumbers(data["parameters"]); //decoding cipher
+        var bytes = slowAES.decrypt(bytesToDecrypt, global_aes_mode, key, key); //decrypting message
+        var plain = cryptoHelpers.decode_utf8(cryptoHelpers.convertByteArrayToString(bytes)); //decoding utf-8
+        console.log("Data decrypted: " + plain);
+    }
 
     function authWithRSA(kf, data) {
         var challenge = data["challenge"];
@@ -85,14 +107,6 @@ $(function () {
             }
         })
     }
-
-
-    function updateData() {
-        $('.registration').hide();
-        $('.login').hide();
-        $('.home').show();
-    }
-
 
     $('#login_srp').click(function () {
         console.log("logging in with SRP, handshaking");
