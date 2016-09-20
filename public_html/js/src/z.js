@@ -65,11 +65,31 @@ $(function () {
         var res = rsa.decrypt(data["key_cipher"]);
         console.log("symmetric key is " + res);
         var key = cryptoHelpers.toNumbers(res); //creating key
-        
-        var bytesToDecrypt = cryptoHelpers.toNumbers(data["parameters"]); //decoding cipher
+        var cipher = data["parameters"];
+        var bytesToDecrypt = cryptoHelpers.toNumbers(cipher); //decoding cipher
         var bytes = slowAES.decrypt(bytesToDecrypt, global_aes_mode, key, key); //decrypting message
         var plain = cryptoHelpers.decode_utf8(cryptoHelpers.convertByteArrayToString(bytes)); //decoding utf-8
         console.log("Data decrypted: " + plain);
+        try {
+            var pk = kf.getBoxKey(kf.boxId);
+
+            var rsa = new RSAKey();
+            rsa.setPublic(pk, global_rsa_e);
+            var isValid = rsa.verifyString(cipher, data["digest"]); //checking signature with sender's public key
+            if (isValid) {
+                console.log("Valid digest");
+                updatePage(data);
+            } else {
+                console.log("Digest not valid!");
+            }
+
+        } catch (e) {
+            console.log("Error checking digest");
+        }
+    }
+    
+    function updatePage(data) {
+        console.log("updating page");
     }
 
     function authWithRSA(kf, data) {
