@@ -1,6 +1,8 @@
-var global_serverJSONUrl = "http://my.moidom.molnet.ru:8083/hs/json";
+var global_serverJSONUrl = "http://192.168.11.22:8080/hs/json";
 var global_rsa_e = "10001";
 var global_aes_mode = slowAES.modeOfOperation.CFB; //AES mode of operation for all symmetric encryption, including messages, posts, comments, files, keyfile
+var data_update_interval = 10000;
+var print_debug_to_console = false;
 
 $(function () {
     //init
@@ -30,22 +32,23 @@ $(function () {
             success: function (data) {
                 if (data["result"] === "success") {
                     localStorage["session_key"] = data["session_key"];
-                    console.log("successfully loaded data, decrypting");
+                    if (print_debug_to_console) console.log("successfully loaded data, decrypting");
+                    setTimeout(updateData, data_update_interval);
                     decryptData(kf, data);
                     $('.registration').hide();
                     $('.login').hide();
                     $('.home').show();
                 } else if (data["result"] === "do_register") {
-                    console.log("registration needed");
+                    if (print_debug_to_console) console.log("registration needed");
                     $('.registration').show();
                 } else if (data["result"] === "do_login") {
                     localStorage["session_key"] = data["session_key"];
-                    console.log("login requested");
+                    if (print_debug_to_console) console.log("login requested");
                     if (typeof kf.getMyPrivateKey() !== "undefined" && kf.getMyPrivateKey().length === 256) {
-                        console.log("trying to login with RSA");
+                        if (print_debug_to_console) console.log("trying to login with RSA");
                         authWithRSA(kf, data);
                     } else {
-                        console.log("no private key, SRP auth forced");
+                        if (print_debug_to_console) console.log("no private key, SRP auth forced");
                         $('.login').show();
                     }
                 }
@@ -59,42 +62,41 @@ $(function () {
     }
 
     function decryptData(kf, data) {
-        console.log("decrypting \n" + JSON.stringify(data));
+        if (print_debug_to_console) console.log("decrypting \n" + JSON.stringify(data));
         var rsa = new RSAKey();
         rsa.setPrivate(kf.getMyPublicKey(), global_rsa_e, kf.getMyPrivateKey());
         var res = rsa.decrypt(data["key_cipher"]);
-        console.log("symmetric key is " + res);
+        if (print_debug_to_console) console.log("symmetric key is " + res);
         var key = cryptoHelpers.toNumbers(res); //creating key
         var cipher = data["parameters"];
         var bytesToDecrypt = cryptoHelpers.toNumbers(cipher); //decoding cipher
         var bytes = slowAES.decrypt(bytesToDecrypt, global_aes_mode, key, key); //decrypting message
         var plain = cryptoHelpers.decode_utf8(cryptoHelpers.convertByteArrayToString(bytes)); //decoding utf-8
-        console.log("Data decrypted: " + plain);
-        try {
+        if (print_debug_to_console) console.log("Data decrypted: " + plain);
+        //try 
+        {
             var pk = kf.getBoxKey(kf.boxId);
 
             var rsa = new RSAKey();
             rsa.setPublic(pk, global_rsa_e);
             var isValid = rsa.verifyString(cipher, data["digest"]); //checking signature with sender's public key
             if (isValid) {
-                console.log("Valid digest");
-                updatePage(data);
+                if (print_debug_to_console) console.log("Valid digest");
+                updatePage(plain);
             } else {
-                console.log("Digest not valid!");
+                if (print_debug_to_console) console.log("Digest not valid!");
             }
 
-        } catch (e) {
-            console.log("Error checking digest");
-        }
+        } /*catch (e) {
+            if (print_debug_to_console) console.log("Error checking digest");
+        }*/
     }
     
-    function updatePage(data) {
-        console.log("updating page");
-    }
+
 
     function authWithRSA(kf, data) {
         var challenge = data["challenge"];
-        console.log("Authenticating with RSA, challenge=" + challenge);
+        if (print_debug_to_console) console.log("Authenticating with RSA, challenge=" + challenge);
         var rsa = new RSAKey();
         rsa.setPrivate(kf.getMyPublicKey(), global_rsa_e, kf.getMyPrivateKey());
         var digest = rsa.signString(challenge, "sha256");//generating signature with author's private key
@@ -114,7 +116,7 @@ $(function () {
             data: JSON.stringify(obj),
             success: function (data) {
                 if (data["result"] === "success") {
-                    console.log("successfully authenticated with RSA");
+                    if (print_debug_to_console) console.log("successfully authenticated with RSA");
                     updateData();
                 } else {
                     console.error("Error while RSA auth: " + data["message"] + ". Falling back to SRP.");
@@ -129,7 +131,7 @@ $(function () {
     }
 
     $('#login_srp').click(function () {
-        console.log("logging in with SRP, handshaking");
+        if (print_debug_to_console) console.log("logging in with SRP, handshaking");
         var srp = new SRP();
         var login = $("#login_phone").val();
         srp.I = login;
@@ -143,9 +145,9 @@ $(function () {
             var ls = localStorage;
             ls["userId"] = srp.userId;
             ls["boxId"] = srp.boxId;
-            kf = new KeyFile();
+            var kf = new KeyFile();
             kf.downloadKeyFile(global_serverJSONUrl, pbkdf, function () {
-                console.log("sucessfully logged in with SRP, keyfile downloaded");
+                if (print_debug_to_console) console.log("sucessfully logged in with SRP, keyfile downloaded");
                 updateData();
             });
         }
@@ -158,9 +160,9 @@ $(function () {
     $('#register').click(function () {
 
         var rsa = new RSAKey();
-        console.log("generating RSA...");
+        if (print_debug_to_console) console.log("generating RSA...");
         rsa.generate(1024, global_rsa_e); //1024 bits, public exponent = 10001
-        console.log("RSA generated, generating salt");
+        if (print_debug_to_console) console.log("RSA generated, generating salt");
         var srp = new SRP();
         var login = $("#phone").val();
         srp.I = login;
@@ -169,7 +171,7 @@ $(function () {
         var salt = srp.generateSalt();
         var verifier = srp.getVerifier();
         var publicKey = rsa.n.toString(16);
-        console.log("Generated s=" + salt + ", v=" + verifier + ", public key=" + publicKey + " for login " + login + ", password " + srp.p);
+        if (print_debug_to_console) console.log("Generated s=" + salt + ", v=" + verifier + ", public key=" + publicKey + " for login " + login + ", password " + srp.p);
 
         var regObj = {
             "action": "register",
@@ -195,7 +197,7 @@ $(function () {
                     kf.initKeyFile(data["new_user_id"], data["box_id"], rsa.d.toString(16), rsa.n.toString(16), pbkdf);
                     kf.addBoxKey(data["box_id"], data["box_public_key"]);
                     localStorage["session_key"] = data["session_key"];
-                    console.log("created keyfile: \n" + kf.getKeyFileAsStirng());
+                    if (print_debug_to_console) console.log("created keyfile: \n" + kf.getKeyFileAsStirng());
                     kf.uploadKeyFile(global_serverJSONUrl, function () {
                         if (kf.xhr.readyState === 4 && kf.xhr.status == 200) {
                             alert("Successfully registered! UserId = " + data["new_user_id"]);
@@ -215,7 +217,7 @@ $(function () {
     });
 
     $('#dev_logout').click(function () {
-        console.log("Logging out...");
+        if (print_debug_to_console) console.log("Logging out...");
         ls.clear();
         $('.registration').hide();
         $('.home').hide();
