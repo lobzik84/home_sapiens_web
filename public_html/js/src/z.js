@@ -2,15 +2,205 @@ var global_serverJSONUrl = "http://192.168.11.22:8080/hs/json";
 var global_rsa_e = "10001";
 var global_aes_mode = slowAES.modeOfOperation.CFB; //AES mode of operation for all symmetric encryption, including messages, posts, comments, files, keyfile
 var data_update_interval = 10000;
-var print_debug_to_console = true;
+var print_debug_to_console = false;
 
 $(function () {
     //init
     $('.home').hide();
     $('.login').hide();
     $('.registration').hide();
+//hide everything
+    updateData(); //try to fetch data
+    updateCapture();
 
-    updateData();
+    //button handlers
+    $('#update_capture').click(function () {
+        updateCapture();
+    });
+
+    $('#dev_logout').click(function () {
+        if (print_debug_to_console)
+            console.log("Logging out...");
+        ls.clear();
+        $('.registration').hide();
+        $('.home').hide();
+        $('.login').show();
+    });
+
+    $('#lamp--first-status').click(function () {
+        $('.control__status', this).toggleClass('on');
+        if ($('.control__status', this).hasClass('on')) {   
+            sendUartCommand("led1=on");
+            $('.control__status', this).text('Включена');
+            $('.control__img img', this).attr('src', 'images/lamp.png');
+
+        } else {
+            sendUartCommand("led1=off");
+            $('.control__status', this).text('Выключена');
+            $('.control__img img', this).attr('src', 'images/lamp-off.png');
+        }
+    });
+
+
+    $('#lamp--second-status').click(function () {
+        $('.control__status', this).toggleClass('on');
+        if ($('.control__status', this).hasClass('on')) {
+            sendUartCommand("led2=on");            
+            $('.control__status', this).text('Включена');
+            $('.control__img img', this).attr('src', 'images/lamp.png');
+        } else {
+            sendUartCommand("led2=off");
+            $('.control__status', this).text('Выключена');
+            $('.control__img img', this).attr('src', 'images/lamp-off.png');
+        }
+    });
+
+
+    $('#socket--status').click(function () {
+        $('.control__status', this).toggleClass('on');
+        if ($('.control__status', this).hasClass('on')) {
+            sendUartCommand("433_TX=10044428,200");
+            $('.control__status', this).text('Включена');
+            $('.control__img img', this).attr('src', 'images/socket.png');
+        } else {
+            sendUartCommand("433_TX=10044420,200");
+            $('.control__status', this).text('Выключена');
+            $('.control__img img', this).attr('src', 'images/socket-off.png');
+        }
+    });
+
+    $('#login_srp').click(function () {
+        if (print_debug_to_console)
+            console.log("logging in with SRP, handshaking");
+        var srp = new SRP();
+        var login = $("#login_phone").val();
+        srp.I = login;
+        srp.p = $("#srp__password").val();
+        srp.forward_url = "#";//
+        srp.url = global_serverJSONUrl;
+        srp.success = function () {
+            var scrypt = scrypt_module_factory();
+            var scryptBytes = scrypt.crypto_scrypt(scrypt.encode_utf8($("#login_phone").val() + ":" + $("#srp__password").val()), scrypt.encode_utf8(""), 16384, 8, 1, 32);
+            var pbkdf = cryptoHelpers.ua2hex(scryptBytes);
+            var ls = localStorage;
+            ls["userId"] = srp.userId;
+            ls["boxId"] = srp.boxId;
+            var kf = new KeyFile();
+            kf.downloadKeyFile(global_serverJSONUrl, pbkdf, function () {
+                if (print_debug_to_console)
+                    console.log("sucessfully logged in with SRP, keyfile downloaded");
+                updateData();
+            });
+        }
+        srp.identify();
+    });
+
+
+
+
+    $('#register').click(function () {
+
+        var rsa = new RSAKey();
+        if (print_debug_to_console)
+            console.log("generating RSA...");
+        rsa.generate(1024, global_rsa_e); //1024 bits, public exponent = 10001
+        if (print_debug_to_console)
+            console.log("RSA generated, generating salt");
+        var srp = new SRP();
+        var login = $("#phone").val();
+        srp.I = login;
+        srp.p = $("#new__password").val(); //TODO check passwords are similiar
+
+        var salt = srp.generateSalt();
+        var verifier = srp.getVerifier();
+        var publicKey = rsa.n.toString(16);
+        if (print_debug_to_console)
+            console.log("Generated s=" + salt + ", v=" + verifier + ", public key=" + publicKey + " for login " + login + ", password " + srp.p);
+
+        var regObj = {
+            "action": "register",
+            "login": login,
+            "salt": salt,
+            "verifier": verifier,
+            "public_key": publicKey
+        }
+
+        $.ajax({
+            type: "POST",
+            url: global_serverJSONUrl,
+            dataType: 'json',
+            crossDomain: true,
+            async: true,
+            data: JSON.stringify(regObj),
+            success: function (data) {
+                if (data["result"] === "success") {
+                    var scrypt = scrypt_module_factory();
+                    var scryptBytes = scrypt.crypto_scrypt(scrypt.encode_utf8($("#phone").val() + ":" + $("#new__password").val()), scrypt.encode_utf8(""), 16384, 8, 1, 32);
+                    var pbkdf = cryptoHelpers.ua2hex(scryptBytes);
+                    var kf = new KeyFile();
+                    kf.initKeyFile(data["new_user_id"], data["box_id"], rsa.d.toString(16), rsa.n.toString(16), pbkdf);
+                    kf.addBoxKey(data["box_id"], data["box_public_key"]);
+                    localStorage["session_key"] = data["session_key"];
+                    if (print_debug_to_console)
+                        console.log("created keyfile: \n" + kf.getKeyFileAsStirng());
+                    kf.uploadKeyFile(global_serverJSONUrl, function () {
+                        if (kf.xhr.readyState === 4 && kf.xhr.status == 200) {
+                            alert("Successfully registered! UserId = " + data["new_user_id"]);
+                            $('.registration').hide();
+                            $('.home').show();
+                        }
+                    });
+
+                } else
+                    alert("Error while registering: " + data["message"]);
+            },
+            fail: function () {
+                alert("Error while registering");
+            }
+        })
+
+    });
+    
+    function sendUartCommand(content) {
+    
+        var obj = {
+            "uart_command": content            
+        }
+            
+        sendCommand("internal_uart_command", obj);
+    }
+        
+    function sendCommand(name, command_data) {
+        var kf = new KeyFile();
+
+        var obj = {
+            "action": "command",
+            "command_name":name,
+            "command_data": command_data,
+            "user_id": kf.userId,
+            "box_id": kf.boxId,
+            "session_key": localStorage["session_key"]
+        }
+
+        $.ajax({
+            type: "POST",
+            url: global_serverJSONUrl,
+            dataType: 'json',
+            crossDomain: true,
+            async: true,
+            data: JSON.stringify(obj),
+            success: function (data) {
+                if (data["result"] === "success") {
+                    localStorage["session_key"] = data["session_key"];
+                    decryptData(kf, data);
+                }
+            },
+            fail: function () {
+                console.error("network error");
+
+            }
+        })
+    }
 
     function updateData() {
         var kf = new KeyFile();
@@ -67,9 +257,7 @@ $(function () {
 
     }
 
-    $('#update_capture').click(function () {
-        updateCapture();
-    });
+
 
     function updateCapture() {
         var kf = new KeyFile();
@@ -164,22 +352,22 @@ $(function () {
                 var cipher = cam["img_cipher"];
                 var bytesToDecrypt = cryptoHelpers.toNumbers(cipher); //decoding cipher
                 var bytes = slowAES.decrypt(bytesToDecrypt, global_aes_mode, key, key); //decrypting 
-                
+
                 var imgDate = cam["img_date"];
-                
+
                 var imgElementId = "video_cam_" + camNameStr;
                 var imgElement = document.getElementById(imgElementId);
                 if (imgElement !== "undefined") {
                     if (print_debug_to_console)
                         console.log("Updating element " + imgElementId + " size: " + bytes.length + " date: " + imgDate);
-                    imgElement.src = "data:image/jpeg;base64," + btoa( String.fromCharCode.apply(null,bytes));
-                var captureDate = new Date(imgDate);    
-                $("#video--date").html(captureDate.getDay() + "." + captureDate.getMonth() + "." + captureDate.getFullYear() +",");
-                
-                $("#video--time").html(captureDate.getHours() + ":" + captureDate.getMinutes());
-                if (print_debug_to_console)
+                    imgElement.src = "data:image/jpeg;base64," + btoa(String.fromCharCode.apply(null, bytes));
+                    var captureDate = new Date(imgDate);
+                    $("#video--date").html(captureDate.getDay() + "." + captureDate.getMonth() + "." + captureDate.getFullYear() + ",");
+
+                    $("#video--time").html(captureDate.getHours() + ":" + captureDate.getMinutes());
+                    if (print_debug_to_console)
                         console.log(camNameStr + " updated, time=" + (Date.now() - begin) + " ms");
-                } 
+                }
 
             } catch (e) {
                 console.error("error decypting capture " + e);
@@ -225,104 +413,5 @@ $(function () {
         })
     }
 
-    $('#login_srp').click(function () {
-        if (print_debug_to_console)
-            console.log("logging in with SRP, handshaking");
-        var srp = new SRP();
-        var login = $("#login_phone").val();
-        srp.I = login;
-        srp.p = $("#srp__password").val();
-        srp.forward_url = "#";//
-        srp.url = global_serverJSONUrl;
-        srp.success = function () {
-            var scrypt = scrypt_module_factory();
-            var scryptBytes = scrypt.crypto_scrypt(scrypt.encode_utf8($("#login_phone").val() + ":" + $("#srp__password").val()), scrypt.encode_utf8(""), 16384, 8, 1, 32);
-            var pbkdf = cryptoHelpers.ua2hex(scryptBytes);
-            var ls = localStorage;
-            ls["userId"] = srp.userId;
-            ls["boxId"] = srp.boxId;
-            var kf = new KeyFile();
-            kf.downloadKeyFile(global_serverJSONUrl, pbkdf, function () {
-                if (print_debug_to_console)
-                    console.log("sucessfully logged in with SRP, keyfile downloaded");
-                updateData();
-            });
-        }
-        srp.identify();
-    });
 
-
-
-
-    $('#register').click(function () {
-
-        var rsa = new RSAKey();
-        if (print_debug_to_console)
-            console.log("generating RSA...");
-        rsa.generate(1024, global_rsa_e); //1024 bits, public exponent = 10001
-        if (print_debug_to_console)
-            console.log("RSA generated, generating salt");
-        var srp = new SRP();
-        var login = $("#phone").val();
-        srp.I = login;
-        srp.p = $("#new__password").val(); //TODO check passwords are similiar
-
-        var salt = srp.generateSalt();
-        var verifier = srp.getVerifier();
-        var publicKey = rsa.n.toString(16);
-        if (print_debug_to_console)
-            console.log("Generated s=" + salt + ", v=" + verifier + ", public key=" + publicKey + " for login " + login + ", password " + srp.p);
-
-        var regObj = {
-            "action": "register",
-            "login": login,
-            "salt": salt,
-            "verifier": verifier,
-            "public_key": publicKey
-        }
-
-        $.ajax({
-            type: "POST",
-            url: global_serverJSONUrl,
-            dataType: 'json',
-            crossDomain: true,
-            async: true,
-            data: JSON.stringify(regObj),
-            success: function (data) {
-                if (data["result"] === "success") {
-                    var scrypt = scrypt_module_factory();
-                    var scryptBytes = scrypt.crypto_scrypt(scrypt.encode_utf8($("#phone").val() + ":" + $("#new__password").val()), scrypt.encode_utf8(""), 16384, 8, 1, 32);
-                    var pbkdf = cryptoHelpers.ua2hex(scryptBytes);
-                    var kf = new KeyFile();
-                    kf.initKeyFile(data["new_user_id"], data["box_id"], rsa.d.toString(16), rsa.n.toString(16), pbkdf);
-                    kf.addBoxKey(data["box_id"], data["box_public_key"]);
-                    localStorage["session_key"] = data["session_key"];
-                    if (print_debug_to_console)
-                        console.log("created keyfile: \n" + kf.getKeyFileAsStirng());
-                    kf.uploadKeyFile(global_serverJSONUrl, function () {
-                        if (kf.xhr.readyState === 4 && kf.xhr.status == 200) {
-                            alert("Successfully registered! UserId = " + data["new_user_id"]);
-                            $('.registration').hide();
-                            $('.home').show();
-                        }
-                    });
-
-                } else
-                    alert("Error while registering: " + data["message"]);
-            },
-            fail: function () {
-                alert("Error while registering");
-            }
-        })
-
-    });
-
-    $('#dev_logout').click(function () {
-        if (print_debug_to_console)
-            console.log("Logging out...");
-        ls.clear();
-        $('.registration').hide();
-        $('.home').hide();
-        $('.login').show();
-    });
 });
