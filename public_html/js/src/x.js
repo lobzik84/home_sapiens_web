@@ -25,36 +25,7 @@ $(function () {
         $('.settings__dropdown').toggleClass('drop');
         $('.settings__options, .settings__save').toggle();
     });
-    $('#lamp--first-status').click(function () {
-        $('.control__status', this).toggleClass('on');
-        if ($('.control__status', this).hasClass('on')) {
-            $('.control__status', this).text('Включена');
-            $('.control__img img', this).attr('src', 'images/lamp.png');
-        } else {
-            $('.control__status', this).text('Выключена');
-            $('.control__img img', this).attr('src', 'images/lamp-off.png');
-        }
-    });
-    $('#lamp--second-status').click(function () {
-        $('.control__status', this).toggleClass('on');
-        if ($('.control__status', this).hasClass('on')) {
-            $('.control__status', this).text('Включена');
-            $('.control__img img', this).attr('src', 'images/lamp.png');
-        } else {
-            $('.control__status', this).text('Выключена');
-            $('.control__img img', this).attr('src', 'images/lamp-off.png');
-        }
-    });
-    $('#socket--status').click(function () {
-        $('.control__status', this).toggleClass('on');
-        if ($('.control__status', this).hasClass('on')) {
-            $('.control__status', this).text('Включена');
-            $('.control__img img', this).attr('src', 'images/socket.png');
-        } else {
-            $('.control__status', this).text('Выключена');
-            $('.control__img img', this).attr('src', 'images/socket-off.png');
-        }
-    });
+
     $('#mode__master').click(function () {
         $('#mode__master').addClass('change__current');
         $('#mode__security').removeClass('change__current');
