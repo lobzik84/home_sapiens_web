@@ -1,4 +1,4 @@
-var global_serverJSONUrl = "http://192.168.11.22:8080/hs/json";
+var global_serverJSONUrl = "http://localhost:8081/hs/json";
 var global_rsa_e = "10001";
 var global_aes_mode = slowAES.modeOfOperation.CFB; //AES mode of operation for all symmetric encryption, including messages, posts, comments, files, keyfile
 var data_update_interval = 10000;
@@ -11,7 +11,7 @@ $(function () {
     $('.registration').hide();
 //hide everything
     updateData(); //try to fetch data
-    updateCapture();
+   // updateCapture();
 
     //button handlers
     $('#update_capture').click(function () {
@@ -148,6 +148,7 @@ $(function () {
                             alert("Successfully registered! UserId = " + data["new_user_id"]);
                             $('.registration').hide();
                             $('.home').show();
+                            updateData();
                         }
                     });
 
