@@ -41,58 +41,44 @@ $(function () {
         $('html, body').animate({scrollTop: 1200}, 'fast');
     });
     $('.settings__temp_min--minus').click(function () {
-        var i = $('#settings__value_temp--min').text();
+        var i = parseInt($('#settings__value--InTempAlertMin').text(), 10);
         i--;
-        $('#settings__value_temp--min').text(i);
+        $('#settings__value--InTempAlertMin').text(i);
     });
     $('.settings__temp_min--plus').click(function () {
-        var i = $('#settings__value_temp--min').text();
+        var i = parseInt($('#settings__value--InTempAlertMin').text(), 10);
         i++;
-        $('#settings__value_temp--min').text(i);
+        $('#settings__value--InTempAlertMin').text(i);
     });
     $('.settings__temp_max--minus').click(function () {
-        var i = $('#settings__value_temp--max').text();
+        var i = parseInt($('#settings__value--InTempAlertMax').text(), 10);
         i--;
-        $('#settings__value_temp--max').text(i);
+        $('#settings__value--InTempAlertMax').text(i);
     });
     $('.settings__temp_max--plus').click(function () {
-        var i = $('#settings__value_temp--max').text();
+        var i = parseInt($('#settings__value--InTempAlertMax').text(), 10);
         i++;
-        $('#settings__value_temp--max').text(i);
+        $('#settings__value--InTempAlertMax').text(i);
     });
     $('.settings__volt_min--minus').click(function () {
-        var k = $('#settings__value_volt--min').text();
-        k.toString();
-        i = k - 5;
-        i.toString();
-        $('#settings__value_volt--min').text(i);
+        var i = parseInt($('#settings__value--VACAlertMin').text(), 10);
+        i = i-5;
+        $('#settings__value--VACAlertMin').text(i);
     });
     $('.settings__volt_min--plus').click(function () {
-        var i = $('#settings__value_volt--min').text();
-        i++;
-        i++;
-        i++;
-        i++;
-        i++;
-        // :) потом сделаю нормально
-        $('#settings__value_volt--min').text(i);
+        var i = parseInt($('#settings__value--VACAlertMin').text(), 10);
+        i = i+5;
+        $('#settings__value--VACAlertMin').text(i);
     });
     $('.settings__volt_max--minus').click(function () {
-        var k = $('#settings__value_volt--max').text();
-        k.toString();
-        i = k - 5;
-        i.toString();
-        $('#settings__value_volt--max').text(i);
+        var i = parseInt($('#settings__value--VACAlertMax').text(), 10);
+        i = i-5;
+        $('#settings__value--VACAlertMax').text(i);
     });
     $('.settings__volt_max--plus').click(function () {
-        var i = $('#settings__value_volt--max').text();
-        i++;
-        i++;
-        i++;
-        i++;
-        i++;
-        // :) потом сделаю нормально
-        $('#settings__value_volt--max').text(i);
+        var i = parseInt($('#settings__value--VACAlertMax').text(), 10);
+        i = i+5;
+        $('#settings__value--VACAlertMax').text(i);
     });
     $('.password__save').on('touchstart', function () {
         $('.password__save').css('background', '#4caf50');
@@ -100,12 +86,7 @@ $(function () {
     $('.password__save').on('touchend', function () {
         $('.password__save').css('background', '#444444');
     });
-    $('.settings__save').on('touchstart', function () {
-        $('.settings__save').css('background', '#4caf50');
-    });
-    $('.settings__save').on('touchend', function () {
-        $('.settings__save').css('background', '#444444');
-    });
+
 
    /* var width = $('.history__info--table').width();
     var parentWidth = $('.history__info--table').offsetParent().width();

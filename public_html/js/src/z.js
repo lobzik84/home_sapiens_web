@@ -1,9 +1,9 @@
-var global_serverJSONUrl = "http://dev.molnet.ru/hs/json";
+var global_serverJSONUrl = "http://localhost:8083/hs/json";
 var global_rsa_e = "10001";
 var global_aes_mode = slowAES.modeOfOperation.CFB; //AES mode of operation for all symmetric encryption, including messages, posts, comments, files, keyfile
 var data_update_interval = 10000;
-var print_debug_to_console = false;
-
+var print_debug_to_console = true;
+var first_loaded = true;
 $(function () {
     //init
     $('.home').hide();
@@ -11,7 +11,7 @@ $(function () {
     $('.registration').hide();
 //hide everything
     updateData(); //try to fetch data
-   // updateCapture();
+    // 
 
     //button handlers
     $('#update_capture').click(function () {
@@ -29,7 +29,7 @@ $(function () {
 
     $('#lamp--first-status').click(function () {
         $('.control__status', this).toggleClass('on');
-        if ($('.control__status', this).hasClass('on')) {   
+        if ($('.control__status', this).hasClass('on')) {
             sendUartCommand("led1=on");
             $('.control__status', this).text('Включена');
             $('.control__img img', this).attr('src', 'images/lamp.png');
@@ -45,7 +45,7 @@ $(function () {
     $('#lamp--second-status').click(function () {
         $('.control__status', this).toggleClass('on');
         if ($('.control__status', this).hasClass('on')) {
-            sendUartCommand("led2=on");            
+            sendUartCommand("led2=on");
             $('.control__status', this).text('Включена');
             $('.control__img img', this).attr('src', 'images/lamp.png');
         } else {
@@ -67,6 +67,35 @@ $(function () {
             $('.control__status', this).text('Выключена');
             $('.control__img img', this).attr('src', 'images/socket-off.png');
         }
+    });
+
+    $('.settings__save').on('touchstart', function () {
+
+        $('.settings__save').css('background', '#4caf50');
+
+    });
+    $('.settings__save').on('touchend', function () {
+        $('.settings__save').css('background', '#444444');
+    });
+
+    $('#settings__save_do').click(function () {
+        console.log("Saving settings");
+        var settingElementIdPrefix = "settings__value--";
+        var settingsObject = {};
+        var settings = $('[id^="' + settingElementIdPrefix + '"]');
+
+        settings.each(function (index, setting) {
+            var settingName = setting.id.toString();
+            settingName = settingName.substring(settingElementIdPrefix.length, settingName.length + settingElementIdPrefix.length);
+            console.log(settingName + " - " + setting.innerHTML);
+            //var obj = {settingName: setting.innerHTML};
+            settingsObject[settingName] = setting.innerHTML;
+        }
+        );
+        var obj = { "settings": settingsObject };
+
+        sendCommand("save_settings", obj);
+
     });
 
     $('#login_srp').click(function () {
@@ -161,22 +190,22 @@ $(function () {
         })
 
     });
-    
+
     function sendUartCommand(content) {
-    
+
         var obj = {
-            "uart_command": content            
+            "uart_command": content
         }
-            
+
         sendCommand("internal_uart_command", obj);
     }
-        
+
     function sendCommand(name, command_data) {
         var kf = new KeyFile();
 
         var obj = {
             "action": "command",
-            "command_name":name,
+            "command_name": name,
             "command_data": command_data,
             "user_id": kf.userId,
             "box_id": kf.boxId,
@@ -230,6 +259,11 @@ $(function () {
                     $('.registration').hide();
                     $('.login').hide();
                     $('.home').show();
+                    if (first_loaded) {//обновляем только после загрузки данныч - чтоб не мешать авторизации
+                        updateCapture();
+                        loadSettings();
+                        first_loaded = false;
+                    }
                 } else if (data["result"] === "do_register") {
                     if (print_debug_to_console)
                         console.log("registration needed");
@@ -259,6 +293,43 @@ $(function () {
     }
 
 
+    function loadSettings() {
+        var kf = new KeyFile();
+
+        var obj = {
+            "action": "get_settings",
+            "user_id": kf.userId,
+            "box_id": kf.boxId,
+            "session_key": localStorage["session_key"]
+        }
+
+        $.ajax({
+            type: "POST",
+            url: global_serverJSONUrl,
+            dataType: 'json',
+            crossDomain: true,
+            async: true,
+            data: JSON.stringify(obj),
+            success: function (data) {
+                if (data["result"] === "success") {
+                    localStorage["session_key"] = data["session_key"];
+                    if (print_debug_to_console) {
+                        console.log("successfully loaded settings");
+                        console.log(data);
+                    }
+                    // var settings = data["settings"];
+                    updateSettings(data["settings"])
+                    //$("#header__location").html(settings["BoxName"]);
+                    //$("#header__location").html(settings["BoxName"]);
+                }
+
+            },
+            fail: function () {
+                console.error("network error while getting settings");
+            }
+        })
+
+    }
 
     function updateCapture() {
         var kf = new KeyFile();
