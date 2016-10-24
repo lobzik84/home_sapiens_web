@@ -49,11 +49,16 @@ function updatePage(data) {
             try {
                 var val = json[key]["last_value"];
                 var elementKey = "#status__value--" + key;
-                if ($(elementKey) != "undefined") {
+                if ($(elementKey) !== "undefined") {
                     if (json[key]["par_type"] == "DOUBLE") {
                         $(elementKey).text(val);
-                    } else if (json[key]["par_type"] == "BOOLEAN") {
-                        $(elementKey).addClass(val); //?? ставить класс если true
+                    } else if (json[key]["par_type"] === "BOOLEAN") {
+                        if (val.toString().toLowerCase() === "true") {
+                            $(elementKey).addClass("true"); 
+                        } else {
+                            $(elementKey).removeClass("false"); 
+                        }
+                        
                     }
                 }
             } catch (ee) {

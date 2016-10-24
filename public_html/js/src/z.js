@@ -1,8 +1,8 @@
-var global_serverJSONUrl = "http://localhost:8083/hs/json";
+var global_serverJSONUrl = "http://dev.molnet.ru/hs/json";
 var global_rsa_e = "10001";
 var global_aes_mode = slowAES.modeOfOperation.CFB; //AES mode of operation for all symmetric encryption, including messages, posts, comments, files, keyfile
 var data_update_interval = 10000;
-var print_debug_to_console = true;
+var print_debug_to_console = false;
 var first_loaded = true;
 $(function () {
     //init
@@ -179,41 +179,33 @@ $(function () {
             "verifier": verifier,
             "public_key": publicKey
         }
+        var success = function (data) {
+            if (data["result"] === "success") {
+                var scrypt = scrypt_module_factory();
+                var scryptBytes = scrypt.crypto_scrypt(scrypt.encode_utf8($("#phone").val() + ":" + $("#new__password").val()), scrypt.encode_utf8(""), 16384, 8, 1, 32);
+                var pbkdf = cryptoHelpers.ua2hex(scryptBytes);
+                var kf = new KeyFile();
+                kf.initKeyFile(data["new_user_id"], data["box_id"], rsa.d.toString(16), rsa.n.toString(16), pbkdf);
+                kf.addBoxKey(data["box_id"], data["box_public_key"]);
+                localStorage["session_key"] = data["session_key"];
+                if (print_debug_to_console)
+                    console.log("created keyfile: \n" + kf.getKeyFileAsStirng());
+                kf.uploadKeyFile(global_serverJSONUrl, function () {
+                    if (kf.xhr.readyState === 4 && kf.xhr.status === 200) {
+                        alert("Successfully registered! UserId = " + data["new_user_id"]);
+                        $('.registration').hide();
+                        $('.home').show();
+                        updateData();
+                    }
+                });
 
-        $.ajax({
-            type: "POST",
-            url: global_serverJSONUrl,
-            dataType: 'json',
-            crossDomain: true,
-            async: true,
-            data: JSON.stringify(regObj),
-            success: function (data) {
-                if (data["result"] === "success") {
-                    var scrypt = scrypt_module_factory();
-                    var scryptBytes = scrypt.crypto_scrypt(scrypt.encode_utf8($("#phone").val() + ":" + $("#new__password").val()), scrypt.encode_utf8(""), 16384, 8, 1, 32);
-                    var pbkdf = cryptoHelpers.ua2hex(scryptBytes);
-                    var kf = new KeyFile();
-                    kf.initKeyFile(data["new_user_id"], data["box_id"], rsa.d.toString(16), rsa.n.toString(16), pbkdf);
-                    kf.addBoxKey(data["box_id"], data["box_public_key"]);
-                    localStorage["session_key"] = data["session_key"];
-                    if (print_debug_to_console)
-                        console.log("created keyfile: \n" + kf.getKeyFileAsStirng());
-                    kf.uploadKeyFile(global_serverJSONUrl, function () {
-                        if (kf.xhr.readyState === 4 && kf.xhr.status == 200) {
-                            alert("Successfully registered! UserId = " + data["new_user_id"]);
-                            $('.registration').hide();
-                            $('.home').show();
-                            updateData();
-                        }
-                    });
-
-                } else
-                    alert("Error while registering: " + data["message"]);
-            },
-            fail: function () {
-                alert("Error while registering");
+            } else {
+                alert("Error while registering: " + data["message"]);
             }
-        })
+        }
+        postData(regObj, success, function () {
+            alert("Error while registering");
+        });
 
     });
 
@@ -229,59 +221,6 @@ $(function () {
         sendCommand("internal_uart_command", obj, success);
     }
 
-
-
-    function sendCommand(name, command_data, successF) {
-        var kf = new KeyFile();
-        var commandPlain = JSON.stringify(command_data);
-        var rsa = new RSAKey();
-        rsa.setPrivate(kf.getMyPublicKey(), global_rsa_e, kf.getMyPrivateKey());
-        var digest = rsa.signString(commandPlain, "sha256");//generating signature with author's private key        
-        var publicKey = kf.getBoxKey(kf.boxId);
-        rsa = new RSAKey();
-        var rng = new SecureRandom();
-        var aeskey = (new BigInteger(128, 1, rng)).toString(16);
-        rsa.setPublic(publicKey, global_rsa_e);
-        var keycipher = rsa.encrypt(aeskey);
-        console.log(aeskey+ "," + aeskey.length);
-        var bytesToEncrypt = cryptoHelpers.convertStringToByteArray(cryptoHelpers.encode_utf8(commandPlain));//encode to utf8 from unicode, cause aes is sensitive for that, and to byte array
-        var key = cryptoHelpers.toNumbers(aeskey);//creating session key
-        var cipherBytes = slowAES.encrypt(bytesToEncrypt, global_aes_mode, key, key);//getting message cipher
-        var hexEncoded = cryptoHelpers.toHex(cipherBytes)
-
-
-        var obj = {
-            "action": "command",
-            "command_name": name,
-            "command_data": hexEncoded,
-            "digest": digest,
-            "key_cipher": keycipher,
-            "user_id": kf.userId,
-            "box_id": kf.boxId,            
-            "session_key": localStorage["session_key"]
-        }
-
-        $.ajax({
-            type: "POST",
-            url: global_serverJSONUrl,
-            dataType: 'json',
-            crossDomain: true,
-            async: true,
-            data: JSON.stringify(obj),
-            success: function (data) {
-                if (data["result"] === "success") {
-                    localStorage["session_key"] = data["session_key"];
-                    if (successF !== null)
-                        successF(data);
-                }
-            },
-            fail: function () {
-                console.error("network error");
-
-            }
-        })
-    }
-
     function updateData() {
         var kf = new KeyFile();
 
@@ -292,53 +231,30 @@ $(function () {
             "session_key": localStorage["session_key"]
         }
 
-        $.ajax({
-            type: "POST",
-            url: global_serverJSONUrl,
-            dataType: 'json',
-            crossDomain: true,
-            async: true,
-            data: JSON.stringify(obj),
-            success: function (data) {
-                if (data["result"] === "success") {
-                    localStorage["session_key"] = data["session_key"];
-                    if (print_debug_to_console)
-                        console.log("successfully loaded data, decrypting");
-                    setTimeout(updateData, data_update_interval);
-                    decryptData(kf, data);
-                    $('.registration').hide();
-                    $('.login').hide();
-                    $('.home').show();
-                    if (first_loaded) {//обновляем только после загрузки данныч - чтоб не мешать авторизации
-                        updateCapture();
-                        loadSettings();
-                        first_loaded = false;
-                    }
-                } else if (data["result"] === "do_register") {
-                    if (print_debug_to_console)
-                        console.log("registration needed");
-                    $('.registration').show();
-                } else if (data["result"] === "do_login") {
-                    localStorage["session_key"] = data["session_key"];
-                    if (print_debug_to_console)
-                        console.log("login requested");
-                    if (typeof kf.getMyPrivateKey() !== "undefined" && kf.getMyPrivateKey().length === 256) {
-                        if (print_debug_to_console)
-                            console.log("trying to login with RSA");
-                        authWithRSA(kf, data);
-                    } else {
-                        if (print_debug_to_console)
-                            console.log("no private key, SRP auth forced");
-                        $('.login').show();
-                    }
-                }
+        var success = function (data) {
 
-            },
-            fail: function () {
-                console.error("network error");
-                setTimeout(updateData, data_update_interval);
+
+            if (print_debug_to_console) {
+                console.log("successfully loaded data, decrypting");
             }
-        })
+            setTimeout(updateData, data_update_interval);
+            decryptData(kf, data);
+            $('.registration').hide();
+            $('.login').hide();
+            $('.home').show();
+            if (first_loaded) {//обновляем только после загрузки данныч - чтоб не мешать авторизации
+                updateCapture();
+                loadSettings();
+                first_loaded = false;
+            }
+
+
+        };
+        var fail = function () {
+            console.error("network error");
+            setTimeout(updateData, data_update_interval);
+        }
+        postData(obj, success, fail);
 
     }
 
@@ -353,31 +269,21 @@ $(function () {
             "session_key": localStorage["session_key"]
         }
 
-        $.ajax({
-            type: "POST",
-            url: global_serverJSONUrl,
-            dataType: 'json',
-            crossDomain: true,
-            async: true,
-            data: JSON.stringify(obj),
-            success: function (data) {
-                if (data["result"] === "success") {
-                    localStorage["session_key"] = data["session_key"];
-                    if (print_debug_to_console) {
-                        console.log("successfully loaded settings");
-                        console.log(data);
-                    }
-                    // var settings = data["settings"];
-                    updateSettings(data["settings"])
-                    //$("#header__location").html(settings["BoxName"]);
-                    //$("#header__location").html(settings["BoxName"]);
+        var success = function (data) {
+            if (data["result"] === "success") {
+                localStorage["session_key"] = data["session_key"];
+                if (print_debug_to_console) {
+                    console.log("successfully loaded settings");
+                    console.log(data);
                 }
-
-            },
-            fail: function () {
-                console.error("network error while getting settings");
+                updateSettings(data["settings"])
             }
-        })
+
+        };
+        var fail = function () {
+            console.error("network error while getting settings");
+        }
+        postData(obj, success, fail);
 
     }
 
@@ -391,27 +297,21 @@ $(function () {
             "session_key": localStorage["session_key"]
         }
 
-        $.ajax({
-            type: "POST",
-            url: global_serverJSONUrl,
-            dataType: 'json',
-            crossDomain: true,
-            async: true,
-            data: JSON.stringify(obj),
-            success: function (data) {
-                if (data["result"] === "success") {
-                    localStorage["session_key"] = data["session_key"];
-                    if (print_debug_to_console)
-                        console.log("successfully loaded capture, decrypting");
-                    decryptCapture(kf, data);
+        var success = function (data) {
+            if (data["result"] === "success") {
+                localStorage["session_key"] = data["session_key"];
+                if (print_debug_to_console)
+                    console.log("successfully loaded capture, decrypting");
+                decryptCapture(kf, data);
 
-                }
-
-            },
-            fail: function () {
-                console.error("network error while getting capture");
             }
-        })
+
+        }
+        var fail = function () {
+            console.error("network error while getting capture");
+        }
+
+        postData(obj, success, fail);
 
     }
 
@@ -511,6 +411,59 @@ $(function () {
             "digest": digest,
             "session_key": localStorage["session_key"]
         }
+        var success = function (data) {
+            if (data["result"] === "success") {
+                if (print_debug_to_console) {
+                    console.log("successfully authenticated with RSA");
+                }
+                updateData();
+            } else {
+                console.error("Error while RSA auth: " + data["message"] + ". Falling back to SRP.");
+                $('.login').show();
+            }
+        }
+        var fail = function () {
+            console.error("Error while RSA auth. Falling back to SRP.");
+            $('.login').show();
+        }
+        postData(obj, success, fail);
+    }
+
+    function sendCommand(name, command_data, successF) {
+        var kf = new KeyFile();
+        var commandPlain = JSON.stringify(command_data);
+        var rsa = new RSAKey();
+        rsa.setPrivate(kf.getMyPublicKey(), global_rsa_e, kf.getMyPrivateKey());
+        var digest = rsa.signString(commandPlain, "sha256");//generating signature with author's private key        
+        var publicKey = kf.getBoxKey(kf.boxId);
+        rsa = new RSAKey();
+        var rng = new SecureRandom();
+        var aeskey = (new BigInteger(128, 1, rng)).toString(16);
+        rsa.setPublic(publicKey, global_rsa_e);
+        var keycipher = rsa.encrypt(aeskey);
+        //console.log(aeskey + "," + aeskey.length);
+        var bytesToEncrypt = cryptoHelpers.convertStringToByteArray(cryptoHelpers.encode_utf8(commandPlain));//encode to utf8 from unicode, cause aes is sensitive for that, and to byte array
+        var key = cryptoHelpers.toNumbers(aeskey);//creating session key
+        var cipherBytes = slowAES.encrypt(bytesToEncrypt, global_aes_mode, key, key);//getting message cipher
+        var hexEncoded = cryptoHelpers.toHex(cipherBytes)
+
+
+        var obj = {
+            "action": "command",
+            "command_name": name,
+            "command_data": hexEncoded,
+            "digest": digest,
+            "key_cipher": keycipher,
+            "user_id": kf.userId,
+            "box_id": kf.boxId,
+            "session_key": localStorage["session_key"]
+        }
+
+        postData(obj, successF, null);
+
+    }
+
+    function postData(obj, successF, failF) {
         $.ajax({
             type: "POST",
             url: global_serverJSONUrl,
@@ -520,20 +473,38 @@ $(function () {
             data: JSON.stringify(obj),
             success: function (data) {
                 if (data["result"] === "success") {
+                    if (data["session_key"] !== null && typeof data["session_key"] !== "undefined" && data["session_key"].length > 5) {
+                        localStorage["session_key"] = data["session_key"];
+                    }
+                    if (successF !== null) {
+                        successF(data);
+                    }
+                } else if (data["result"] === "do_register") {
                     if (print_debug_to_console)
-                        console.log("successfully authenticated with RSA");
-                    updateData();
-                } else {
-                    console.error("Error while RSA auth: " + data["message"] + ". Falling back to SRP.");
-                    $('.login').show();
+                        console.log("registration needed");
+                    $('.registration').show();
+                } else if (data["result"] === "do_login") {
+                    var kf = new KeyFile();
+                    localStorage["session_key"] = data["session_key"];
+                    if (print_debug_to_console)
+                        console.log("login requested");
+                    if (typeof kf.getMyPrivateKey() !== "undefined" && kf.getMyPrivateKey().length === 256) {
+                        if (print_debug_to_console)
+                            console.log("trying to login with RSA");
+                        authWithRSA(kf, data);
+                    } else {
+                        if (print_debug_to_console)
+                            console.log("no private key, SRP auth forced");
+                        $('.login').show();
+                    }
                 }
             },
             fail: function () {
-                console.error("Error while RSA auth. Falling back to SRP.");
-                $('.login').show();
+                console.error("network error");
+                if (failF !== null) {
+                    failF();
+                }
             }
         })
     }
-
-
 });
