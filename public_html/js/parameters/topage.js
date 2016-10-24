@@ -36,6 +36,15 @@ function updatePage(data) {
         if (print_debug_to_console)
             console.log("updating page");
         var json = JSON.parse(data);
+        if (json["mode"] === "ARMED") {
+            $('#mode__security').addClass('change__current');
+            $('#mode__master').removeClass('change__current');
+            $('#mode__current').text('Охрана');
+        } else if (json["mode"] === "IDLE") {
+            $('#mode__master').addClass('change__current');
+            $('#mode__security').removeClass('change__current');
+            $('#mode__current').text('Хозяин Дома');
+        }
         for (var key in json) {
             try {
                 var val = json[key]["last_value"];

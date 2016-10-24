@@ -69,6 +69,32 @@ $(function () {
         }
     });
 
+
+    $('#mode__master').click(function () {
+
+        var command_data = {"mode": "IDLE"};
+
+        var success = function () {
+            $('#mode__master').addClass('change__current');
+            $('#mode__security').removeClass('change__current');
+            $('#mode__current').text('Хозяин Дома');
+        }
+        sendCommand("switch_mode", command_data, success);
+
+    });
+
+    $('#mode__security').click(function () {
+        var command_data = {"mode": "ARMED"};
+
+        var success = function () {
+            $('#mode__security').addClass('change__current');
+            $('#mode__master').removeClass('change__current');
+            $('#mode__current').text('Охрана');
+        }
+        sendCommand("switch_mode", command_data, success);
+
+    });
+
     $('.settings__save').on('touchstart', function () {
 
         $('.settings__save').css('background', '#4caf50');
@@ -92,9 +118,9 @@ $(function () {
             settingsObject[settingName] = setting.innerHTML;
         }
         );
-        var obj = { "settings": settingsObject };
+        var obj = {"settings": settingsObject};
 
-        sendCommand("save_settings", obj);
+        sendCommand("save_settings", obj, null);
 
     });
 
@@ -196,19 +222,42 @@ $(function () {
         var obj = {
             "uart_command": content
         }
+        var success = function (data) {
+            decryptData(new KeyFile(), data);
+        }
 
-        sendCommand("internal_uart_command", obj);
+        sendCommand("internal_uart_command", obj, success);
     }
 
-    function sendCommand(name, command_data) {
+
+
+    function sendCommand(name, command_data, successF) {
         var kf = new KeyFile();
+        var commandPlain = JSON.stringify(command_data);
+        var rsa = new RSAKey();
+        rsa.setPrivate(kf.getMyPublicKey(), global_rsa_e, kf.getMyPrivateKey());
+        var digest = rsa.signString(commandPlain, "sha256");//generating signature with author's private key        
+        var publicKey = kf.getBoxKey(kf.boxId);
+        rsa = new RSAKey();
+        var rng = new SecureRandom();
+        var aeskey = (new BigInteger(128, 1, rng)).toString(16);
+        rsa.setPublic(publicKey, global_rsa_e);
+        var keycipher = rsa.encrypt(aeskey);
+        console.log(aeskey+ "," + aeskey.length);
+        var bytesToEncrypt = cryptoHelpers.convertStringToByteArray(cryptoHelpers.encode_utf8(commandPlain));//encode to utf8 from unicode, cause aes is sensitive for that, and to byte array
+        var key = cryptoHelpers.toNumbers(aeskey);//creating session key
+        var cipherBytes = slowAES.encrypt(bytesToEncrypt, global_aes_mode, key, key);//getting message cipher
+        var hexEncoded = cryptoHelpers.toHex(cipherBytes)
+
 
         var obj = {
             "action": "command",
             "command_name": name,
-            "command_data": command_data,
+            "command_data": hexEncoded,
+            "digest": digest,
+            "key_cipher": keycipher,
             "user_id": kf.userId,
-            "box_id": kf.boxId,
+            "box_id": kf.boxId,            
             "session_key": localStorage["session_key"]
         }
 
@@ -222,7 +271,8 @@ $(function () {
             success: function (data) {
                 if (data["result"] === "success") {
                     localStorage["session_key"] = data["session_key"];
-                    decryptData(kf, data);
+                    if (successF !== null)
+                        successF(data);
                 }
             },
             fail: function () {

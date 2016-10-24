@@ -26,14 +26,7 @@ $(function () {
         $('.settings__options, .settings__save').toggle();
     });
 
-    $('#mode__master').click(function () {
-        $('#mode__master').addClass('change__current');
-        $('#mode__security').removeClass('change__current');
-    });
-    $('#mode__security').click(function () {
-        $('#mode__security').addClass('change__current');
-        $('#mode__master').removeClass('change__current');
-    });
+
     $('.history__dropdown').click(function () {
         $('html, body').animate({scrollTop: 600}, 'fast');
     });
