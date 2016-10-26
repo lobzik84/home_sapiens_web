@@ -1,8 +1,8 @@
 var global_serverJSONUrl = "http://dev.molnet.ru/hs/json";
 var global_rsa_e = "10001";
 var global_aes_mode = slowAES.modeOfOperation.CFB; //AES mode of operation for all symmetric encryption, including messages, posts, comments, files, keyfile
-var data_update_interval = 10000;
-var print_debug_to_console = false;
+var data_update_interval = 100000;
+var print_debug_to_console = true;;
 var first_loaded = true;
 $(function () {
     //init
@@ -28,46 +28,69 @@ $(function () {
     });
 
     $('#lamp--first-status').click(function () {
-        $('.control__status', this).toggleClass('on');
-        if ($('.control__status', this).hasClass('on')) {
-            sendUartCommand("led1=on");
-            $('.control__status', this).text('Включена');
-            $('.control__img img', this).attr('src', 'images/lamp.png');
-
+        var el = this;
+        $('.control__status', el).toggleClass('on');
+        if ($('.control__status', el).hasClass('on')) {
+            var obj = {"LAMP_1": "true"}
+            var success = function () {
+                $('.control__status', el).text('Включена');
+                $('.control__img img', el).attr('src', 'images/lamp.png');
+            }
+            sendCommand("user_command", obj, success);
         } else {
-            sendUartCommand("led1=off");
-            $('.control__status', this).text('Выключена');
-            $('.control__img img', this).attr('src', 'images/lamp-off.png');
+            var obj = {"LAMP_1": "false"}
+            var success = function () {
+                $('.control__status', el).text('Выключена');
+                $('.control__img img', el).attr('src', 'images/lamp-off.png');
+            }
+            sendCommand("user_command", obj, success);
         }
     });
 
 
     $('#lamp--second-status').click(function () {
-        $('.control__status', this).toggleClass('on');
-        if ($('.control__status', this).hasClass('on')) {
-            sendUartCommand("led2=on");
-            $('.control__status', this).text('Включена');
-            $('.control__img img', this).attr('src', 'images/lamp.png');
+        var el = this;
+        $('.control__status', el).toggleClass('on');
+        if ($('.control__status', el).hasClass('on')) {
+            var obj = {"LAMP_2": "true"}
+            var success = function () {
+                $('.control__status', el).text('Включена');
+                $('.control__img img', el).attr('src', 'images/lamp.png');
+            }
+            sendCommand("user_command", obj, success);
         } else {
-            sendUartCommand("led2=off");
-            $('.control__status', this).text('Выключена');
-            $('.control__img img', this).attr('src', 'images/lamp-off.png');
+            var obj = {"LAMP_2": "false"}
+            var success = function () {
+                $('.control__status', el).text('Выключена');
+                $('.control__img img', el).attr('src', 'images/lamp-off.png');
+            }
+            sendCommand("user_command", obj, success);
         }
     });
 
 
     $('#socket--status').click(function () {
-        $('.control__status', this).toggleClass('on');
-        if ($('.control__status', this).hasClass('on')) {
-            sendUartCommand("433_TX=10044428,200");
-            $('.control__status', this).text('Включена');
-            $('.control__img img', this).attr('src', 'images/socket.png');
+        var el = this;
+        $('.control__status', el).toggleClass('on');
+        if ($('.control__status', el).hasClass('on')) {
+            var obj = {"SOCKET": "true"}
+            var success = function () {
+                $('.control__status', el).text('Включена');
+                $('.control__img img', el).attr('src', 'images/socket.png');
+            }
+            sendCommand("user_command", obj, success);
+
         } else {
-            sendUartCommand("433_TX=10044420,200");
-            $('.control__status', this).text('Выключена');
-            $('.control__img img', this).attr('src', 'images/socket-off.png');
+            var obj = {"SOCKET": "false"}
+            var success = function () {
+                $('.control__status', el).text('Выключена');
+                $('.control__img img', el).attr('src', 'images/socket-off.png');
+            }
+
+            sendCommand("user_command", obj, success);
         }
     });
+    
 
 
     $('#mode__master').click(function () {
@@ -208,18 +231,6 @@ $(function () {
         });
 
     });
-
-    function sendUartCommand(content) {
-
-        var obj = {
-            "uart_command": content
-        }
-        var success = function (data) {
-            decryptData(new KeyFile(), data);
-        }
-
-        sendCommand("internal_uart_command", obj, success);
-    }
 
     function updateData() {
         var kf = new KeyFile();

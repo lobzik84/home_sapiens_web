@@ -54,11 +54,33 @@ function updatePage(data) {
                         $(elementKey).text(val);
                     } else if (json[key]["par_type"] === "BOOLEAN") {
                         if (val.toString().toLowerCase() === "true") {
-                            $(elementKey).addClass("true"); 
+                            $(elementKey).addClass("true");
                         } else {
-                            $(elementKey).removeClass("false"); 
+                            $(elementKey).removeClass("false");
                         }
-                        
+
+                    }
+                }
+                if (key === "SOCKET") { //костыль. зажигает лампочки и розетки, если они включены - нужно при перезагрузке страницы
+                    if (val.toString().toLowerCase() === "true") {
+                        var el = $('#socket--status');
+                        $('.control__status', el).addClass('on');
+                        $('.control__status', el).text('Включена');
+                        $('.control__img img', el).attr('src', 'images/socket.png');
+                    }
+                } else if (key === "LAMP_1") { //костыль. зажигает лампочки и розетки, если они включены - нужно при перезагрузке страницы
+                    if (val.toString().toLowerCase() === "true") {
+                        var el = $('#lamp--first-status');
+                        $('.control__status', el).addClass('on');
+                        $('.control__status', el).text('Включена');
+                        $('.control__img img', el).attr('src', 'images/lamp.png');
+                    }
+                } else if (key === "LAMP_2") { //костыль. зажигает лампочки и розетки, если они включены - нужно при перезагрузке страницы
+                    if (val.toString().toLowerCase() === "true") {
+                        var el = $('#lamp--second-status');
+                        $('.control__status', el).addClass('on');
+                        $('.control__status', el).text('Включена');
+                        $('.control__img img', el).attr('src', 'images/lamp.png');
                     }
                 }
             } catch (ee) {
