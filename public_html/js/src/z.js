@@ -1,8 +1,8 @@
-var global_serverJSONUrl = "http://dev.molnet.ru/hs/json";
+var global_serverJSONUrl = "http://192.168.11.23:8080/hs/json";
 var global_rsa_e = "10001";
 var global_aes_mode = slowAES.modeOfOperation.CFB; //AES mode of operation for all symmetric encryption, including messages, posts, comments, files, keyfile
 var data_update_interval = 10000;
-var print_debug_to_console = false;
+var print_debug_to_console = true;
 var first_loaded = true;
 $(function () {
     //init
@@ -329,7 +329,10 @@ $(function () {
                             }
 
                         }
-                        if (json[key]["state"] === "Alert") {
+                        if (json[key]["state"] === "ALARM") {
+                            console.log("Alarm param " + key);
+                        }
+                        if (json[key]["state"] === "ALERT") {
                             console.log("Alert param " + key);
                         }
                     }
